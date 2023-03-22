@@ -1,0 +1,6 @@
+Verbind de sensor met ethernet aan je pc.
+
+Om het netwerk werkend te krijgen:
+nmcli connection modify 'local' connection.autoconnect yes ipv4.method manual ipv4.address 192.168.0.199/24 ipv4.gateway 192.168.0.1 ipv4.dns 192.168.0.1
+
+Waarbij 'local' de naam is van het bedraade netwerk.
