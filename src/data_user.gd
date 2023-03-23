@@ -1,7 +1,7 @@
 extends CSGBox3D
 
-#const HOST: String = "127.0.0.1"
-const HOST: String = "192.168.0.100"
+const HOST: String = "127.0.0.1"
+#const HOST: String = "192.168.0.100"
 const PORT: int = 2001
 const RECONNECT_TIMEOUT: float = 3.0
 

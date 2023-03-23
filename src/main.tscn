@@ -1,4 +1,6 @@
-[gd_scene format=3 uid="uid://c8bsre7hinrwo"]
+[gd_scene load_steps=2 format=3 uid="uid://c8bsre7hinrwo"]
+
+[ext_resource type="Script" path="res://data_user.gd" id="1_uqr3u"]
 
 [node name="Node3D" type="Node3D"]
 
@@ -6,6 +8,7 @@
 transform = Transform3D(0.843391, 0.32426, -0.428423, 0, 0.797363, 0.6035, 0.5373, -0.508987, 0.672489, -2.34647, 2.82131, 3.45288)
 
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
+script = ExtResource("1_uqr3u")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.939352, 0.270536, -0.210781, 0, 0.614602, 0.788837, 0.342955, -0.740996, 0.577327, -7.39606, 5.13621, 2.08942)
