@@ -75,7 +75,7 @@ func connect_to_host(host: String, port: int) -> void:
 		print("Error connecting to host.")
 		emit_signal("error")
 
-func send(data: PoolByteArray) -> bool:
+func send(data: PackedByteArray) -> bool:
 	if _status != _stream.STATUS_CONNECTED:
 		print("Error: Stream is not currently connected.")
 		return false
@@ -97,10 +97,10 @@ func wait_for_response_and_consume():
 		emit_signal("error")
 
 func initializeSensor():
-	var messageTare: PoolByteArray = ['03', CMD_TYPE_SET_CURRENT_TARE, SET_CURRENT_TARE_TYPE_NEGATIVE] # Bytes for "ack" in ASCII
+	var messageTare: PackedByteArray = ['03', CMD_TYPE_SET_CURRENT_TARE, SET_CURRENT_TARE_TYPE_NEGATIVE] # Bytes for "ack" in ASCII
 	send(messageTare)
 	wait_for_response_and_consume()
-	var startTransmit: PoolByteArray = ['03', CMD_TYPE_SENSOR_TRANSMIT, SENSOR_TRANSMIT_TYPE_START] # Bytes for "ack" in ASCII
+	var startTransmit: PackedByteArray = ['03', CMD_TYPE_SENSOR_TRANSMIT, SENSOR_TRANSMIT_TYPE_START] # Bytes for "ack" in ASCII
 	send(startTransmit)
 	wait_for_response_and_consume()
 	initialized = true

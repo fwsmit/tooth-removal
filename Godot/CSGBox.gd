@@ -1,4 +1,4 @@
-extends CSGBox
+extends CSGBox3D
 
 
 # Declare member variables here. Examples:

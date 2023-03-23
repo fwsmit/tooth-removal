@@ -4,10 +4,10 @@ extends ColorRect
 #export var _client: Client
 #
 #func _ready() -> void:
-#	_client.connect("connected", self, "_handle_client_connected")
-#	_client.connect("disconnected", self, "_handle_client_disconnected")
-#	_client.connect("error", self, "_handle_client_error")
-#	_client.connect("data", self, "_handle_client_data")
+#	_client.connect("connected",Callable(self,"_handle_client_connected"))
+#	_client.connect("disconnected",Callable(self,"_handle_client_disconnected"))
+#	_client.connect("error",Callable(self,"_handle_client_error"))
+#	_client.connect("data",Callable(self,"_handle_client_data"))
 #
 #
 #func _handle_client_connected() -> void:
@@ -16,7 +16,7 @@ extends ColorRect
 #
 #func _handle_client_data(Fx, Fy, Fz, Tx, Ty, Tz) -> void:
 #	pass
-#	#var message: PoolByteArray = [97, 99, 107] # Bytes for "ack" in ASCII
+#	#var message: PackedByteArray = [97, 99, 107] # Bytes for "ack" in ASCII
 #	#_client.send(message)
 #
 #func _handle_client_disconnected() -> void:
