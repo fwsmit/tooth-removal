@@ -1,7 +1,7 @@
 extends CSGBox3D
 
-const HOST: String = "127.0.0.1"
-#const HOST: String = "192.168.0.100"
+#const HOST: String = "127.0.0.1"
+const HOST: String = "192.168.0.100"
 const PORT: int = 2001
 const RECONNECT_TIMEOUT: float = 3.0
 
@@ -25,17 +25,33 @@ func _handle_client_connected() -> void:
 	print("Client connected to server.")
 
 
+	
+
 var i = 0;
 func _handle_client_data(Fx, Fy, Fz, Tx, Ty, Tz) -> void:
 	#print(Fx, Fy, Fz, Tx, Ty, Tz)
-	if i > 10: 
-		print(Fx)
-		i = 0
-	i += 1
+#	uint64_t *p64 = (uint64_t *)buf;
+#	*p64 = BSWAP64(*p64);
+#	var Fx_d = encode_double(Fx)
+	Fx = Fx/40
+	Fy = Fy/40
+	Fz = Fz/40
+	Tx = Tx/3
+	Ty = Ty/3
+	Tz = Tz/3
+#	if i > 10: 
+#		print(Fx[1])
+#		var reversed = reverse_bytearray(Fx[1])
+#		print(reversed)
+#		print(reversed.decode_double(0))
+#		print(Fx)
+#		print(Fy)
+#		i = 0
+#	i += 1
 	#if (Fx > 1):
 		#print(Fx)
 #	print(Fx, ", ", Fy)
-	transform.origin.x = Fx 
+	transform.origin.x = -Fx
 	transform.origin.y = Fy
 	transform.origin.z = Fz
 	var rotation: Transform3D = Transform3D.IDENTITY

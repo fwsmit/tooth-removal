@@ -20,7 +20,24 @@ func _ready() -> void:
 	_stream.set_big_endian(true) # make sure to use big endian for network streams
 	_status = _stream.get_status()
 
+func reverse_bytearray(input):
+	var output = PackedByteArray()
+	output.append(input[7])
+	output.append(input[6])
+	output.append(input[5])
+	output.append(input[4])
+	output.append(input[3])
+	output.append(input[2])
+	output.append(input[1])
+	output.append(input[0])
+	return output
+	
+func to_double(input):
+	var reversed = reverse_bytearray(input[1])
+	return reversed.decode_double(0)
+
 func _process(_delta: float) -> void:
+	_stream.poll()
 	var new_status: int = _stream.get_status()
 	if new_status != _status:
 		_status = new_status
@@ -50,22 +67,32 @@ func _process(_delta: float) -> void:
 			#emit_signal("error")
 			#return
 		else:
-			#print("Got length", available_bytes)
+#			print("Got length", available_bytes)
 			#var consume = _stream.get_partial_data(50)
 #			pass
 			var length = _stream.get_partial_data(2)
+#			var Fx = to_double(_stream.get_partial_data(8))
+#			var Fy = to_double(_stream.get_partial_data(8))
+#			var Fz = to_double(_stream.get_partial_data(8))
+#			var Tx = to_double(_stream.get_partial_data(8))
+#			var Ty = to_double(_stream.get_partial_data(8))
+#			var Tz = to_double(_stream.get_partial_data(8))
+			#print(Fx)
 			var Fx = _stream.get_double()
 			var Fy = _stream.get_double()
 			var Fz = _stream.get_double()
 			var Tx = _stream.get_double()
 			var Ty = _stream.get_double()
 			var Tz = _stream.get_double()
+			var empty = _stream.get_partial_data(available_bytes-50)
 			# Check for read error.
 			if length[0] != OK:
 				print("Error getting data from stream: ", length[0])
 				emit_signal("error")
 			else:
-				emit_signal("data", Fx, Fy, Fz, Tx, Ty, Tz)
+				pass
+				# Swap Y and Z, because they are defined differently for the sensor and godot.
+				emit_signal("data", Fx, Fz, Fy, Tx, Tz, Ty)
 
 func connect_to_host(host: String, port: int) -> void:
 	print("Connecting to %s:%d" % [host, port])
