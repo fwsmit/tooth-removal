@@ -24,7 +24,8 @@ func _connect_after_timeout(timeout: float) -> void:
 func _handle_client_connected() -> void:
 	print("Client connected to server.")
 
-
+func convert_torque(torque, force, location):
+	return torque - location.cross(force)
 	
 
 var i = 0;
