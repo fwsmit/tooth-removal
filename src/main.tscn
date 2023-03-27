@@ -5,7 +5,7 @@
 [node name="Node3D" type="Node3D"]
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(0.067945, 0.602105, -0.79552, -1.30867e-08, 0.797363, 0.6035, 0.997689, -0.0410048, 0.0541768, -5.12465, 3.80373, 0.290576)
+transform = Transform3D(-4.37114e-08, 0.603208, -0.797584, 0, 0.797584, 0.603208, 1, 2.63671e-08, -3.48635e-08, -5.125, 3.804, 0)
 
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
 script = ExtResource("1_uqr3u")
