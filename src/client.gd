@@ -85,9 +85,9 @@ func _process(_delta: float) -> void:
 			var Ty = _stream.get_double()
 			var Tz = _stream.get_double()
 			
-			# Swap Y and Z, because they are defined differently for the sensor and godot.
-			var force = Vector3(Fx, Fz, Fy)
-			var torque = Vector3(Tx, Tz, Ty)
+			# Translate the axis from sensor definition to godot
+			var force = Vector3(Fx, -Fz, Fy)
+			var torque = Vector3(Tx, -Tz, Ty)
 			var empty = _stream.get_partial_data(available_bytes-50)
 			# Check for read error.
 			if length[0] != OK:

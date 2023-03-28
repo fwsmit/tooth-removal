@@ -27,7 +27,7 @@ func _handle_client_connected() -> void:
 func convert_torque(torque, force, location):
 	print("Force cross: ", location.cross(force))
 	print("Torque: ", torque)
-	var result = torque + location.cross(force)
+	var result = torque - location.cross(force)
 	return result
 	
 
@@ -62,7 +62,7 @@ func _handle_client_data(force, torque) -> void:
 	#if (Fx > 1):
 		#print(Fx)
 #	print(Fx, ", ", Fy)
-	transform.origin.x = -force.x
+	transform.origin.x = force.x
 	transform.origin.y = force.y
 	transform.origin.z = force.z
 	var rotation: Transform3D = Transform3D.IDENTITY
