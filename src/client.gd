@@ -84,6 +84,10 @@ func _process(_delta: float) -> void:
 			var Tx = _stream.get_double()
 			var Ty = _stream.get_double()
 			var Tz = _stream.get_double()
+			
+			# Swap Y and Z, because they are defined differently for the sensor and godot.
+			var force = Vector3(Fx, Fz, Fy)
+			var torque = Vector3(Tx, Tz, Ty)
 			var empty = _stream.get_partial_data(available_bytes-50)
 			# Check for read error.
 			if length[0] != OK:
@@ -91,8 +95,7 @@ func _process(_delta: float) -> void:
 				emit_signal("error")
 			else:
 				pass
-				# Swap Y and Z, because they are defined differently for the sensor and godot.
-				emit_signal("data", Fx, Fz, Fy, Tx, Tz, Ty)
+				emit_signal("data", force, torque)
 
 func connect_to_host(host: String, port: int) -> void:
 	print("Connecting to %s:%d" % [host, port])
