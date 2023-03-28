@@ -5,11 +5,11 @@
 [node name="Node3D" type="Node3D"]
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(-4.37114e-08, 0.603208, -0.797584, 0, 0.797584, 0.603208, 1, 2.63671e-08, -3.48635e-08, -5.125, 3.804, 0)
+transform = Transform3D(-4.37114e-08, -0.603208, 0.797584, 0, 0.797584, 0.603208, -1, 2.63671e-08, -3.48635e-08, 4.979, 3.748, 0)
 
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
 script = ExtResource("1_uqr3u")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.939352, 0.270536, -0.210781, 0, 0.614602, 0.788837, 0.342955, -0.740996, 0.577327, -7.39606, 5.13621, 2.08942)
+transform = Transform3D(-0.022199, -0.788643, 0.61445, -9.77091e-09, 0.614602, 0.788838, -0.999754, 0.0175114, -0.0136435, -7.39606, 5.13621, 2.08942)
 light_energy = 1.914
