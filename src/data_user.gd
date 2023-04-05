@@ -8,6 +8,8 @@ const RECONNECT_TIMEOUT: float = 3.0
 const Client = preload("res://client.gd")
 var _client: Client = Client.new()
 
+signal connected
+signal disconnected
 
 func _ready() -> void:
 	_client.connect("connected",Callable(self,"_handle_client_connected"))
@@ -22,6 +24,7 @@ func _connect_after_timeout(timeout: float) -> void:
 	_client.connect_to_host(HOST, PORT)
 
 func _handle_client_connected() -> void:
+	emit_signal("connected")
 	print("Client connected to server.")
 
 func convert_torque(torque, force, location):
@@ -74,6 +77,7 @@ func _handle_client_data(force, torque) -> void:
 	#_client.send(message)
 
 func _handle_client_disconnected() -> void:
+	emit_signal("disconnected")
 	print("Client disconnected from server.")
 	_connect_after_timeout(RECONNECT_TIMEOUT) # Try to reconnect after 3 seconds
 
