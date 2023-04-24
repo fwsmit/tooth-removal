@@ -2,8 +2,9 @@ extends Node
 
 var current_scene = null
 var loggedInAs = "Unknown"
-var selectedQuadrant = 0
-var selectedTooth = 0
+var selectedQuadrant = null
+var selectedTooth = null
+var selectedType = null
 
 func _ready():
 	var root = get_tree().root

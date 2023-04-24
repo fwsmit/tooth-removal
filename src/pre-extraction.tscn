@@ -62,11 +62,27 @@ item_5/text = "6"
 item_6/text = "7"
 item_7/text = "8"
 
-[node name="SelectedTooth" type="RichTextLabel" parent="JawSelection/VBoxContainer"]
+[node name="Type" type="RichTextLabel" parent="JawSelection/VBoxContainer"]
+layout_mode = 2
+text = "Tooth"
+fit_content = true
+
+[node name="TypeList" type="ItemList" parent="JawSelection/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 5
+auto_height = true
+item_count = 2
+max_columns = 2
+fixed_column_width = 400
+item_0/text = "Plastic"
+item_1/text = "Human"
+
+[node name="SelectedTooth" type="RichTextLabel" parent="JawSelection/VBoxContainer" node_paths=PackedStringArray("typeList")]
 layout_mode = 2
 text = "Selected tooth:"
 fit_content = true
 script = ExtResource("1_53775")
+typeList = NodePath("../TypeList")
 
 [node name="Continue" type="Button" parent="JawSelection/VBoxContainer"]
 layout_mode = 2
@@ -75,3 +91,4 @@ script = ExtResource("2_28mtk")
 
 [connection signal="item_selected" from="JawSelection/VBoxContainer/QuadrantList" to="JawSelection/VBoxContainer/SelectedTooth" method="quadrantChanged"]
 [connection signal="item_selected" from="JawSelection/VBoxContainer/ToothList" to="JawSelection/VBoxContainer/SelectedTooth" method="toothChanged"]
+[connection signal="item_selected" from="JawSelection/VBoxContainer/TypeList" to="JawSelection/VBoxContainer/SelectedTooth" method="typeChanged"]
