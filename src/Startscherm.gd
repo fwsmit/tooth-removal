@@ -5,7 +5,7 @@ extends Control
 
 func login():
 	print("Loggin in as: ", list.get_item_text(list.get_selected_items()[0]))
-	get_tree().change_scene_to_file("res://main.tscn")
+	Global.goto_scene("res://main.tscn")
 
 func _ready():
 	list.select(0)
