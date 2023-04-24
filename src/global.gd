@@ -1,6 +1,7 @@
 extends Node
 
 var current_scene = null
+var loggedInAs = "Unknown"
 
 func _ready():
 	var root = get_tree().root

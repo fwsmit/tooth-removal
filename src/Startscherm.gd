@@ -4,7 +4,8 @@ extends Control
 @export var loginButton: Button
 
 func login():
-	print("Loggin in as: ", list.get_item_text(list.get_selected_items()[0]))
+	Global.loggedInAs = list.get_item_text(list.get_selected_items()[0])
+	print("Loggin in as: ", Global.loggedInAs)
 	Global.goto_scene("res://main.tscn")
 
 func _ready():
