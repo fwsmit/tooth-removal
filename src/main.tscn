@@ -17,6 +17,15 @@ script = ExtResource("1_uqr3u")
 transform = Transform3D(-0.022199, -0.788643, 0.61445, -9.77091e-09, 0.614602, 0.788838, -0.999754, 0.0175114, -0.0136435, -7.39606, 5.13621, 2.08942)
 light_energy = 1.914
 
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+offset_left = 41.0
+offset_top = 30.0
+offset_right = 218.0
+offset_bottom = 60.0
+text = "Logged in as: unknown"
+fit_content = true
+autowrap_mode = 0
+
 [node name="MarginContainer" type="MarginContainer" parent="." node_paths=PackedStringArray("connectedSprite", "disconnectedSprite")]
 anchors_preset = 2
 anchor_top = 1.0
