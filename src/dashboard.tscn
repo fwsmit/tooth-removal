@@ -1,0 +1,58 @@
+[gd_scene load_steps=3 format=3 uid="uid://cbc58qg7polr4"]
+
+[ext_resource type="Script" path="res://Dashboard_button_extraction.gd" id="1_f3ixp"]
+[ext_resource type="Script" path="res://showLoggedInAs.gd" id="2_wcue3"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 2
+offset_right = 3000.0
+offset_bottom = 647.0
+grow_horizontal = 2
+
+[node name="Top bar" type="ColorRect" parent="."]
+layout_mode = 2
+offset_right = 3000.0
+offset_bottom = 50.0
+grow_horizontal = 2
+color = Color(0.172549, 0.643137, 0.980392, 1)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+layout_mode = 1
+offset_left = 50.0
+offset_right = 250.0
+offset_bottom = 42.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 30
+text = "Dashboard"
+fit_content = true
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 100.0
+offset_top = 102.0
+offset_right = 350.0
+offset_bottom = 252.0
+text = "Extraction trainer"
+script = ExtResource("1_f3ixp")
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -177.0
+offset_bottom = 30.0
+grow_horizontal = 0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+text = "Logged in as: "
+fit_content = true
+autowrap_mode = 0
+script = ExtResource("2_wcue3")
