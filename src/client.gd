@@ -59,25 +59,12 @@ func _process(_delta: float) -> void:
 		var available_bytes: int = _stream.get_available_bytes()
 		if available_bytes == 0:
 			return
-		#print("Availailable bytes", available_bytes)
 		if available_bytes < 50:
-#			var consume = _stream.get_partial_data(available_bytes)
-#			print("Consumed data ", consume, ", length", available_bytes);
 			print("Error: data is in wrong format, size:", available_bytes)
 			#emit_signal("error")
 			#return
 		else:
-#			print("Got length", available_bytes)
-			#var consume = _stream.get_partial_data(50)
-#			pass
 			var length = _stream.get_partial_data(2)
-#			var Fx = to_double(_stream.get_partial_data(8))
-#			var Fy = to_double(_stream.get_partial_data(8))
-#			var Fz = to_double(_stream.get_partial_data(8))
-#			var Tx = to_double(_stream.get_partial_data(8))
-#			var Ty = to_double(_stream.get_partial_data(8))
-#			var Tz = to_double(_stream.get_partial_data(8))
-			#print(Fx)
 			var Fx = _stream.get_double()
 			var Fy = _stream.get_double()
 			var Fz = _stream.get_double()
@@ -94,7 +81,6 @@ func _process(_delta: float) -> void:
 				print("Error getting data from stream: ", length[0])
 				emit_signal("error")
 			else:
-				pass
 				emit_signal("data", force, torque)
 
 func connect_to_host(host: String, port: int) -> void:
