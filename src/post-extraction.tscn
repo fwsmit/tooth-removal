@@ -1,0 +1,52 @@
+[gd_scene load_steps=2 format=3 uid="uid://div4fcp8g08gl"]
+
+[ext_resource type="Script" path="res://Post-extraction-continue.gd" id="1_dq8km"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="JawSelection" type="MarginContainer" parent="."]
+offset_right = 1154.0
+offset_bottom = 652.0
+theme_override_constants/margin_left = 120
+theme_override_constants/margin_top = 80
+theme_override_constants/margin_right = 120
+theme_override_constants/margin_bottom = 80
+
+[node name="VBoxContainer" type="VBoxContainer" parent="JawSelection"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Complications" type="RichTextLabel" parent="JawSelection/VBoxContainer"]
+layout_mode = 2
+text = "Well done extracting the tooth!
+If there were any complications during the extraction, select them below."
+fit_content = true
+
+[node name="CheckBox" type="CheckBox" parent="JawSelection/VBoxContainer"]
+layout_mode = 2
+text = "Slipping of forceps"
+
+[node name="CheckBox2" type="CheckBox" parent="JawSelection/VBoxContainer"]
+layout_mode = 2
+text = "Fracture of element"
+
+[node name="Complications2" type="RichTextLabel" parent="JawSelection/VBoxContainer"]
+layout_mode = 2
+text = "Other notes (optional)"
+fit_content = true
+
+[node name="TextEdit" type="TextEdit" parent="JawSelection/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+placeholder_text = "Notes"
+
+[node name="Continue" type="Button" parent="JawSelection/VBoxContainer"]
+layout_mode = 2
+text = "Continue"
+script = ExtResource("1_dq8km")
