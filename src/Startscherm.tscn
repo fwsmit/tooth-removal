@@ -1,4 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://bibwxqwikhy27"]
+[gd_scene load_steps=2 format=3 uid="uid://bmt5pkb4fvls5"]
 
 [ext_resource type="Script" path="res://Startscherm.gd" id="1_52ic4"]
 
@@ -15,15 +15,17 @@ loginButton = NodePath("VBoxContainer/Button")
 
 [node name="ItemList" type="ItemList" parent="."]
 layout_mode = 2
-offset_left = 502.0
-offset_top = 235.0
-offset_right = 650.0
-offset_bottom = 270.0
+offset_left = 438.0
+offset_top = 226.0
+offset_right = 714.0
+offset_bottom = 342.0
 auto_height = true
-item_count = 2
+item_count = 4
 max_columns = 2
 item_0/text = "Student"
-item_1/text = "Chirurg"
+item_1/text = "Kaakchirurg in opleiding"
+item_2/text = "Tandarts"
+item_3/text = "Kaakchirurg"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -32,10 +34,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -27.5
-offset_top = -20.0
-offset_right = 27.5
-offset_bottom = 20.0
+offset_left = -61.0
+offset_top = 53.5
+offset_right = 61.0
+offset_bottom = 116.5
 grow_horizontal = 2
 grow_vertical = 2
 
