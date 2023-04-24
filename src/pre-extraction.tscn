@@ -53,14 +53,14 @@ auto_height = true
 item_count = 8
 max_columns = 2
 fixed_column_width = 400
-item_0/text = "1"
-item_1/text = "2"
-item_2/text = "3"
-item_3/text = "4"
-item_4/text = "5"
-item_5/text = "6"
-item_6/text = "7"
-item_7/text = "8"
+item_0/text = "1 (incisief)"
+item_1/text = "2 (incisief)"
+item_2/text = "3 (cuspidaat)"
+item_3/text = "4 (premolaar)"
+item_4/text = "5 (premolaar)"
+item_5/text = "6 (molaar)"
+item_6/text = "7 (molaar)"
+item_7/text = "8 (molaar)"
 
 [node name="Type" type="RichTextLabel" parent="JawSelection/VBoxContainer"]
 layout_mode = 2
@@ -75,7 +75,7 @@ item_count = 2
 max_columns = 2
 fixed_column_width = 400
 item_0/text = "Plastic"
-item_1/text = "Human"
+item_1/text = "Cadaver"
 
 [node name="SelectedTooth" type="RichTextLabel" parent="JawSelection/VBoxContainer" node_paths=PackedStringArray("typeList")]
 layout_mode = 2
