@@ -19,10 +19,12 @@ transform = Transform3D(-0.022199, -0.788643, 0.61445, -9.77091e-09, 0.614602, 0
 light_energy = 1.914
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
-offset_left = 41.0
-offset_top = 30.0
-offset_right = 218.0
-offset_bottom = 60.0
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -177.0
+offset_bottom = 30.0
+grow_horizontal = 0
 text = "Logged in as: "
 fit_content = true
 autowrap_mode = 0
