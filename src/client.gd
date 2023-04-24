@@ -36,6 +36,25 @@ func to_double(input):
 	var reversed = reverse_bytearray(input[1])
 	return reversed.decode_double(0)
 
+func consume_data_point():
+	var length = _stream.get_partial_data(2)
+	var Fx = _stream.get_double()
+	var Fy = _stream.get_double()
+	var Fz = _stream.get_double()
+	var Tx = _stream.get_double()
+	var Ty = _stream.get_double()
+	var Tz = _stream.get_double()
+	
+	# Translate the axis from sensor definition to godot
+	var force = Vector3(Fx, -Fz, Fy)
+	var torque = Vector3(Tx, -Tz, Ty)
+	# Check for read error.
+	if length[0] != OK:
+		print("Error getting data from stream: ", length[0])
+		emit_signal("error")
+	else:
+		emit_signal("data", force, torque)
+
 func _process(_delta: float) -> void:
 	_stream.poll()
 	var new_status: int = _stream.get_status()
@@ -57,31 +76,14 @@ func _process(_delta: float) -> void:
 
 	if _status == _stream.STATUS_CONNECTED and initialized:
 		var available_bytes: int = _stream.get_available_bytes()
-		if available_bytes == 0:
-			return
-		if available_bytes < 50:
-			print("Error: data is in wrong format, size:", available_bytes)
-			#emit_signal("error")
-			#return
-		else:
-			var length = _stream.get_partial_data(2)
-			var Fx = _stream.get_double()
-			var Fy = _stream.get_double()
-			var Fz = _stream.get_double()
-			var Tx = _stream.get_double()
-			var Ty = _stream.get_double()
-			var Tz = _stream.get_double()
-			
-			# Translate the axis from sensor definition to godot
-			var force = Vector3(Fx, -Fz, Fy)
-			var torque = Vector3(Tx, -Tz, Ty)
-			var empty = _stream.get_partial_data(available_bytes-50)
-			# Check for read error.
-			if length[0] != OK:
-				print("Error getting data from stream: ", length[0])
+		while (available_bytes > 0):
+			if available_bytes < 50:
+				print("Error: data is in wrong format, size:", available_bytes)
 				emit_signal("error")
+				return
 			else:
-				emit_signal("data", force, torque)
+				consume_data_point()
+				available_bytes = _stream.get_available_bytes()
 
 func connect_to_host(host: String, port: int) -> void:
 	print("Connecting to %s:%d" % [host, port])

@@ -28,8 +28,8 @@ func _handle_client_connected() -> void:
 	print("Client connected to server.")
 
 func convert_torque(torque, force, location):
-	print("Force cross: ", location.cross(force))
-	print("Torque: ", torque)
+	#print("Force cross: ", location.cross(force))
+	#print("Torque: ", torque)
 	var result = torque - location.cross(force)
 	return result
 	
