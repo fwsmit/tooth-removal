@@ -45,8 +45,8 @@ func _handle_client_data(force, torque) -> void:
 	var tand_locatie = kaak_locatie_onderkaak + tand_offset
 	torque = convert_torque(torque, force, tand_locatie)
 	# Convert to numbers around 1
-	force = force * 0
-	torque = torque
+	force = force / 40
+	torque = torque / 3
 #	Fx = Fx/40
 #	Fy = Fy/40
 #	Fz = Fz/40
