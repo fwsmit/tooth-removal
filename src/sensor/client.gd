@@ -46,8 +46,8 @@ func consume_data_point():
 	var Tz = _stream.get_double()
 	
 	# Translate the axis from sensor definition to godot
-	var force = Vector3(Fx, -Fz, Fy)
-	var torque = Vector3(Tx, -Tz, Ty)
+	var force = Vector3(Fx, Fz, -Fy)
+	var torque = Vector3(Tx, Tz, -Ty)
 	# Check for read error.
 	if length[0] != OK:
 		print("Error getting data from stream: ", length[0])

@@ -1,7 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://bpigfnimf8bix"]
+[gd_scene load_steps=3 format=3 uid="uid://d32tp70p405ti"]
 
-[ext_resource type="Script" path="res://SelectedTooth.gd" id="1_53775"]
-[ext_resource type="Script" path="res://Pre-extraction-continue.gd" id="2_28mtk"]
+[ext_resource type="Script" path="res://SelectedTooth.gd" id="1_31gf3"]
+[ext_resource type="Script" path="res://screens/Pre-extraction-continue.gd" id="2_hqstp"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -81,13 +81,13 @@ item_1/text = "Cadaver"
 layout_mode = 2
 text = "Selected tooth:"
 fit_content = true
-script = ExtResource("1_53775")
+script = ExtResource("1_31gf3")
 typeList = NodePath("../TypeList")
 
 [node name="Continue" type="Button" parent="JawSelection/VBoxContainer"]
 layout_mode = 2
 text = "Continue"
-script = ExtResource("2_28mtk")
+script = ExtResource("2_hqstp")
 
 [connection signal="item_selected" from="JawSelection/VBoxContainer/QuadrantList" to="JawSelection/VBoxContainer/SelectedTooth" method="quadrantChanged"]
 [connection signal="item_selected" from="JawSelection/VBoxContainer/ToothList" to="JawSelection/VBoxContainer/SelectedTooth" method="toothChanged"]
