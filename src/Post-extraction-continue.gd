@@ -19,6 +19,10 @@ func save_extraction_to_file():
 		"person_type": Global.loggedInAs,
 		"start_timestamp": Global.startTimestamp,
 		"end_timestamp": Global.endTimestamp,
+		"raw_forces": Global.raw_forces,
+		"raw_torques": Global.raw_torques,
+		"corrected_forces": Global.corrected_forces,
+		"corrected_torques": Global.corrected_torques,
 	}
 	var json_data = JSON.stringify(extraction_data, "\t")
 	

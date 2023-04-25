@@ -45,17 +45,17 @@ func tand_locatie(kwadrant, tand):
 	if kwadrant == 3 or kwadrant == 4:
 		locatie = tandvectors[0][1] + tandvectors[kwadrant][tand - 1]
 	return locatie
-	
-func add_data_vector(force, torque):
-	Global.raw_forces.append(force)
-	Global.raw_torques.append(torque)
 
 func _handle_client_data(force, torque) -> void:
-	add_data_vector(force, torque)
+	Global.raw_forces.append(force)
+	Global.raw_torques.append(torque)
 	var kaak_locatie_onderkaak = Vector3(0.231, 0.062, 0)
 	var tand_offset = Vector3(-0.01,0.02,0)
 	var tand_locatie = kaak_locatie_onderkaak + tand_offset
 	torque = convert_torque(torque, force, tand_locatie)
+	
+	Global.corrected_forces.append(force)
+	Global.corrected_torques.append(torque)
 	# Convert to numbers around 1
 	force = force / 40
 	torque = torque / 3
