@@ -18,6 +18,7 @@ func _ready() -> void:
 	_client.connect("data",Callable(self,"_handle_client_data"))
 	add_child(_client)
 	_client.connect_to_host(HOST, PORT)
+	Global.startTimestamp = Time.get_unix_time_from_system()
 
 func _connect_after_timeout(timeout: float) -> void:
 	await get_tree().create_timer(timeout).timeout # Delay for timeout

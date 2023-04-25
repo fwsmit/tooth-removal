@@ -11,6 +11,8 @@ var selectedType = null
 # Data stored during extraction
 var raw_forces = []
 var raw_torques = []
+var startTimestamp = -1 # start of extraction
+var endTimestamp = -1 # end of extraction
 
 # Data requested after extraction
 var forceps_slipped

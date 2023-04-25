@@ -8,8 +8,7 @@ func generate_filename(timestamp: int):
 	return Time.get_datetime_string_from_unix_time(timestamp)
 
 func save_extraction_to_file():
-	var timestamp = int(Time.get_unix_time_from_system())
-	var filename = generate_filename(timestamp)
+	var filename = generate_filename(Global.startTimestamp)
 	var extraction_data = {
 		"quadrant": Global.selectedQuadrant,
 		"tooth": Global.selectedTooth,
@@ -18,7 +17,8 @@ func save_extraction_to_file():
 		"element_fractured": Global.element_fractured,
 		"post_extraction_notes": Global.post_extraction_notes,
 		"person_type": Global.loggedInAs,
-		"unix_timestamp": timestamp,
+		"start_timestamp": Global.startTimestamp,
+		"end_timestamp": Global.endTimestamp,
 	}
 	var json_data = JSON.stringify(extraction_data, "\t")
 	
