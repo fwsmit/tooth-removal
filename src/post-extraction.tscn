@@ -11,6 +11,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="JawSelection" type="MarginContainer" parent="."]
+layout_mode = 0
 offset_right = 1154.0
 offset_bottom = 652.0
 theme_override_constants/margin_left = 120
@@ -28,11 +29,11 @@ text = "Well done extracting the tooth!
 If there were any complications during the extraction, select them below."
 fit_content = true
 
-[node name="CheckBox" type="CheckBox" parent="JawSelection/VBoxContainer"]
+[node name="ForcepsSlipped" type="CheckBox" parent="JawSelection/VBoxContainer"]
 layout_mode = 2
 text = "Slipping of forceps"
 
-[node name="CheckBox2" type="CheckBox" parent="JawSelection/VBoxContainer"]
+[node name="ElementFractured" type="CheckBox" parent="JawSelection/VBoxContainer"]
 layout_mode = 2
 text = "Fracture of element"
 
@@ -41,12 +42,15 @@ layout_mode = 2
 text = "Other notes (optional)"
 fit_content = true
 
-[node name="TextEdit" type="TextEdit" parent="JawSelection/VBoxContainer"]
+[node name="PostExtractionNotes" type="TextEdit" parent="JawSelection/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 placeholder_text = "Notes"
 
-[node name="Continue" type="Button" parent="JawSelection/VBoxContainer"]
+[node name="Continue" type="Button" parent="JawSelection/VBoxContainer" node_paths=PackedStringArray("forceps_slipped_checkbox", "element_fractured_checkbox", "post_extraction_notes_field")]
 layout_mode = 2
 text = "Continue"
 script = ExtResource("1_dq8km")
+forceps_slipped_checkbox = NodePath("../ForcepsSlipped")
+element_fractured_checkbox = NodePath("../ElementFractured")
+post_extraction_notes_field = NodePath("../PostExtractionNotes")

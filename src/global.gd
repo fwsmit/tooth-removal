@@ -12,6 +12,11 @@ var selectedType = null
 var raw_forces = []
 var raw_torques = []
 
+# Data requested after extraction
+var forceps_slipped
+var element_fractured
+var post_extraction_notes
+
 func _ready():
 	var root = get_tree().root
 	current_scene = root.get_child(root.get_child_count() - 1)
