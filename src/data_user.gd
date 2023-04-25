@@ -5,7 +5,7 @@ const HOST: String = "192.168.0.100"
 const PORT: int = 2001
 const RECONNECT_TIMEOUT: float = 3.0
 
-const Client = preload("res://client.gd")
+const Client = preload("res://sensor/client.gd")
 var _client: Client = Client.new()
 
 signal connected

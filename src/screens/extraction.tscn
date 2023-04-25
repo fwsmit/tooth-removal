@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3]
+[gd_scene load_steps=6 format=3 uid="uid://17ghjpecvy4u"]
 
 [ext_resource type="Script" path="res://data_user.gd" id="1_qthwg"]
 [ext_resource type="Script" path="res://showLoggedInAs.gd" id="2_wj1fj"]
@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://jn2edbaf0g6y" path="res://assets/connected.svg" id="4_uka1a"]
 [ext_resource type="Texture2D" uid="uid://bxtjqe348c13g" path="res://assets/disconnected.svg" id="5_egje7"]
 
-[node name="Node3D" type="Node3D"]
+[node name="Node3D2" type="Node3D"]
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(-4.37114e-08, -0.603208, 0.797584, 0, 0.797584, 0.603208, -1, 2.63671e-08, -3.48635e-08, 4.979, 3.748, 0)
