@@ -43,6 +43,7 @@ connectedSprite = NodePath("Connected")
 disconnectedSprite = NodePath("Disconnected")
 
 [node name="Connected" type="Sprite2D" parent="MarginContainer"]
+visible = false
 position = Vector2(42.925, 615.95)
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("4_uka1a")
@@ -51,6 +52,16 @@ texture = ExtResource("4_uka1a")
 position = Vector2(42.925, 615.95)
 scale = Vector2(0.0497904, 0.0497903)
 texture = ExtResource("5_egje7")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/Disconnected"]
+offset_left = 363.022
+offset_top = -320.344
+offset_right = 586.022
+offset_bottom = -289.344
+scale = Vector2(20, 20)
+theme_override_font_sizes/normal_font_size = 20
+text = "Sensor disconnected"
+fit_content = true
 
 [connection signal="connected" from="CSGBox3D" to="MarginContainer" method="showConnected"]
 [connection signal="disconnected" from="CSGBox3D" to="MarginContainer" method="showDisconnected"]
