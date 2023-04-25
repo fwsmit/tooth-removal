@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://17ghjpecvy4u"]
+[gd_scene load_steps=7 format=3 uid="uid://17ghjpecvy4u"]
 
 [ext_resource type="Script" path="res://data_user.gd" id="1_qthwg"]
 [ext_resource type="Script" path="res://showLoggedInAs.gd" id="2_wj1fj"]
 [ext_resource type="Script" path="res://sensor/ShowConnected.gd" id="3_hq46h"]
 [ext_resource type="Texture2D" uid="uid://jn2edbaf0g6y" path="res://assets/connected.svg" id="4_uka1a"]
 [ext_resource type="Texture2D" uid="uid://bxtjqe348c13g" path="res://assets/disconnected.svg" id="5_egje7"]
+[ext_resource type="Script" path="res://screens/DebugButton.gd" id="6_svxsg"]
 
 [node name="Node3D2" type="Node3D"]
 
@@ -61,6 +62,29 @@ offset_bottom = -289.344
 scale = Vector2(20, 20)
 theme_override_font_sizes/normal_font_size = 20
 text = "Sensor disconnected"
+fit_content = true
+
+[node name="DebugButton" type="Button" parent="." node_paths=PackedStringArray("debugText")]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 33.0
+offset_top = -78.0
+offset_right = 83.0
+offset_bottom = -55.0
+grow_vertical = 0
+toggle_mode = true
+text = "Debug ▶"
+script = ExtResource("6_svxsg")
+debugText = NodePath("DebugInfo")
+
+[node name="DebugInfo" type="RichTextLabel" parent="DebugButton"]
+visible = false
+layout_mode = 0
+offset_top = -162.0
+offset_right = 218.0
+offset_bottom = -4.0
+text = "Debug info"
 fit_content = true
 
 [connection signal="connected" from="CSGBox3D" to="MarginContainer" method="showConnected"]
