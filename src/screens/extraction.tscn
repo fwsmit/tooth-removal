@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://17ghjpecvy4u"]
+[gd_scene load_steps=10 format=3 uid="uid://17ghjpecvy4u"]
 
 [ext_resource type="Script" path="res://data_user.gd" id="1_qthwg"]
 [ext_resource type="Script" path="res://showLoggedInAs.gd" id="2_wj1fj"]
@@ -57,6 +57,16 @@ position = Vector2(42.925, 615.95)
 scale = Vector2(0.0497904, 0.0497903)
 texture = ExtResource("5_egje7")
 
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/Disconnected"]
+offset_left = 363.022
+offset_top = -320.344
+offset_right = 586.022
+offset_bottom = -289.344
+scale = Vector2(20, 20)
+theme_override_font_sizes/normal_font_size = 20
+text = "Sensor disconnected"
+fit_content = true
+
 [node name="Button" type="Button" parent="."]
 anchors_preset = 3
 anchor_left = 1.0
@@ -71,16 +81,6 @@ grow_horizontal = 0
 grow_vertical = 0
 text = "Finished extraction"
 script = ExtResource("6_kw460")
-
-[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/Disconnected"]
-offset_left = 363.022
-offset_top = -320.344
-offset_right = 586.022
-offset_bottom = -289.344
-scale = Vector2(20, 20)
-theme_override_font_sizes/normal_font_size = 20
-text = "Sensor disconnected"
-fit_content = true
 
 [node name="DebugButton" type="Button" parent="." node_paths=PackedStringArray("debugText")]
 anchors_preset = 2
