@@ -46,3 +46,17 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 40
 text = "Log in"
 icon_alignment = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -201.0
+offset_top = 105.0
+offset_right = 196.0
+offset_bottom = 176.0
+grow_horizontal = 2
+theme_override_font_sizes/normal_font_size = 40
+text = "Toot removal trainer"
+fit_content = true
