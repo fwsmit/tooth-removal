@@ -1,9 +1,9 @@
 extends Node
 
 var current_scene = null
-var loggedInAs = "Unknown"
 
 # Data requested before extraction
+var loggedInAs = "Unknown"
 var selectedQuadrant = null
 var selectedTooth = null
 var selectedType = null

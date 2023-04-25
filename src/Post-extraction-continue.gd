@@ -13,10 +13,11 @@ func save_extraction_to_file():
 	var extraction_data = {
 		"quadrant": Global.selectedQuadrant,
 		"tooth": Global.selectedTooth,
-		"type": Global.selectedType,
+		"jaw_type": Global.selectedType,
 		"forceps_slipped": Global.forceps_slipped,
 		"element_fractured": Global.element_fractured,
 		"post_extraction_notes": Global.post_extraction_notes,
+		"person_type": Global.loggedInAs,
 		"unix_timestamp": timestamp,
 	}
 	var json_data = JSON.stringify(extraction_data, "\t")
