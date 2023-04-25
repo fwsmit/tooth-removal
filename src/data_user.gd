@@ -10,6 +10,7 @@ var _client: Client = Client.new()
 
 signal connected
 signal disconnected
+signal data
 
 func _ready() -> void:
 	_client.connect("connected",Callable(self,"_handle_client_connected"))
@@ -47,9 +48,10 @@ func tand_locatie(kwadrant, tand):
 	return locatie
 
 func _handle_client_data(force, torque) -> void:
+	emit_signal("data", force, torque)
 	Global.raw_forces.append(force)
 	Global.raw_torques.append(torque)
-
+  
 	var locatie = tand_locatie(Global.selectedQuadrant, Global.selectedTooth)
 	torque = convert_torque(torque, force, locatie)
 	
