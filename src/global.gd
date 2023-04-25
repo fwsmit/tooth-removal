@@ -1,10 +1,25 @@
 extends Node
 
 var current_scene = null
+
+# Data requested before extraction
 var loggedInAs = "Unknown"
 var selectedQuadrant = null
 var selectedTooth = null
 var selectedType = null
+
+# Data stored during extraction
+var raw_forces = []
+var raw_torques = []
+var corrected_forces = []
+var corrected_torques = []
+var startTimestamp = -1 # start of extraction
+var endTimestamp = -1 # end of extraction
+
+# Data requested after extraction
+var forceps_slipped
+var element_fractured
+var post_extraction_notes
 
 func _ready():
 	var root = get_tree().root

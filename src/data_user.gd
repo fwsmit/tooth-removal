@@ -19,6 +19,7 @@ func _ready() -> void:
 	_client.connect("data",Callable(self,"_handle_client_data"))
 	add_child(_client)
 	_client.connect_to_host(HOST, PORT)
+	Global.startTimestamp = Time.get_unix_time_from_system()
 
 func _connect_after_timeout(timeout: float) -> void:
 	await get_tree().create_timer(timeout).timeout # Delay for timeout
@@ -48,8 +49,14 @@ func tand_locatie(kwadrant, tand):
 
 func _handle_client_data(force, torque) -> void:
 	emit_signal("data", force, torque)
+	Global.raw_forces.append(force)
+	Global.raw_torques.append(torque)
+  
 	var locatie = tand_locatie(Global.selectedQuadrant, Global.selectedTooth)
 	torque = convert_torque(torque, force, locatie)
+	
+	Global.corrected_forces.append(force)
+	Global.corrected_torques.append(torque)
 	# Convert to numbers around 1
 	force = force / 40
 	torque = torque / 3

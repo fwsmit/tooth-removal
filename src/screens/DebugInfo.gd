@@ -27,7 +27,7 @@ func num_to_string_padded(num):
 		num_str = " " + num_str
 	return num_str
 
-func vec_to_string(vec : Vector3):
+func vec_to_string(vec):
 	if vec == null:
 		return "<null>"
 	else:
