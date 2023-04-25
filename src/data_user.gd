@@ -7,8 +7,6 @@ const RECONNECT_TIMEOUT: float = 3.0
 
 const Client = preload("res://client.gd")
 var _client: Client = Client.new()
-var raw_forces = []
-var raw_torques = []
 
 signal connected
 signal disconnected
@@ -48,8 +46,8 @@ func tand_locatie(kwadrant, tand):
 	return locatie
 	
 func add_data_vector(force, torque):
-	raw_forces.append(force)
-	raw_torques.append(torque)
+	Global.raw_forces.append(force)
+	Global.raw_torques.append(torque)
 
 func _handle_client_data(force, torque) -> void:
 	add_data_vector(force, torque)
