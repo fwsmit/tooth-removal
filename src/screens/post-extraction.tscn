@@ -1,6 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://div4fcp8g08gl"]
+[gd_scene load_steps=2 format=3 uid="uid://brpl8fcmgwqr2"]
 
-[ext_resource type="Script" path="res://Post-extraction-continue.gd" id="1_dq8km"]
+[ext_resource type="Script" path="res://screens/Post-extraction-continue.gd" id="1_77q5u"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -50,7 +50,7 @@ placeholder_text = "Notes"
 [node name="Continue" type="Button" parent="JawSelection/VBoxContainer" node_paths=PackedStringArray("forceps_slipped_checkbox", "element_fractured_checkbox", "post_extraction_notes_field")]
 layout_mode = 2
 text = "Continue"
-script = ExtResource("1_dq8km")
+script = ExtResource("1_77q5u")
 forceps_slipped_checkbox = NodePath("../ForcepsSlipped")
 element_fractured_checkbox = NodePath("../ElementFractured")
 post_extraction_notes_field = NodePath("../PostExtractionNotes")

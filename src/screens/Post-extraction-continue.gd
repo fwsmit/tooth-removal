@@ -37,4 +37,4 @@ func _pressed():
 	Global.element_fractured = element_fractured_checkbox.button_pressed
 	Global.post_extraction_notes = post_extraction_notes_field.text
 	save_extraction_to_file()
-	Global.goto_scene("res://dashboard.tscn")
+	Global.goto_scene("res://screens/dashboard.tscn")

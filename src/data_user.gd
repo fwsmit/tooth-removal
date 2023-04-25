@@ -5,7 +5,7 @@ const HOST: String = "192.168.0.100"
 const PORT: int = 2001
 const RECONNECT_TIMEOUT: float = 3.0
 
-const Client = preload("res://client.gd")
+const Client = preload("res://sensor/client.gd")
 var _client: Client = Client.new()
 
 signal connected
@@ -49,10 +49,9 @@ func tand_locatie(kwadrant, tand):
 func _handle_client_data(force, torque) -> void:
 	Global.raw_forces.append(force)
 	Global.raw_torques.append(torque)
-	var kaak_locatie_onderkaak = Vector3(0.231, 0.062, 0)
-	var tand_offset = Vector3(-0.01,0.02,0)
-	var tand_locatie = kaak_locatie_onderkaak + tand_offset
-	torque = convert_torque(torque, force, tand_locatie)
+
+	var locatie = tand_locatie(Global.selectedQuadrant, Global.selectedTooth)
+	torque = convert_torque(torque, force, locatie)
 	
 	Global.corrected_forces.append(force)
 	Global.corrected_torques.append(torque)
