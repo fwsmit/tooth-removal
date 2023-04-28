@@ -1,6 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://db2us8bah6jw4"]
+[gd_scene load_steps=2 format=3]
 
-[ext_resource type="Script" path="res://screens/Startscherm.gd" id="1_52ic4"]
+[ext_resource type="Script" path="res://scripts/Startscherm/Startscherm.gd" id="1_52ic4"]
 
 [node name="Control" type="Control" node_paths=PackedStringArray("list", "loginButton")]
 layout_mode = 3

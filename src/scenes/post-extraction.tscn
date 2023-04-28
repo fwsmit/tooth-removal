@@ -1,6 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://brpl8fcmgwqr2"]
+[gd_scene load_steps=2 format=3]
 
-[ext_resource type="Script" path="res://screens/Post-extraction-continue.gd" id="1_77q5u"]
+[ext_resource type="Script" path="res://scripts/Post-extraction/Post-extraction-continue.gd" id="1_77q5u"]
 
 [node name="Control" type="Control"]
 layout_mode = 3

@@ -1,7 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://cobqlxv0hm64x"]
+[gd_scene load_steps=3 format=3 uid="uid://do5vjdc1ihsdr"]
 
-[ext_resource type="Script" path="res://screens/Dashboard_button_extraction.gd" id="1_f3ixp"]
-[ext_resource type="Script" path="res://showLoggedInAs.gd" id="2_wcue3"]
+[ext_resource type="Script" path="res://scripts/Dashboard/Dashboard_button_extraction.gd" id="1_k8jc2"]
+[ext_resource type="Script" path="res://scripts/Common/showLoggedInAs.gd" id="2_6ey11"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -41,7 +41,7 @@ offset_top = 102.0
 offset_right = 350.0
 offset_bottom = 252.0
 text = "Extraction trainer"
-script = ExtResource("1_f3ixp")
+script = ExtResource("1_k8jc2")
 
 [node name="RichTextLabel2" type="RichTextLabel" parent="."]
 layout_mode = 1
@@ -55,4 +55,4 @@ theme_override_colors/default_color = Color(0, 0, 0, 1)
 text = "Logged in as: "
 fit_content = true
 autowrap_mode = 0
-script = ExtResource("2_wcue3")
+script = ExtResource("2_6ey11")

@@ -1,14 +1,14 @@
-[gd_scene load_steps=10 format=3 uid="uid://17ghjpecvy4u"]
+[gd_scene load_steps=10 format=3 uid="uid://b1tluf6bya11l"]
 
-[ext_resource type="Script" path="res://data_user.gd" id="1_qthwg"]
-[ext_resource type="Script" path="res://showLoggedInAs.gd" id="2_wj1fj"]
-[ext_resource type="Script" path="res://sensor/ShowConnected.gd" id="3_hq46h"]
+[ext_resource type="Script" path="res://scripts/Extraction/Sensor/data_user.gd" id="1_0ob14"]
+[ext_resource type="Script" path="res://scripts/Common/showLoggedInAs.gd" id="2_i4l7v"]
+[ext_resource type="Script" path="res://scripts/Extraction/ShowConnected.gd" id="3_ak075"]
 [ext_resource type="Texture2D" uid="uid://jn2edbaf0g6y" path="res://assets/connected.svg" id="4_uka1a"]
 [ext_resource type="Texture2D" uid="uid://bxtjqe348c13g" path="res://assets/disconnected.svg" id="5_egje7"]
-[ext_resource type="Script" path="res://Extraction_finished.gd" id="6_kw460"]
-[ext_resource type="Script" path="res://screens/DebugButton.gd" id="6_svxsg"]
-[ext_resource type="Script" path="res://screens/DebugInfo.gd" id="7_dedse"]
+[ext_resource type="Script" path="res://scripts/Extraction/Extraction_finished.gd" id="6_msgkl"]
+[ext_resource type="Script" path="res://scripts/Extraction/DebugButton.gd" id="7_jhp4k"]
 [ext_resource type="FontFile" uid="uid://w6rhidxui6pe" path="res://assets/NotoSansMono-Regular.ttf" id="7_pt815"]
+[ext_resource type="Script" path="res://scripts/Extraction/DebugInfo.gd" id="9_yq4k5"]
 
 [node name="Node3D2" type="Node3D"]
 
@@ -16,7 +16,7 @@
 transform = Transform3D(-4.37114e-08, -0.603208, 0.797584, 0, 0.797584, 0.603208, -1, 2.63671e-08, -3.48635e-08, 4.979, 3.748, 0)
 
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
-script = ExtResource("1_qthwg")
+script = ExtResource("1_0ob14")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.022199, -0.788643, 0.61445, -9.77091e-09, 0.614602, 0.788838, -0.999754, 0.0175114, -0.0136435, -7.39606, 5.13621, 2.08942)
@@ -32,7 +32,7 @@ grow_horizontal = 0
 text = "Logged in as: "
 fit_content = true
 autowrap_mode = 0
-script = ExtResource("2_wj1fj")
+script = ExtResource("2_i4l7v")
 
 [node name="MarginContainer" type="MarginContainer" parent="." node_paths=PackedStringArray("connectedSprite", "disconnectedSprite")]
 anchors_preset = 2
@@ -42,7 +42,7 @@ offset_top = -649.0
 offset_right = 40.0
 offset_bottom = -608.0
 grow_vertical = 0
-script = ExtResource("3_hq46h")
+script = ExtResource("3_ak075")
 connectedSprite = NodePath("Connected")
 disconnectedSprite = NodePath("Disconnected")
 
@@ -80,7 +80,7 @@ offset_bottom = -20.0
 grow_horizontal = 0
 grow_vertical = 0
 text = "Finished extraction"
-script = ExtResource("6_kw460")
+script = ExtResource("6_msgkl")
 
 [node name="DebugButton" type="Button" parent="." node_paths=PackedStringArray("debugText")]
 anchors_preset = 2
@@ -93,7 +93,7 @@ offset_bottom = -55.0
 grow_vertical = 0
 toggle_mode = true
 text = "Debug ▶"
-script = ExtResource("6_svxsg")
+script = ExtResource("7_jhp4k")
 debugText = NodePath("DebugInfo")
 
 [node name="DebugInfo" type="RichTextLabel" parent="DebugButton"]
@@ -107,7 +107,7 @@ text = "Debug info
 a
 a"
 fit_content = true
-script = ExtResource("7_dedse")
+script = ExtResource("9_yq4k5")
 
 [connection signal="connected" from="CSGBox3D" to="MarginContainer" method="showConnected"]
 [connection signal="connected" from="CSGBox3D" to="DebugButton/DebugInfo" method="on_sensor_connected"]
