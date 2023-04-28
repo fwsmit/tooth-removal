@@ -69,3 +69,8 @@ func reset_extraction_data():
 	element_fractured = null
 	epoxy_failed = null
 	post_extraction_notes = null
+
+func is_pre_extraction_data_valid():
+	return selectedQuadrant != null and \
+		selectedTooth != null and \
+		selectedType != null
