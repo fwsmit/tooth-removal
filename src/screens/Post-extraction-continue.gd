@@ -40,4 +40,5 @@ func _pressed():
 	Global.epoxy_failed = expoxy_failed_checkbox.button_pressed
 	Global.post_extraction_notes = post_extraction_notes_field.text
 	save_extraction_to_file()
+	Global.reset_extraction_data()
 	Global.goto_scene("res://screens/dashboard.tscn")

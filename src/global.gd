@@ -17,10 +17,10 @@ var startTimestamp = -1 # start of extraction
 var endTimestamp = -1 # end of extraction
 
 # Data requested after extraction
-var forceps_slipped
-var element_fractured
-var epoxy_failed
-var post_extraction_notes
+var forceps_slipped = null
+var element_fractured = null
+var epoxy_failed = null
+var post_extraction_notes = null
 
 func _ready():
 	var root = get_tree().root
@@ -54,3 +54,18 @@ func _deferred_goto_scene(path):
 
 	# Optionally, to make it compatible with the SceneTree.change_scene_to_file() API.
 	get_tree().current_scene = current_scene
+
+func reset_extraction_data():
+	raw_forces = []
+	raw_torques = []
+	corrected_forces = []
+	corrected_torques = []
+	startTimestamp = -1 # start of extraction
+	endTimestamp = -1 # end of extraction
+	selectedQuadrant = null
+	selectedTooth = null
+	selectedType = null
+	forceps_slipped = null
+	element_fractured = null
+	epoxy_failed = null
+	post_extraction_notes = null
