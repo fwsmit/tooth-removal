@@ -16,7 +16,7 @@ func save_extraction_to_file():
 		"jaw_type": Global.selectedType,
 		"forceps_slipped": Global.forceps_slipped,
 		"element_fractured": Global.element_fractured,
-		"epoxy_failed": Global.expoxy_failed,
+		"epoxy_failed": Global.epoxy_failed,
 		"post_extraction_notes": Global.post_extraction_notes,
 		"person_type": Global.loggedInAs,
 		"start_timestamp": Global.startTimestamp,
