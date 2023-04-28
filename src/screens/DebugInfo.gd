@@ -5,7 +5,7 @@ var torque = null
 var connected = false
 
 var timerStarted = false
-var updateDelaySeconds = 1
+var updateDelaySeconds = 0.5
 
 func receiveData(_force, _torque):
 	force = _force
