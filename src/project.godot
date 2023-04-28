@@ -11,13 +11,13 @@ config_version=5
 [application]
 
 config/name="Tooth removal"
-run/main_scene="res://screens/Startscherm.tscn"
+run/main_scene="res://scenes/Startscherm.tscn"
 config/features=PackedStringArray("4.0", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
 
-Global="*res://global.gd"
+Global="*res://scripts/Common/global.gd"
 
 [editor]
 
