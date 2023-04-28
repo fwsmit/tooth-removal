@@ -4,6 +4,9 @@ var force = null
 var torque = null
 var connected = false
 
+var timerStarted = false
+var updateDelaySeconds = 1
+
 func receiveData(_force, _torque):
 	force = _force
 	torque = _torque
@@ -43,5 +46,9 @@ func updateText():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if visible:
+	if not timerStarted:
+		timerStarted = true
 		updateText()
+		await get_tree().create_timer(updateDelaySeconds).timeout
+		updateText()
+		timerStarted = false
