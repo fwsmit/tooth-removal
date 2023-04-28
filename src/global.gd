@@ -19,6 +19,7 @@ var endTimestamp = -1 # end of extraction
 # Data requested after extraction
 var forceps_slipped
 var element_fractured
+var epoxy_failed
 var post_extraction_notes
 
 func _ready():
