@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://bg7upen5pbtkp"]
+[gd_scene load_steps=4 format=3 uid="uid://bg7upen5pbtkp"]
 
 [ext_resource type="Script" path="res://scripts/Pre-extraction/SelectedTooth.gd" id="1_tjn70"]
 [ext_resource type="Script" path="res://scripts/Pre-extraction/Pre-extraction-continue.gd" id="2_hqstp"]
+[ext_resource type="Script" path="res://scripts/Pre-extraction/Terug.gd" id="3_gbpns"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -88,6 +89,14 @@ typeList = NodePath("../TypeList")
 layout_mode = 2
 text = "Continue"
 script = ExtResource("2_hqstp")
+
+[node name="Terug" type="Button" parent="."]
+offset_left = 41.0
+offset_top = 23.0
+offset_right = 94.0
+offset_bottom = 54.0
+text = "Terug"
+script = ExtResource("3_gbpns")
 
 [connection signal="item_selected" from="JawSelection/VBoxContainer/QuadrantList" to="JawSelection/VBoxContainer/SelectedTooth" method="quadrantChanged"]
 [connection signal="item_selected" from="JawSelection/VBoxContainer/ToothList" to="JawSelection/VBoxContainer/SelectedTooth" method="toothChanged"]

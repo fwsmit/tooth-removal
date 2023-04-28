@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://b1tluf6bya11l"]
+[gd_scene load_steps=11 format=3 uid="uid://b1tluf6bya11l"]
 
 [ext_resource type="Script" path="res://scripts/Extraction/Sensor/data_user.gd" id="1_0ob14"]
 [ext_resource type="Script" path="res://scripts/Common/showLoggedInAs.gd" id="2_i4l7v"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" path="res://scripts/Extraction/DebugButton.gd" id="7_jhp4k"]
 [ext_resource type="FontFile" uid="uid://w6rhidxui6pe" path="res://assets/NotoSansMono-Regular.ttf" id="7_pt815"]
 [ext_resource type="Script" path="res://scripts/Extraction/DebugInfo.gd" id="9_yq4k5"]
+[ext_resource type="Script" path="res://scripts/Extraction/Terug.gd" id="10_dbgyb"]
 
 [node name="Node3D2" type="Node3D"]
 
@@ -108,6 +109,14 @@ a
 a"
 fit_content = true
 script = ExtResource("9_yq4k5")
+
+[node name="Terug" type="Button" parent="."]
+offset_left = 41.0
+offset_top = 23.0
+offset_right = 94.0
+offset_bottom = 54.0
+text = "Terug"
+script = ExtResource("10_dbgyb")
 
 [connection signal="connected" from="CSGBox3D" to="MarginContainer" method="showConnected"]
 [connection signal="connected" from="CSGBox3D" to="DebugButton/DebugInfo" method="on_sensor_connected"]
