@@ -23,7 +23,7 @@ var epoxy_failed = null
 var post_extraction_notes = null
 
 # View extractions
-var selectedFile = null
+var selectedFile = "extraction_data_2023-04-26T10:09:01.json"
 
 func _ready():
 	var root = get_tree().root

@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://dsojopeim4ykk"]
+[gd_scene load_steps=3 format=3 uid="uid://dsojopeim4ykk"]
 
 [ext_resource type="Script" path="res://scripts/Previous-extractions/ExtractionList.gd" id="1_xsj6f"]
+[ext_resource type="Script" path="res://scripts/Common/SceneLoader.gd" id="2_ismpd"]
 
 [node name="previous-extractions" type="Control"]
 layout_mode = 3
@@ -38,3 +39,14 @@ extractionList = NodePath(".")
 [node name="Button" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Show extraction"
+script = ExtResource("2_ismpd")
+sceneName = "show_extraction.tscn"
+
+[node name="Terug" type="Button" parent="."]
+offset_left = 41.0
+offset_top = 23.0
+offset_right = 94.0
+offset_bottom = 54.0
+text = "Terug"
+script = ExtResource("2_ismpd")
+sceneName = "dashboard.tscn"
