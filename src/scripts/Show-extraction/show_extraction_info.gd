@@ -15,8 +15,8 @@ func updateText():
 	text += "Quadrant: " + str(extractionDict["quadrant"]) + "\n"
 	text += "Tooth: " + str(extractionDict["tooth"]) + "\n"
 	text += "Type: " + str(extractionDict["jaw_type"]) + "\n"
-	text += "Date: " + Time.get_date_string_from_unix_time(extractionDict["start_timestamp"]) + "\n"
-	text += "Time: " + Time.get_time_string_from_unix_time(extractionDict["start_timestamp"]) + "\n"
+	text += "Date: " + Time.get_date_string_from_unix_time(extractionDict["start_timestamp"])\
+		+ " " + Time.get_time_string_from_unix_time(extractionDict["start_timestamp"]) + "\n"
 	
 	var forceps_slipped = extractionDict["forceps_slipped"]
 	var element_fractured = extractionDict["element_fractured"]
