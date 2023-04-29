@@ -7,9 +7,9 @@ func _ready():
 	var dir = DirAccess.open("user://")
 	for filename in dir.get_files():
 		extractionList.add_item(filename)
+		
+	Global.selectedFile = null
+	connect("item_selected", itemSelected)
 	
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
+func itemSelected(index):
+	Global.selectedFile = get_item_text(index)

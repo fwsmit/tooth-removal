@@ -22,6 +22,9 @@ var element_fractured = null
 var epoxy_failed = null
 var post_extraction_notes = null
 
+# View extractions
+var selectedFile = null
+
 func _ready():
 	var root = get_tree().root
 	current_scene = root.get_child(root.get_child_count() - 1)
