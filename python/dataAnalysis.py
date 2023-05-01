@@ -25,11 +25,13 @@ def fix_vector(vectors, duration):
     num_samples = round(duration * num_samples_per_second)
     return vectors[-num_samples:]
 
-def plot_vectors(axis, vectors, _title):
+def plot_vectors(axis, vectors, _title, duration):
     x = range(len(vectors))
-    x_smooth = np.linspace(0, len(vectors)-1, 300)  
+    n_points = 300
+    x_smooth = np.linspace(0, len(vectors)-1, n_points)  
+    timelabel = np.linspace(0, duration, n_points)  
     cs = CubicSpline(x, vectors)
-    axis.plot(x_smooth, cs(x_smooth), label=_title)
+    axis.plot(timelabel, cs(x_smooth), label=_title)
 
 def show_file_stats(filename):
     filepath = os.path.join(dataDir, filename)
@@ -62,9 +64,11 @@ def show_file_stats(filename):
             ]
     ax[0][0].set_ylabel("Force (N)")
     ax[1][0].set_ylabel("Torque (Nm)")
+    for a in ax[1]:
+        a.set_xlabel("Time (s)")
 
     for a in arguments:
-        plot_vectors(a[0], a[1], a[2])
+        plot_vectors(a[0], a[1], a[2], duration)
         a[0].title.set_text(a[2])
     fig.tight_layout()
     plt.show()
