@@ -50,7 +50,7 @@ def show_file_stats(filename):
         torque_x = fix_vector(torque_x, duration)
         torque_y = fix_vector(torque_y, duration)
         torque_z = fix_vector(torque_z, duration)
-    fig, ax = plt.subplots(2,3)
+    fig, ax = plt.subplots(2,3, sharex='col', sharey='row')
     fig.tight_layout()
 
     arguments = [
