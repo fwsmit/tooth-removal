@@ -7,7 +7,10 @@ var index
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	print("Updating index")
-	OS.execute("python3", ["../python/dataAnalysis.py", "--update-index"])
+	if OS.get_name() == "Windows":
+		OS.execute("python/windows/python.exe", ["../python/dataAnalysis.py", "--update-index"])
+	else: # assume python is present in path
+		OS.execute("python3", ["../python/dataAnalysis.py", "--update-index"])
 	var filepath = FileAccess.open("user://index.json", FileAccess.READ)
 	index = JSON.parse_string(filepath.get_as_text())
 	for filename in index:
