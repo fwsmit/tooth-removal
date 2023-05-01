@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://cginffqiikdcf"]
+[gd_scene load_steps=5 format=3 uid="uid://drtlcwie8j6jy"]
 
 [ext_resource type="Script" path="res://scripts/Show-extraction/Title.gd" id="1_waj4s"]
 [ext_resource type="Script" path="res://scripts/Show-extraction/show_extraction_info.gd" id="2_3aks3"]
+[ext_resource type="Script" path="res://scripts/Show-extraction/show_graphs.gd" id="3_n5m37"]
 [ext_resource type="Script" path="res://scripts/Common/SceneLoader.gd" id="3_tma3q"]
 
 [node name="Control" type="Control"]
@@ -37,7 +38,13 @@ layout_mode = 2
 text = "info"
 script = ExtResource("2_3aks3")
 
+[node name="Button" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Show graphs"
+script = ExtResource("3_n5m37")
+
 [node name="Terug" type="Button" parent="."]
+layout_mode = 0
 offset_left = 41.0
 offset_top = 23.0
 offset_right = 94.0

@@ -1,5 +1,6 @@
 import os
 import json
+import argparse
 import matplotlib.pyplot as plt
 from xdg_base_dirs import xdg_data_home
 from scipy.interpolate import CubicSpline
@@ -57,6 +58,16 @@ def show_file_stats(filename):
     plot_vectors(ax[1][1], torque_y)
     plot_vectors(ax[1][2], torque_z)
     plt.show()
+
+
+parser = argparse.ArgumentParser(description='Show graphs of sensor data')
+parser.add_argument('filename', nargs="?", help='Path to data file. This file must be in JSON format')
+
+args = parser.parse_args()
+
+if args.filename is not None:
+    show_file_stats(args.filename)
+    exit(0)
 
 fileIndex = 2
 
