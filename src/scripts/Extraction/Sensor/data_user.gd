@@ -13,10 +13,6 @@ signal disconnected
 signal data
 
 func _ready() -> void:
-	for index1 in len(angles):
-		for index2 in len(angles[index1]):
-			angles[index1][index2] = (angles[index1][index2]/360)*2*PI
-			#print('k=',index1 + 1,'t=',index2 + 1,vector_tand_frame(index1, index2, Vector3(1,0,0)))
 	_client.connect("connected",Callable(self,"_handle_client_connected"))
 	_client.connect("disconnected",Callable(self,"_handle_client_disconnected"))
 	_client.connect("error",Callable(self,"_handle_client_error"))
@@ -54,8 +50,7 @@ func tand_locatie(kwadrant, tand):
 var angles = [[0., -19.4, -53., -57.5, -66.3, -79.7, -79.7, 95.6], [0., 19.4, 53., 57.5, 66.3, 79.7, 79.7, 95.6],[0 , -19.7, -39.2, -67., -78., -78., -78., -90.],[0 , 19.7, 39.15, 67., 78., 78., 78., 90.]]
 
 func vector_tand_frame(kwadrant, tand, vector):
-	var angle = angles[kwadrant - 1][tand - 1]
-	print((angle/(2*PI))*360)
+	var angle = (angles[kwadrant - 1][tand - 1]/360)*2*PI
 	if kwadrant == 1 or kwadrant == 2:
 		vector = Vector3(vector.x, cos(angle)*vector.y - sin(angle)*vector.z, sin(angle)*vector.y + cos(angle)*vector.z)
 	if kwadrant == 3 or kwadrant == 4:
