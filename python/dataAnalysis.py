@@ -51,12 +51,18 @@ def show_file_stats(filename):
         torque_y = fix_vector(torque_y, duration)
         torque_z = fix_vector(torque_z, duration)
     fig, ax = plt.subplots(2,3)
-    plot_vectors(ax[0][0], force_x)
-    plot_vectors(ax[0][1], force_y)
-    plot_vectors(ax[0][2], force_z)
-    plot_vectors(ax[1][0], torque_x)
-    plot_vectors(ax[1][1], torque_y)
-    plot_vectors(ax[1][2], torque_z)
+
+    arguments = [
+            [ax[0][0],force_x, "Force (x)"],
+            [ax[0][1],force_y, "Force (y)"],
+            [ax[0][2],force_z, "Force (z)"],
+            [ax[1][0],torque_x, "Torque (x)"],
+            [ax[1][1],torque_y, "Torque (y)"],
+            [ax[1][2],torque_z, "Torque (z)"],
+            ]
+
+    for a in arguments:
+        plot_vectors(a[0], a[1])
     plt.show()
 
 
