@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://do5vjdc1ihsdr"]
+[gd_scene load_steps=4 format=3 uid="uid://do5vjdc1ihsdr"]
 
 [ext_resource type="Script" path="res://scripts/Dashboard/Dashboard_button_extraction.gd" id="1_k8jc2"]
 [ext_resource type="Script" path="res://scripts/Common/showLoggedInAs.gd" id="2_6ey11"]
+[ext_resource type="Script" path="res://scripts/Common/SceneLoader.gd" id="2_tqfgs"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -34,7 +35,7 @@ theme_override_font_sizes/normal_font_size = 30
 text = "Dashboard"
 fit_content = true
 
-[node name="Button" type="Button" parent="."]
+[node name="Extraction trainer" type="Button" parent="."]
 layout_mode = 0
 offset_left = 100.0
 offset_top = 102.0
@@ -42,6 +43,16 @@ offset_right = 350.0
 offset_bottom = 252.0
 text = "Extraction trainer"
 script = ExtResource("1_k8jc2")
+
+[node name="Previous extractions" type="Button" parent="."]
+layout_mode = 0
+offset_left = 441.0
+offset_top = 102.0
+offset_right = 691.0
+offset_bottom = 252.0
+text = "Previous extractions"
+script = ExtResource("2_tqfgs")
+sceneName = "previous-extractions.tscn"
 
 [node name="RichTextLabel2" type="RichTextLabel" parent="."]
 layout_mode = 1

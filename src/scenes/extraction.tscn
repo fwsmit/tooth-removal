@@ -15,6 +15,7 @@
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(-4.37114e-08, -0.603208, 0.797584, 0, 0.797584, 0.603208, -1, 2.63671e-08, -3.48635e-08, 4.979, 3.748, 0)
+current = true
 
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
 script = ExtResource("1_0ob14")

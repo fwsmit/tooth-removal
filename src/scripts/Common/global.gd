@@ -22,6 +22,9 @@ var element_fractured = null
 var epoxy_failed = null
 var post_extraction_notes = null
 
+# View extractions
+var selectedFile = "extraction_data_2023-04-26T10:09:01.json"
+
 func _ready():
 	var root = get_tree().root
 	current_scene = root.get_child(root.get_child_count() - 1)

@@ -91,6 +91,7 @@ text = "Continue"
 script = ExtResource("2_hqstp")
 
 [node name="Terug" type="Button" parent="."]
+layout_mode = 0
 offset_left = 41.0
 offset_top = 23.0
 offset_right = 94.0

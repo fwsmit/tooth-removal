@@ -1,0 +1,47 @@
+[gd_scene load_steps=4 format=3 uid="uid://cginffqiikdcf"]
+
+[ext_resource type="Script" path="res://scripts/Show-extraction/Title.gd" id="1_waj4s"]
+[ext_resource type="Script" path="res://scripts/Show-extraction/show_extraction_info.gd" id="2_3aks3"]
+[ext_resource type="Script" path="res://scripts/Common/SceneLoader.gd" id="3_tma3q"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 0
+offset_right = 1153.0
+offset_bottom = 645.0
+theme_override_constants/margin_left = 120
+theme_override_constants/margin_top = 80
+theme_override_constants/margin_right = 120
+theme_override_constants/margin_bottom = 80
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 40
+text = "Title"
+horizontal_alignment = 1
+script = ExtResource("1_waj4s")
+
+[node name="Extraction info" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "info"
+script = ExtResource("2_3aks3")
+
+[node name="Terug" type="Button" parent="."]
+offset_left = 41.0
+offset_top = 23.0
+offset_right = 94.0
+offset_bottom = 54.0
+text = "Terug"
+script = ExtResource("3_tma3q")
+sceneName = "previous-extractions.tscn"
