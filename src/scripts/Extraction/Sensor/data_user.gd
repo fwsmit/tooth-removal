@@ -50,7 +50,7 @@ func tand_locatie(kwadrant, tand):
 var angles = [[0., -19.4, -53., -57.5, -66.3, -79.7, -79.7, 95.6], [0., 19.4, 53., 57.5, 66.3, 79.7, 79.7, 95.6],[0 , -19.7, -39.2, -67., -78., -78., -78., -90.],[0 , 19.7, 39.15, 67., 78., 78., 78., 90.]]
 
 func vector_tand_frame(kwadrant, tand, vector):
-	var angle = (angles[kwadrant - 1][tand - 1]/360)*2*PI
+	var angle = deg_to_rad(angles[kwadrant - 1][tand - 1])
 	if kwadrant == 1 or kwadrant == 2:
 		vector = Vector3(vector.x, cos(angle)*vector.y - sin(angle)*vector.z, sin(angle)*vector.y + cos(angle)*vector.z)
 	if kwadrant == 3 or kwadrant == 4:
