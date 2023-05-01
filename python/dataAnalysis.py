@@ -90,8 +90,15 @@ for filename in os.listdir(dataDir):
 
 if args.update_index:
     print("Updating index")
-    index_dic = {}
+    index_filepath = os.path.join(dataDir, "index.json")
+    index_dic = parse_json("index.json")
+    index_changed = False
+
+    # Add new files
     for f in possible_files:
+        if f in index_dic:
+            continue
+        index_changed = True
         dic = parse_json(f)
         for i in ["", "_x", "_y", "_z"]:
             dic.pop("corrected_forces"+i, None)
@@ -99,9 +106,22 @@ if args.update_index:
             dic.pop("raw_forces"+i, None)
             dic.pop("raw_torques"+i, None)
         index_dic[f] = dic
-    index_filepath = os.path.join(dataDir, "index.json")
-    with open(index_filepath, 'w') as f:
-        json.dump(index_dic, f, indent="\t")
+        print("Added file", f)
+
+    # Remove deleted files
+    for f in list(index_dic):
+        filepath = os.path.join(dataDir, f)
+        if not os.path.isfile(filepath):
+            index_dic.pop(f)
+            print("Removed file", f)
+            index_changed = True
+
+    if index_changed:
+        print("Writing new index")
+        with open(index_filepath, 'w') as f:
+            json.dump(index_dic, f, indent="\t")
+    else:
+        print("Nothing has changed")
     exit(0)
 
 if args.filename is not None:
