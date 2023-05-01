@@ -33,10 +33,13 @@ def plot_vectors(axis, vectors, _title, duration):
     cs = CubicSpline(x, vectors)
     axis.plot(timelabel, cs(x_smooth), label=_title)
 
-def show_file_stats(filename):
+def parse_json(filename):
     filepath = os.path.join(dataDir, filename)
     with open(filepath) as f:
-        propDic = json.load(f)
+        return json.load(f)
+
+def show_file_stats(filename):
+    propDic = parse_json(filename)
     duration = propDic["end_timestamp"] - propDic["start_timestamp"]
     print("Duration:", round(duration), "seconds")
     force_x, force_y, force_z = split_vectors(propDic["corrected_forces"])
@@ -76,18 +79,35 @@ def show_file_stats(filename):
 
 parser = argparse.ArgumentParser(description='Show graphs of sensor data')
 parser.add_argument('filename', nargs="?", help='Path to data file. This file must be in JSON format')
+parser.add_argument('--update_index', required=False, action='store_true', help='Update index of all data files')
 
 args = parser.parse_args()
+
+possible_files = []
+for filename in os.listdir(dataDir):
+    if filename.startswith("extraction_data"):
+        possible_files.append(filename)
+
+if args.update_index:
+    print("Updating index")
+    index_dic = {}
+    for f in possible_files:
+        dic = parse_json(f)
+        for i in ["", "_x", "_y", "_z"]:
+            dic.pop("corrected_forces"+i, None)
+            dic.pop("corrected_torques"+i, None)
+            dic.pop("raw_forces"+i, None)
+            dic.pop("raw_torques"+i, None)
+        index_dic[f] = dic
+    index_filepath = os.path.join(dataDir, "index.json")
+    with open(index_filepath, 'w') as f:
+        json.dump(index_dic, f, indent="\t")
+    exit(0)
 
 if args.filename is not None:
     show_file_stats(args.filename)
     exit(0)
 
 fileIndex = 2
-
-possible_files = []
-for filename in os.listdir(dataDir):
-    if filename.startswith("extraction_data"):
-        possible_files.append(filename)
 
 show_file_stats(possible_files[fileIndex])
