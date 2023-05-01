@@ -1,0 +1,84 @@
+[gd_scene load_steps=7 format=3 uid="uid://cto4jgqgmwgrd"]
+
+[ext_resource type="Texture2D" uid="uid://bdhcbnai6gym0" path="res://assets/Group 1 (2).svg" id="1_41mxb"]
+
+[sub_resource type="Theme" id="Theme_8v583"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sm4nv"]
+bg_color = Color(0.172549, 0.643137, 0.980392, 1)
+border_color = Color(0.172549, 0.643137, 0.980392, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="Animation" id="Animation_v3kiw"]
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:theme_override_styles/panel:border_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(0.172549, 0.643137, 0.980392, 1), Color(0.654902, 0.835294, 0.996078, 1), Color(0.172549, 0.643137, 0.980392, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:theme_override_styles/panel:bg_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(0.172549, 0.643137, 0.980392, 1), Color(0.654902, 0.835294, 0.996078, 1), Color(0.172549, 0.643137, 0.980392, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_08gpm"]
+resource_name = "Toggle button"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:theme_override_styles/panel")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [SubResource("StyleBoxFlat_sm4nv"), SubResource("StyleBoxFlat_sm4nv"), SubResource("StyleBoxFlat_sm4nv")]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_iaqw6"]
+_data = {
+"RESET": SubResource("Animation_v3kiw"),
+"Toggle button": SubResource("Animation_08gpm")
+}
+
+[node name="Panel" type="Panel"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1112.0
+offset_bottom = -608.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+theme = SubResource("Theme_8v583")
+theme_override_styles/panel = SubResource("StyleBoxFlat_sm4nv")
+
+[node name="Group1(2)" type="Sprite2D" parent="."]
+position = Vector2(20, 20)
+scale = Vector2(0.258403, 0.45)
+texture = ExtResource("1_41mxb")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_iaqw6")
+}
