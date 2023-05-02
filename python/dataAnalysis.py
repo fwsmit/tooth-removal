@@ -4,6 +4,7 @@ import argparse
 import matplotlib.pyplot as plt
 from xdg_base_dirs import xdg_data_home
 from scipy.interpolate import CubicSpline
+import scipy
 import matplotlib
 import numpy as np
 
@@ -20,18 +21,50 @@ def split_vectors(forces):
         zs.append(float(f_s[2]))
     return xs, ys, zs
 
+# Return length of all vectors in array
+def vectors_mag(vectors):
+    mags = []
+    for v in vectors:
+        abs_vectors.append(np.linalg.norm(v))
+
+    return mags
+
+def find_starting_point(force, torque):
+    abs_force = vectors_mag(force) 
+    abs_torque = vectors_mag(torque) 
+
+    # Find moving average
+    filter_size = 10
+    f_filt = scipy.ndimage.uniform_filter1d(abs_force, filter_size)
+    t_filt = scipy.ndimage.uniform_filter1d(abs_torque, filter_size)
+    
+    f_tresh = 2
+    t_tresh = 0.5
+
+    i_f = np.argwhere(f_filt > f_tresh)[0]
+    i_t = np.argwhere(t_filt > t_tresh)[0]
+    return (i_f + i_t)/2
+
 def fix_vector(vectors, duration):
     num_samples_per_second = 990 # rough guess
     num_samples = round(duration * num_samples_per_second)
     return vectors[-num_samples:]
 
-def plot_vectors(axis, vectors, _title, duration):
+def plot_vectors(axis, vectors, _title, duration, points=None):
     x = range(len(vectors))
     n_points = 300
-    x_smooth = np.linspace(0, len(vectors)-1, n_points)  
+    x_smooth = np.linspace(0, len(vectors)-1, n_points)
+
     timelabel = np.linspace(0, duration, n_points)  
     cs = CubicSpline(x, vectors)
+
     axis.plot(timelabel, cs(x_smooth), label=_title)
+
+    if points:
+        for p in points:
+            print(cs(p))
+            t = p / len(vectors) * duration
+            axis.plot(t, cs(p), marker="o")
 
 def parse_json(filename):
     filepath = os.path.join(dataDir, filename)
