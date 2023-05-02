@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://dsojopeim4ykk"]
+[gd_scene load_steps=3 format=3 uid="uid://c286eccvjer03"]
 
 [ext_resource type="Script" path="res://scripts/Previous-extractions/ExtractionList.gd" id="1_xsj6f"]
 [ext_resource type="Script" path="res://scripts/Common/SceneLoader.gd" id="2_ismpd"]
@@ -30,11 +30,23 @@ bbcode_enabled = true
 text = "[center]Extractions[/center]"
 fit_content = true
 
-[node name="ExtractionList" type="ItemList" parent="MarginContainer/VBoxContainer" node_paths=PackedStringArray("extractionList")]
+[node name="OptionButton" type="OptionButton" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+item_count = 3
+selected = 0
+popup/item_0/text = "All teeth"
+popup/item_0/id = 0
+popup/item_1/text = "Upper jaw"
+popup/item_1/id = 1
+popup/item_2/text = "Lower jaw"
+popup/item_2/id = 2
+
+[node name="ExtractionList" type="ItemList" parent="MarginContainer/VBoxContainer" node_paths=PackedStringArray("extractionList", "filterOptions")]
 layout_mode = 2
 size_flags_vertical = 3
 script = ExtResource("1_xsj6f")
 extractionList = NodePath(".")
+filterOptions = NodePath("../OptionButton")
 
 [node name="Button" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -43,6 +55,7 @@ script = ExtResource("2_ismpd")
 sceneName = "show_extraction.tscn"
 
 [node name="Terug" type="Button" parent="."]
+layout_mode = 0
 offset_left = 41.0
 offset_top = 23.0
 offset_right = 94.0
@@ -50,3 +63,5 @@ offset_bottom = 54.0
 text = "Terug"
 script = ExtResource("2_ismpd")
 sceneName = "dashboard.tscn"
+
+[connection signal="item_selected" from="MarginContainer/VBoxContainer/OptionButton" to="MarginContainer/VBoxContainer/ExtractionList" method="filterSelected"]
