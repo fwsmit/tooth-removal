@@ -49,9 +49,17 @@ func filter_tooth(filename):
 	var t = index[filename]["tooth"]
 	return n_th_button_checked(toothFilter, t-1)
 
+func filter_person(filename):
+	var p = index[filename]["person_type"]
+	for b in personFilter.get_children():
+		if b.button_pressed and b.text == p:
+			return true
+
+	return false
+
 func updateFilter():
 	print("Updating filter")
 	clear()
 	for filename in index:
-		if filter_quadrant(filename) and filter_tooth(filename):
+		if filter_quadrant(filename) and filter_tooth(filename) and filter_person(filename):
 			add_item(filename)
