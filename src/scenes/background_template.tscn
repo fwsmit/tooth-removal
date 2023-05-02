@@ -1,9 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://cos6revlxl42h"]
+[gd_scene load_steps=4 format=3 uid="uid://brhgcg6fcqdmb"]
 
-[ext_resource type="PackedScene" uid="uid://cto4jgqgmwgrd" path="res://scenes/Togglebutton.tscn" id="1_hhkn5"]
-[ext_resource type="Script" path="res://scripts/Dashboard/Togglebutton.gd" id="2_2r2vf"]
-[ext_resource type="Script" path="res://scripts/Common/showLoggedInAs.gd" id="3_qgp5o"]
-[ext_resource type="Script" path="res://scripts/Dashboard/Dashboard_button_extraction.gd" id="4_gmtir"]
+[ext_resource type="PackedScene" uid="uid://cto4jgqgmwgrd" path="res://scenes/Togglebutton.tscn" id="1_0liei"]
+[ext_resource type="Script" path="res://scripts/Dashboard/Togglebutton.gd" id="2_gy8ky"]
+[ext_resource type="Script" path="res://scripts/Common/showLoggedInAs.gd" id="3_bttne"]
 
 [node name="Main" type="Control"]
 layout_mode = 3
@@ -56,10 +55,10 @@ grow_vertical = 2
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 
-[node name="Panel" parent="VBoxContainer/VBoxContainer/Topbar/HBoxContainer/Logo container" node_paths=PackedStringArray("sidebar") instance=ExtResource("1_hhkn5")]
+[node name="Panel" parent="VBoxContainer/VBoxContainer/Topbar/HBoxContainer/Logo container" node_paths=PackedStringArray("sidebar") instance=ExtResource("1_0liei")]
 layout_mode = 2
 mouse_default_cursor_shape = 2
-script = ExtResource("2_2r2vf")
+script = ExtResource("2_gy8ky")
 sidebar = NodePath("../../../../../HBoxContainer/Sidebar")
 
 [node name="Logedin container" type="HBoxContainer" parent="VBoxContainer/VBoxContainer/Topbar/HBoxContainer"]
@@ -74,7 +73,7 @@ theme_override_colors/default_color = Color(0, 0, 0, 1)
 text = "Logged in as: "
 fit_content = true
 autowrap_mode = 0
-script = ExtResource("3_qgp5o")
+script = ExtResource("3_bttne")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
@@ -107,14 +106,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Main screen" type="HBoxContainer" parent="VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 size_flags_horizontal = 3
-
-[node name="Button" type="Button" parent="VBoxContainer/HBoxContainer/Main screen"]
-layout_mode = 2
-size_flags_horizontal = 2
-text = "Extraction trainer"
-script = ExtResource("4_gmtir")
 
 [connection signal="gui_input" from="VBoxContainer/VBoxContainer/Topbar/HBoxContainer/Logo container/Panel" to="VBoxContainer/VBoxContainer/Topbar/HBoxContainer/Logo container/Panel" method="_on_gui_input"]
