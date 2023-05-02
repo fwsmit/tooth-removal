@@ -4,7 +4,7 @@ import argparse
 import matplotlib.pyplot as plt
 from xdg_base_dirs import xdg_data_home
 from scipy.interpolate import CubicSpline
-import scipy
+from scipy.ndimage import uniform_filter1d
 import matplotlib
 import numpy as np
 
@@ -21,11 +21,14 @@ def split_vectors(forces):
         zs.append(float(f_s[2]))
     return xs, ys, zs
 
+def merge_vectors(x, y, z):
+    return np.concatenate([x,y,z], axis=0)
+
 # Return length of all vectors in array
 def vectors_mag(vectors):
     mags = []
     for v in vectors:
-        abs_vectors.append(np.linalg.norm(v))
+        mags.append(np.linalg.norm(v))
 
     return mags
 
@@ -35,11 +38,11 @@ def find_starting_point(force, torque):
 
     # Find moving average
     filter_size = 10
-    f_filt = scipy.ndimage.uniform_filter1d(abs_force, filter_size)
-    t_filt = scipy.ndimage.uniform_filter1d(abs_torque, filter_size)
+    f_filt = uniform_filter1d(abs_force, filter_size)
+    t_filt = uniform_filter1d(abs_torque, filter_size)
     
-    f_tresh = 2
-    t_tresh = 0.5
+    f_tresh = 1
+    t_tresh = 0.2
 
     i_f = np.argwhere(f_filt > f_tresh)[0]
     i_t = np.argwhere(t_filt > t_tresh)[0]
@@ -62,7 +65,6 @@ def plot_vectors(axis, vectors, _title, duration, points=None):
 
     if points:
         for p in points:
-            print(cs(p))
             t = p / len(vectors) * duration
             axis.plot(t, cs(p), marker="o")
 
@@ -90,6 +92,9 @@ def show_file_stats(filename):
         torque_z = fix_vector(torque_z, duration)
     fig, ax = plt.subplots(2,3, sharex='col', sharey='row')
 
+    forces = merge_vectors(force_x, force_y, force_z)
+    torques = merge_vectors(torque_x, torque_y, torque_z)
+
     arguments = [
             [ax[0][0],force_x, "Force (x)"],
             [ax[0][1],force_y, "Force (y)"],
@@ -103,8 +108,10 @@ def show_file_stats(filename):
     for a in ax[1]:
         a.set_xlabel("Time (s)")
 
+    start = find_starting_point(forces, torques)
+
     for a in arguments:
-        plot_vectors(a[0], a[1], a[2], duration)
+        plot_vectors(a[0], a[1], a[2], duration, [start])
         a[0].title.set_text(a[2])
     fig.tight_layout()
     plt.show()
@@ -161,6 +168,6 @@ if args.filename is not None:
     show_file_stats(args.filename)
     exit(0)
 
-fileIndex = 2
+fileIndex = 4
 
 show_file_stats(possible_files[fileIndex])
