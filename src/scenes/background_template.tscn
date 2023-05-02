@@ -1,0 +1,112 @@
+[gd_scene load_steps=4 format=3 uid="uid://brhgcg6fcqdmb"]
+
+[ext_resource type="PackedScene" uid="uid://cto4jgqgmwgrd" path="res://scenes/Togglebutton.tscn" id="1_0liei"]
+[ext_resource type="Script" path="res://scripts/Dashboard/Togglebutton.gd" id="2_gy8ky"]
+[ext_resource type="Script" path="res://scripts/Common/showLoggedInAs.gd" id="3_bttne"]
+
+[node name="Main" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+
+[node name="Topbar" type="ColorRect" parent="VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+color = Color(0.172549, 0.643137, 0.980392, 1)
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/VBoxContainer/Topbar"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 12.0
+offset_top = -20.0
+offset_right = -12.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Logo container" type="HBoxContainer" parent="VBoxContainer/VBoxContainer/Topbar/HBoxContainer"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+
+[node name="Panel" parent="VBoxContainer/VBoxContainer/Topbar/HBoxContainer/Logo container" node_paths=PackedStringArray("sidebar") instance=ExtResource("1_0liei")]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+script = ExtResource("2_gy8ky")
+sidebar = NodePath("../../../../../HBoxContainer/Sidebar")
+
+[node name="Logedin container" type="HBoxContainer" parent="VBoxContainer/VBoxContainer/Topbar/HBoxContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="VBoxContainer/VBoxContainer/Topbar/HBoxContainer/Logedin container"]
+layout_mode = 2
+size_flags_horizontal = 10
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+text = "Logged in as: "
+fit_content = true
+autowrap_mode = 0
+script = ExtResource("3_bttne")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Sidebar" type="HBoxContainer" parent="VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(56, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 3
+
+[node name="sidebar" type="ColorRect" parent="VBoxContainer/HBoxContainer/Sidebar"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0.85098, 0.85098, 0.85098, 1)
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/HBoxContainer/Sidebar/sidebar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/Sidebar/sidebar/ScrollContainer"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Main screen" type="HBoxContainer" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[connection signal="gui_input" from="VBoxContainer/VBoxContainer/Topbar/HBoxContainer/Logo container/Panel" to="VBoxContainer/VBoxContainer/Topbar/HBoxContainer/Logo container/Panel" method="_on_gui_input"]
