@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://3s334dh8rkfu"
-path="res://.godot/imported/Rectangle 1.svg-3bf3cd35c6a9d59aa316ee7c4a918daf.ctex"
+uid="uid://dnac3j3op7w05"
+path="res://.godot/imported/Subtract (6).png-27f9de332f8ea7c0f1b0aa89f0dc0d86.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Rectangle 1.svg"
-dest_files=["res://.godot/imported/Rectangle 1.svg-3bf3cd35c6a9d59aa316ee7c4a918daf.ctex"]
+source_file="res://assets/Figures/Subtract (6).png"
+dest_files=["res://.godot/imported/Subtract (6).png-27f9de332f8ea7c0f1b0aa89f0dc0d86.ctex"]
 
 [params]
 
@@ -32,6 +32,3 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
-svg/scale=1.0
-editor/scale_with_editor_scale=false
-editor/convert_colors_with_editor_theme=false

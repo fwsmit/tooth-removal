@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dnac3j3op7w05"
-path="res://.godot/imported/Subtract (6).png-1a0c7f8a1f541dad13b9573706ab2bde.ctex"
+uid="uid://jn2edbaf0g6y"
+path="res://.godot/imported/connected.svg-a791308c220bebdfdeb4ba483dfb30a6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Subtract (6).png"
-dest_files=["res://.godot/imported/Subtract (6).png-1a0c7f8a1f541dad13b9573706ab2bde.ctex"]
+source_file="res://assets/Figures/connected.svg"
+dest_files=["res://.godot/imported/connected.svg-a791308c220bebdfdeb4ba483dfb30a6.ctex"]
 
 [params]
 
@@ -32,3 +32,6 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
+svg/scale=1.0
+editor/scale_with_editor_scale=false
+editor/convert_colors_with_editor_theme=false
