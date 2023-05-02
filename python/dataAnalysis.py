@@ -22,7 +22,7 @@ def split_vectors(forces):
     return xs, ys, zs
 
 def merge_vectors(x, y, z):
-    return np.concatenate([x,y,z], axis=0)
+    return np.column_stack([x,y,z])
 
 # Return length of all vectors in array
 def vectors_mag(vectors):
@@ -32,21 +32,21 @@ def vectors_mag(vectors):
 
     return mags
 
-def find_starting_point(force, torque):
-    abs_force = vectors_mag(force) 
-    abs_torque = vectors_mag(torque) 
+def find_start_end_from_vec(vec, threshold):
+    abs_vec = vectors_mag(vec) 
 
     # Find moving average
     filter_size = 10
-    f_filt = uniform_filter1d(abs_force, filter_size)
-    t_filt = uniform_filter1d(abs_torque, filter_size)
+    filtered = uniform_filter1d(abs_vec, filter_size)
     
-    f_tresh = 1
-    t_tresh = 0.2
+    greater = np.argwhere(filtered > threshold)
 
-    i_f = np.argwhere(f_filt > f_tresh)[0]
-    i_t = np.argwhere(t_filt > t_tresh)[0]
-    return (i_f + i_t)/2
+    return greater[0], greater[-1]
+
+def find_starting_point(force, torque):
+    force_start, force_end = find_start_end_from_vec(force, 1)
+    torque_start, torque_end = find_start_end_from_vec(torque, 0.2)
+    return (force_start + torque_start)/2, (force_end + torque_end) / 2
 
 def fix_vector(vectors, duration):
     num_samples_per_second = 990 # rough guess
@@ -108,10 +108,10 @@ def show_file_stats(filename):
     for a in ax[1]:
         a.set_xlabel("Time (s)")
 
-    start = find_starting_point(forces, torques)
+    start, end = find_starting_point(forces, torques)
 
     for a in arguments:
-        plot_vectors(a[0], a[1], a[2], duration, [start])
+        plot_vectors(a[0], a[1], a[2], duration, [start, end])
         a[0].title.set_text(a[2])
     fig.tight_layout()
     plt.show()
