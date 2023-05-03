@@ -13,6 +13,7 @@ var raw_forces = []
 var raw_torques = []
 var corrected_forces = []
 var corrected_torques = []
+var clinical_directions = null
 var startTimestamp = -1 # start of extraction
 var endTimestamp = -1 # end of extraction
 
