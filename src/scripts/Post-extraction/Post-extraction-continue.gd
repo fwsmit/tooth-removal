@@ -3,6 +3,7 @@ extends Button
 @export var forceps_slipped_checkbox : CheckBox 
 @export var element_fractured_checkbox : CheckBox 
 @export var expoxy_failed_checkbox : CheckBox
+@export var non_representative_checkbox : CheckBox
 @export var post_extraction_notes_field : TextEdit 
 
 func generate_filename(timestamp: int):
@@ -33,6 +34,7 @@ func save_extraction_to_file():
 		"forceps_slipped": Global.forceps_slipped,
 		"element_fractured": Global.element_fractured,
 		"epoxy_failed": Global.epoxy_failed,
+		"nonrepresentative": Global.non_representative,
 		"post_extraction_notes": Global.post_extraction_notes,
 		"person_type": Global.loggedInAs,
 		"start_timestamp": Global.startTimestamp,
@@ -77,7 +79,12 @@ func _pressed():
 	Global.forceps_slipped = forceps_slipped_checkbox.button_pressed
 	Global.element_fractured = element_fractured_checkbox.button_pressed
 	Global.epoxy_failed = expoxy_failed_checkbox.button_pressed
+	Global.non_representative = non_representative_checkbox.button_pressed
 	Global.post_extraction_notes = post_extraction_notes_field.text
-	save_extraction_to_file()
+
+	# Do not store extraction data for demo user
+	if Global.loggedInAs != "Demo":
+		save_extraction_to_file()
+
 	Global.reset_extraction_data()
 	Global.goto_scene("res://scenes/dashboard.tscn")
