@@ -51,7 +51,10 @@ func getExtractionDict():
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	extractionDict = getExtractionDict()
+	if Global.extractionDict == null:
+		extractionDict = getExtractionDict()
+	else:
+		extractionDict = Global.extractionDict
 	updateText()
 
 

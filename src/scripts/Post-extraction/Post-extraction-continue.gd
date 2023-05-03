@@ -59,12 +59,15 @@ func save_extraction_to_file():
 		"raw_torques_y": fl_raw_torques[1],
 		"raw_torques_z": fl_raw_torques[2],
 	}
+	Global.extractionDict = extraction_data
 	var json_data = JSON.stringify(extraction_data, "\t")
 	
 	# Stores file in user data directory 
 	# see https://docs.godotengine.org/en/latest/tutorials/io/data_paths.html#doc-data-paths
-	var save_file = FileAccess.open("user://extraction_data_"+filename+".json", FileAccess.WRITE)
+	var filepath = "user://extraction_data_"+filename+".json"
+	var save_file = FileAccess.open(filepath, FileAccess.WRITE)
 	save_file.store_line(json_data)
+	return filename + ".json"
 
 # Called when the node enters the scene tree for the first time.
 func _pressed():
@@ -72,6 +75,7 @@ func _pressed():
 	Global.element_fractured = element_fractured_checkbox.button_pressed
 	Global.epoxy_failed = expoxy_failed_checkbox.button_pressed
 	Global.post_extraction_notes = post_extraction_notes_field.text
-	save_extraction_to_file()
+	Global.selectedFile = save_extraction_to_file()
+	Global.fromExtraction = true
 	Global.reset_extraction_data()
-	Global.goto_scene("res://scenes/dashboard.tscn")
+	Global.goto_scene("res://scenes/show_extraction.tscn")
