@@ -3,8 +3,8 @@
 [ext_resource type="Script" path="res://scripts/Extraction/Sensor/data_user.gd" id="1_0ob14"]
 [ext_resource type="Script" path="res://scripts/Common/showLoggedInAs.gd" id="2_i4l7v"]
 [ext_resource type="Script" path="res://scripts/Extraction/ShowConnected.gd" id="3_ak075"]
-[ext_resource type="Texture2D" uid="uid://jn2edbaf0g6y" path="res://assets/connected.svg" id="4_uka1a"]
-[ext_resource type="Texture2D" uid="uid://bxtjqe348c13g" path="res://assets/disconnected.svg" id="5_egje7"]
+[ext_resource type="Texture2D" uid="uid://jn2edbaf0g6y" path="res://assets/Figures/connected.svg" id="4_uka1a"]
+[ext_resource type="Texture2D" uid="uid://bxtjqe348c13g" path="res://assets/Figures/disconnected.svg" id="5_egje7"]
 [ext_resource type="Script" path="res://scripts/Extraction/Extraction_finished.gd" id="6_msgkl"]
 [ext_resource type="Script" path="res://scripts/Extraction/DebugButton.gd" id="7_jhp4k"]
 [ext_resource type="FontFile" uid="uid://w6rhidxui6pe" path="res://assets/NotoSansMono-Regular.ttf" id="7_pt815"]
@@ -99,11 +99,11 @@ script = ExtResource("7_jhp4k")
 debugText = NodePath("DebugInfo")
 
 [node name="DebugInfo" type="RichTextLabel" parent="DebugButton"]
-visible = false
 layout_mode = 0
-offset_top = -77.0
-offset_right = 439.0
-offset_bottom = -4.0
+offset_left = 6.0
+offset_top = -232.0
+offset_right = 445.0
+offset_bottom = -13.0
 theme_override_fonts/normal_font = ExtResource("7_pt815")
 text = "Debug info
 a
@@ -122,5 +122,6 @@ script = ExtResource("10_dbgyb")
 [connection signal="connected" from="CSGBox3D" to="MarginContainer" method="showConnected"]
 [connection signal="connected" from="CSGBox3D" to="DebugButton/DebugInfo" method="on_sensor_connected"]
 [connection signal="data" from="CSGBox3D" to="DebugButton/DebugInfo" method="receiveData"]
+[connection signal="directions" from="CSGBox3D" to="DebugButton/DebugInfo" method="_on_csg_box_3d_directions"]
 [connection signal="disconnected" from="CSGBox3D" to="MarginContainer" method="showDisconnected"]
 [connection signal="disconnected" from="CSGBox3D" to="DebugButton/DebugInfo" method="on_sensor_disconnected"]

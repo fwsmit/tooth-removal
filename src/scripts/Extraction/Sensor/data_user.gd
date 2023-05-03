@@ -11,6 +11,7 @@ var _client: Client = Client.new()
 signal connected
 signal disconnected
 signal data
+signal directions
 
 func _ready() -> void:
 	_client.connect("connected",Callable(self,"_handle_client_connected"))
@@ -100,8 +101,9 @@ func _handle_client_data(force, torque) -> void:
 	Global.corrected_torques.append(torque)
 	
 	# Order forces and torques in various directions
-	var directions = type_force_torque(Global.selectedQuadrant, Global.selectedTooth, force, torque)
-	
+	var directions = type_force_torque(Global.selectedQuadrant, Global.selectedTooth, force, torque*10)
+	emit_signal("directions", directions)
+	Global.clinical_directions = directions
 	# Convert to numbers around 1
 	force = force / 40
 	torque = torque / 3
