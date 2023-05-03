@@ -1,10 +1,12 @@
-[gd_scene load_steps=4 format=3 uid="uid://do5vjdc1ihsdr"]
+[gd_scene load_steps=6 format=3 uid="uid://cos6revlxl42h"]
 
 [ext_resource type="Script" path="res://scripts/Dashboard/Dashboard_button_extraction.gd" id="1_k8jc2"]
+[ext_resource type="PackedScene" uid="uid://cto4jgqgmwgrd" path="res://scenes/Togglebutton.tscn" id="1_u3com"]
 [ext_resource type="Script" path="res://scripts/Common/showLoggedInAs.gd" id="2_6ey11"]
+[ext_resource type="Script" path="res://scripts/Dashboard/Togglebutton.gd" id="2_l0wmj"]
 [ext_resource type="Script" path="res://scripts/Common/SceneLoader.gd" id="2_tqfgs"]
 
-[node name="Control2" type="Control"]
+[node name="Main" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -12,58 +14,129 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Background" type="ColorRect" parent="."]
-layout_mode = 2
-offset_right = 3000.0
-offset_bottom = 647.0
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
+grow_vertical = 2
 
-[node name="Top bar" type="ColorRect" parent="."]
-layout_mode = 2
-offset_right = 3000.0
-offset_bottom = 50.0
+[node name="Full screen" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Top bar" type="VBoxContainer" parent="Full screen"]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+
+[node name="Topbar" type="ColorRect" parent="Full screen/Top bar"]
+layout_mode = 2
+size_flags_vertical = 3
 color = Color(0.172549, 0.643137, 0.980392, 1)
 
-[node name="RichTextLabel" type="RichTextLabel" parent="."]
+[node name="HBoxContainer" type="HBoxContainer" parent="Full screen/Top bar/Topbar"]
 layout_mode = 1
-offset_left = 50.0
-offset_right = 250.0
-offset_bottom = 42.0
-theme_override_colors/default_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/normal_font_size = 30
-text = "Dashboard"
-fit_content = true
-
-[node name="Extraction trainer" type="Button" parent="."]
-layout_mode = 0
-offset_left = 100.0
-offset_top = 102.0
-offset_right = 350.0
-offset_bottom = 252.0
-text = "Extraction trainer"
-script = ExtResource("1_k8jc2")
-
-[node name="Previous extractions" type="Button" parent="."]
-layout_mode = 0
-offset_left = 441.0
-offset_top = 102.0
-offset_right = 691.0
-offset_bottom = 252.0
-text = "Previous extractions"
-script = ExtResource("2_tqfgs")
-sceneName = "previous-extractions.tscn"
-
-[node name="RichTextLabel2" type="RichTextLabel" parent="."]
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
+anchors_preset = 14
+anchor_top = 0.5
 anchor_right = 1.0
-offset_left = -177.0
-offset_bottom = 30.0
-grow_horizontal = 0
+anchor_bottom = 0.5
+offset_left = 12.0
+offset_top = -20.0
+offset_right = -12.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Logo container" type="HBoxContainer" parent="Full screen/Top bar/Topbar/HBoxContainer"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+
+[node name="Panel" parent="Full screen/Top bar/Topbar/HBoxContainer/Logo container" node_paths=PackedStringArray("sidebar") instance=ExtResource("1_u3com")]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+script = ExtResource("2_l0wmj")
+sidebar = NodePath("../../../../../Body/Sidebar")
+
+[node name="Logedin container" type="HBoxContainer" parent="Full screen/Top bar/Topbar/HBoxContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="Full screen/Top bar/Topbar/HBoxContainer/Logedin container"]
+layout_mode = 2
+size_flags_horizontal = 10
 theme_override_colors/default_color = Color(0, 0, 0, 1)
 text = "Logged in as: "
 fit_content = true
 autowrap_mode = 0
 script = ExtResource("2_6ey11")
+
+[node name="Body" type="HBoxContainer" parent="Full screen"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Sidebar" type="HBoxContainer" parent="Full screen/Body"]
+custom_minimum_size = Vector2(56, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 3
+
+[node name="sidebar" type="ColorRect" parent="Full screen/Body/Sidebar"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0.85098, 0.85098, 0.85098, 1)
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Full screen/Body/Sidebar/sidebar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Full screen/Body/Sidebar/sidebar/ScrollContainer"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Main screen" type="HBoxContainer" parent="Full screen/Body"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Container button 1" type="MarginContainer" parent="Full screen/Body/Main screen"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_top = 100
+theme_override_constants/margin_right = 100
+theme_override_constants/margin_bottom = 100
+
+[node name="Extraction trainer" type="Button" parent="Full screen/Body/Main screen/Container button 1"]
+layout_mode = 2
+text = "Extraction trainer"
+script = ExtResource("1_k8jc2")
+
+[node name="Container button 2" type="MarginContainer" parent="Full screen/Body/Main screen"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_top = 100
+theme_override_constants/margin_right = 100
+theme_override_constants/margin_bottom = 100
+
+[node name="Previous extractions" type="Button" parent="Full screen/Body/Main screen/Container button 2"]
+layout_mode = 2
+text = "Previous extractions"
+script = ExtResource("2_tqfgs")
+sceneName = "previous-extractions.tscn"
+
+[connection signal="gui_input" from="Full screen/Top bar/Topbar/HBoxContainer/Logo container/Panel" to="Full screen/Top bar/Topbar/HBoxContainer/Logo container/Panel" method="_on_gui_input"]

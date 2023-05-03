@@ -2,6 +2,7 @@ extends RichTextLabel
 
 var force = null
 var torque = null
+var directions = null
 var connected = false
 
 var timerStarted = false
@@ -11,7 +12,10 @@ func receiveData(_force, _torque):
 	force = _force
 	torque = _torque
 
-func on_sensor_connected():
+func _on_csg_box_3d_directions(_directions):
+	directions = _directions
+
+func on_sensor_connected():	
 	connected = true
 
 func on_sensor_disconnected():
@@ -43,7 +47,13 @@ func updateText():
 	text += "Force: " + vec_to_string(force) + "\n"
 	text += "Torque: " + vec_to_string(torque) + "\n"
 	text += "Connected: " + str(connected) + "\n"
-
+	if directions != null:
+		text += "buccal/lingual: " + num_to_string_padded(directions[0]['buccal/lingual'])  + "\n"
+		text += "mesial/distal: " + num_to_string_padded(directions[0]['mesial/distal']) + "\n"
+		text += "extrusion/intrusion: " + num_to_string_padded(directions[0]['extrusion/intrusion']) + "\n"
+		text += "mesial/distal angulation: " + num_to_string_padded(directions[1]['mesial/distal angulation']) + "\n"
+		text += "bucco/linguoversion: " + num_to_string_padded(directions[1]['bucco/linguoversion']) + "\n"
+		text += "mesiobuccal/lingual: " + num_to_string_padded(directions[1]['mesiobuccal/lingual']) + "\n"
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if not timerStarted:
@@ -52,3 +62,6 @@ func _process(delta):
 		await get_tree().create_timer(updateDelaySeconds).timeout
 		updateText()
 		timerStarted = false
+
+
+
