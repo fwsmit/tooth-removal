@@ -1,12 +1,12 @@
-[gd_scene load_steps=15 format=3 uid="uid://cnu4bkdspar6m"]
+[gd_scene load_steps=15 format=3 uid="uid://dcsb7lavmwhr1"]
 
 [ext_resource type="Script" path="res://scripts/Extraction/Sensor/data_user.gd" id="1_vu16l"]
-[ext_resource type="PackedScene" uid="uid://dv5q83it48w5j" path="res://scenes/Togglebutton.tscn" id="2_llarb"]
+[ext_resource type="PackedScene" uid="uid://cto4jgqgmwgrd" path="res://scenes/Togglebutton.tscn" id="2_llarb"]
 [ext_resource type="Script" path="res://scripts/Dashboard/Togglebutton.gd" id="3_g0m3n"]
 [ext_resource type="Script" path="res://scripts/Common/showLoggedInAs.gd" id="4_1kkys"]
-[ext_resource type="Script" path="res://scripts/Extraction/radial_meter.gd" id="5_4c24j"]
-[ext_resource type="Texture2D" uid="uid://dnac3j3op7w05" path="res://assets/Figures/Subtract (6).png" id="6_vm2lo"]
-[ext_resource type="Texture2D" uid="uid://3s334dh8rkfu" path="res://assets/Figures/Rectangle 1.svg" id="7_ubsly"]
+[ext_resource type="Texture2D" uid="uid://m01wmoh8ftqy" path="res://assets/Figures/Subtract (8).png" id="5_6wcuc"]
+[ext_resource type="Script" path="res://scripts/Extraction/Node2D.gd" id="6_sp883"]
+[ext_resource type="Texture2D" uid="uid://dwtc21ukm1qev" path="res://assets/Figures/Group 4 (1).png" id="7_l0rmo"]
 [ext_resource type="Script" path="res://scripts/Extraction/DebugButton.gd" id="8_dqdr0"]
 [ext_resource type="FontFile" uid="uid://w6rhidxui6pe" path="res://assets/NotoSansMono-Regular.ttf" id="9_ickr0"]
 [ext_resource type="Script" path="res://scripts/Extraction/DebugInfo.gd" id="10_tfsdg"]
@@ -15,20 +15,17 @@
 [ext_resource type="Texture2D" uid="uid://bxtjqe348c13g" path="res://assets/Figures/disconnected.svg" id="13_t2tbb"]
 [ext_resource type="Script" path="res://scripts/Extraction/Extraction_finished.gd" id="14_i783s"]
 
-[node name="Node3D2" type="Node3D"]
-
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(-4.37114e-08, -0.603208, 0.797584, 0, 0.797584, 0.603208, -1, 2.63671e-08, -3.48635e-08, 4.979, 3.748, 0)
-
-[node name="CSGBox3D" type="CSGBox3D" parent="."]
-script = ExtResource("1_vu16l")
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.022199, -0.788643, 0.61445, -9.77091e-09, 0.614602, 0.788838, -0.999754, 0.0175114, -0.0136435, -7.39606, 5.13621, 2.08942)
-light_energy = 1.914
+[node name="Node3D2" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 custom_minimum_size = Vector2(400, 56)
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -119,32 +116,89 @@ size_flags_horizontal = 3
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer"]
-custom_minimum_size = Vector2(400, 0)
+[node name="GridContainer" type="GridContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="3D box container" type="MarginContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Node3D" type="Node3D" parent="VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer/GridContainer/3D box container"]
+
+[node name="Camera3D" type="Camera3D" parent="VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer/GridContainer/3D box container/Node3D"]
+transform = Transform3D(-4.37114e-08, -0.603208, 0.797584, 0, 0.797584, 0.603208, -1, 2.63671e-08, -3.48635e-08, 4.979, 3.748, 0)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer/GridContainer/3D box container/Node3D"]
+script = ExtResource("1_vu16l")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer/GridContainer/3D box container/Node3D"]
+transform = Transform3D(-0.022199, -0.788643, 0.614451, -9.77091e-09, 0.614602, 0.788837, -0.999754, 0.0175114, -0.0136436, -7.39606, 5.13621, 2.08942)
+light_energy = 1.914
+
+[node name="Axis 1" type="MarginContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer/GridContainer"]
+custom_minimum_size = Vector2(0, 180)
+layout_mode = 2
+size_flags_horizontal = 10
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer/GridContainer/Axis 1"]
+layout_mode = 2
+texture = ExtResource("5_6wcuc")
+expand_mode = 3
+stretch_mode = 4
+
+[node name="Node2D" type="Node2D" parent="VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer/GridContainer/Axis 1"]
+position = Vector2(172, 170.5)
+script = ExtResource("6_sp883")
+
+[node name="Sprite2D" type="Sprite2D" parent="VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer/GridContainer/Axis 1/Node2D"]
+position = Vector2(0, -79.75)
+scale = Vector2(0.627049, 0.905714)
+texture = ExtResource("7_l0rmo")
+
+[node name="Axis 2" type="MarginContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer/GridContainer"]
+custom_minimum_size = Vector2(0, 180)
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 10
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer/GridContainer/Axis 2"]
+layout_mode = 2
+texture = ExtResource("5_6wcuc")
+expand_mode = 3
+stretch_mode = 4
+
+[node name="Axis 3" type="MarginContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer/GridContainer"]
+custom_minimum_size = Vector2(0, 180)
 layout_mode = 2
 size_flags_horizontal = 8
+size_flags_vertical = 10
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer/HBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer/GridContainer/Axis 3"]
 layout_mode = 2
-size_flags_horizontal = 3
+texture = ExtResource("5_6wcuc")
+expand_mode = 3
+stretch_mode = 4
 
-[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer/HBoxContainer/VBoxContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer/GridContainer"]
+visible = false
+custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
-size_flags_vertical = 3
-theme_override_constants/margin_left = 20
-theme_override_constants/margin_top = 20
-theme_override_constants/margin_right = 20
-theme_override_constants/margin_bottom = 20
-script = ExtResource("5_4c24j")
-
-[node name="Subtract(6)" type="Sprite2D" parent="VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer/HBoxContainer/VBoxContainer/MarginContainer"]
-position = Vector2(200, 133)
-texture = ExtResource("6_vm2lo")
-
-[node name="Rectangle1" type="Sprite2D" parent="VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer/HBoxContainer/VBoxContainer/MarginContainer"]
-position = Vector2(205, 39)
-scale = Vector2(0.421052, 0.294304)
-texture = ExtResource("7_ubsly")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
@@ -211,9 +265,9 @@ size_flags_vertical = 8
 text = "Finished extraction"
 script = ExtResource("14_i783s")
 
-[connection signal="connected" from="CSGBox3D" to="VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/DebugButton/DebugInfo" method="on_sensor_connected"]
-[connection signal="connected" from="CSGBox3D" to="VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/MarginContainer" method="showConnected"]
-[connection signal="data" from="CSGBox3D" to="VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/DebugButton/DebugInfo" method="receiveData"]
-[connection signal="disconnected" from="CSGBox3D" to="VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/DebugButton/DebugInfo" method="on_sensor_disconnected"]
-[connection signal="disconnected" from="CSGBox3D" to="VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/MarginContainer" method="showDisconnected"]
 [connection signal="gui_input" from="VBoxContainer/VBoxContainer/Topbar/HBoxContainer/Logo container/Panel" to="VBoxContainer/VBoxContainer/Topbar/HBoxContainer/Logo container/Panel" method="_on_gui_input"]
+[connection signal="connected" from="VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer/GridContainer/3D box container/Node3D/CSGBox3D" to="VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/DebugButton/DebugInfo" method="on_sensor_connected"]
+[connection signal="connected" from="VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer/GridContainer/3D box container/Node3D/CSGBox3D" to="VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/MarginContainer" method="showConnected"]
+[connection signal="data" from="VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer/GridContainer/3D box container/Node3D/CSGBox3D" to="VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/DebugButton/DebugInfo" method="receiveData"]
+[connection signal="disconnected" from="VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer/GridContainer/3D box container/Node3D/CSGBox3D" to="VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/DebugButton/DebugInfo" method="on_sensor_disconnected"]
+[connection signal="disconnected" from="VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer/GridContainer/3D box container/Node3D/CSGBox3D" to="VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/MarginContainer" method="showDisconnected"]
