@@ -72,6 +72,10 @@ func _pressed():
 	Global.element_fractured = element_fractured_checkbox.button_pressed
 	Global.epoxy_failed = expoxy_failed_checkbox.button_pressed
 	Global.post_extraction_notes = post_extraction_notes_field.text
-	save_extraction_to_file()
+
+	# Do not store extraction data for demo user
+	if Global.loggedInAs != "Demo":
+		save_extraction_to_file()
+
 	Global.reset_extraction_data()
 	Global.goto_scene("res://scenes/dashboard.tscn")
