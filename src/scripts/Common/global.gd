@@ -26,6 +26,8 @@ var non_representative = null
 
 # View extractions
 var selectedFile = "extraction_data_2023-04-26T10:09:01.json"
+var extractionDict = null
+var fromExtraction = false
 
 func _ready():
 	var root = get_tree().root

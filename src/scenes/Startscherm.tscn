@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/Startscherm/Startscherm.gd" id="1_52ic4"]
 
-[node name="Control" type="Control" node_paths=PackedStringArray("list", "loginButton")]
+[node name="Control2" type="Control" node_paths=PackedStringArray("list", "loginButton")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
