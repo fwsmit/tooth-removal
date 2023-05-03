@@ -30,128 +30,136 @@ bbcode_enabled = true
 text = "[center]Extractions[/center]"
 fit_content = true
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="HBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer2/ScrollContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer"]
 layout_mode = 2
 text = "Filters: "
 
-[node name="Quadrant" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="Quadrant" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/Quadrant"]
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer/Quadrant"]
 layout_mode = 2
 text = "Quadrant"
 horizontal_alignment = 1
 
-[node name="QuadrantContainer" type="GridContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/Quadrant"]
+[node name="QuadrantContainer" type="GridContainer" parent="MarginContainer/VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer/Quadrant"]
 layout_mode = 2
 columns = 2
 
-[node name="CheckBox" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer/Quadrant/QuadrantContainer"]
+[node name="CheckBox" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer/Quadrant/QuadrantContainer"]
 layout_mode = 2
 text = "Quadrant 1"
 
-[node name="CheckBox2" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer/Quadrant/QuadrantContainer"]
+[node name="CheckBox2" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer/Quadrant/QuadrantContainer"]
 layout_mode = 2
 text = "Quadrant 2"
 
-[node name="CheckBox3" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer/Quadrant/QuadrantContainer"]
+[node name="CheckBox3" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer/Quadrant/QuadrantContainer"]
 layout_mode = 2
 text = "Quadrant 3"
 
-[node name="CheckBox4" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer/Quadrant/QuadrantContainer"]
+[node name="CheckBox4" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer/Quadrant/QuadrantContainer"]
 layout_mode = 2
 text = "Quadrant 4"
 
-[node name="VSeparator" type="VSeparator" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="VSeparator" type="HSeparator" parent="MarginContainer/VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 4
 
-[node name="Tooth" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="Tooth" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/Tooth"]
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer/Tooth"]
 layout_mode = 2
 text = "Tooth"
 horizontal_alignment = 1
 
-[node name="ToothContainer" type="GridContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/Tooth"]
+[node name="ToothContainer" type="GridContainer" parent="MarginContainer/VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer/Tooth"]
 layout_mode = 2
-columns = 4
+columns = 2
 
-[node name="CheckBox" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer/Tooth/ToothContainer"]
+[node name="CheckBox" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer/Tooth/ToothContainer"]
 layout_mode = 2
 text = "Tooth 1"
 
-[node name="CheckBox2" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer/Tooth/ToothContainer"]
+[node name="CheckBox2" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer/Tooth/ToothContainer"]
 layout_mode = 2
 text = "Tooth 2"
 
-[node name="CheckBox3" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer/Tooth/ToothContainer"]
+[node name="CheckBox3" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer/Tooth/ToothContainer"]
 layout_mode = 2
 text = "Tooth 3"
 
-[node name="CheckBox4" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer/Tooth/ToothContainer"]
+[node name="CheckBox4" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer/Tooth/ToothContainer"]
 layout_mode = 2
 text = "Tooth 4"
 
-[node name="CheckBox5" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer/Tooth/ToothContainer"]
+[node name="CheckBox5" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer/Tooth/ToothContainer"]
 layout_mode = 2
 text = "Tooth 5"
 
-[node name="CheckBox6" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer/Tooth/ToothContainer"]
+[node name="CheckBox6" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer/Tooth/ToothContainer"]
 layout_mode = 2
 text = "Tooth 6"
 
-[node name="CheckBox7" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer/Tooth/ToothContainer"]
+[node name="CheckBox7" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer/Tooth/ToothContainer"]
 layout_mode = 2
 text = "Tooth 7"
 
-[node name="CheckBox8" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer/Tooth/ToothContainer"]
+[node name="CheckBox8" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer/Tooth/ToothContainer"]
 layout_mode = 2
 text = "Tooth 8"
 
-[node name="VSeparator2" type="VSeparator" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="VSeparator2" type="HSeparator" parent="MarginContainer/VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 4
 
-[node name="Person" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="Person" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/Person"]
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer/Person"]
 layout_mode = 2
 text = "Person"
 horizontal_alignment = 1
 
-[node name="PersonContainer" type="GridContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/Person"]
+[node name="PersonContainer" type="GridContainer" parent="MarginContainer/VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer/Person"]
 layout_mode = 2
-columns = 2
 
-[node name="CheckBox" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer/Person/PersonContainer"]
+[node name="CheckBox" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer/Person/PersonContainer"]
 layout_mode = 2
 text = "Student"
 
-[node name="CheckBox2" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer/Person/PersonContainer"]
+[node name="CheckBox2" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer/Person/PersonContainer"]
 layout_mode = 2
 text = "Kaakchirurg in opleiding"
 
-[node name="CheckBox3" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer/Person/PersonContainer"]
+[node name="CheckBox3" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer/Person/PersonContainer"]
 layout_mode = 2
 text = "Tandarts"
 
-[node name="CheckBox4" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer/Person/PersonContainer"]
+[node name="CheckBox4" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer/Person/PersonContainer"]
 layout_mode = 2
 text = "Kaakchirurg"
 
-[node name="ExtractionList" type="ItemList" parent="MarginContainer/VBoxContainer" node_paths=PackedStringArray("quadrantFilter", "toothFilter", "personFilter")]
+[node name="ExtractionList" type="ItemList" parent="MarginContainer/VBoxContainer/HBoxContainer2" node_paths=PackedStringArray("quadrantFilter", "toothFilter", "personFilter")]
 layout_mode = 2
+size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("1_xsj6f")
-quadrantFilter = NodePath("../HBoxContainer/Quadrant/QuadrantContainer")
-toothFilter = NodePath("../HBoxContainer/Tooth/ToothContainer")
-personFilter = NodePath("../HBoxContainer/Person/PersonContainer")
+quadrantFilter = NodePath("../ScrollContainer/HBoxContainer/Quadrant/QuadrantContainer")
+toothFilter = NodePath("../ScrollContainer/HBoxContainer/Tooth/ToothContainer")
+personFilter = NodePath("../ScrollContainer/HBoxContainer/Person/PersonContainer")
 
 [node name="Button" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
