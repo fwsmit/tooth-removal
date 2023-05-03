@@ -1,4 +1,4 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene load_steps=2 format=3 uid="uid://cvgux0fbx45wo"]
 
 [ext_resource type="Script" path="res://scripts/Post-extraction/Post-extraction-continue.gd" id="1_77q5u"]
 
@@ -51,11 +51,7 @@ layout_mode = 2
 size_flags_vertical = 3
 placeholder_text = "Notes"
 
-[node name="Continue" type="Button" parent="JawSelection/VBoxContainer" node_paths=PackedStringArray("forceps_slipped_checkbox", "element_fractured_checkbox", "expoxy_failed_checkbox", "post_extraction_notes_field")]
+[node name="Continue" type="Button" parent="JawSelection/VBoxContainer"]
 layout_mode = 2
 text = "Continue"
 script = ExtResource("1_77q5u")
-forceps_slipped_checkbox = NodePath("../ForcepsSlipped")
-element_fractured_checkbox = NodePath("../ElementFractured")
-expoxy_failed_checkbox = NodePath("../Expoxy failed")
-post_extraction_notes_field = NodePath("../PostExtractionNotes")
