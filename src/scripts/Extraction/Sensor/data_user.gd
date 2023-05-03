@@ -14,6 +14,8 @@ signal data
 signal directions
 
 func _ready() -> void:
+	var test_t =  Vector3(0, -1, 0)
+	var test_k = 4
 	_client.connect("connected",Callable(self,"_handle_client_connected"))
 	_client.connect("disconnected",Callable(self,"_handle_client_disconnected"))
 	_client.connect("error",Callable(self,"_handle_client_error"))
@@ -21,7 +23,10 @@ func _ready() -> void:
 	add_child(_client)
 	_client.connect_to_host(HOST, PORT)
 	Global.startTimestamp = Time.get_unix_time_from_system()
-
+	print('mesial/distal angulation = ',type_force_torque(test_k, 1, Vector3(0, 0, 0), test_t)[1]['mesial/distal angulation'])
+	print('bucco/linguoversion = ',type_force_torque(test_k, 1, Vector3(0, 0, 0), test_t)[1]['bucco/linguoversion'])
+	print('mesiobuccal/lingual = ',type_force_torque(test_k, 1, Vector3(0, 0, 0), test_t)[1]['mesiobuccal/lingual'])
+	
 func _connect_after_timeout(timeout: float) -> void:
 	await get_tree().create_timer(timeout).timeout # Delay for timeout
 	_client.connect_to_host(HOST, PORT)
@@ -66,25 +71,27 @@ func type_force_torque(kwadrant, tand, force, torque):
 	if kwadrant == 1 or kwadrant == 2:
 		directions[0]['buccal/lingual'] = force.y
 		directions[0]['extrusion/intrusion'] = force.x
-		directions[1]['mesial/distal angulation'] = torque.y
-		directions[1]['mesiobuccal/lingual'] = torque.x
+		directions[1]['bucco/linguoversion'] = torque.z
 		if kwadrant == 1:
 			directions[0]['mesial/distal'] = -force.z
-			directions[1]['bucco/linguoversion'] = -torque.z
+			directions[1]['mesial/distal angulation'] = torque.y
+			directions[1]['mesiobuccal/lingual'] = torque.x
 		if kwadrant == 2:
 			directions[0]['mesial/distal'] = force.z
-			directions[1]['bucco/linguoversion'] = torque.z
+			directions[1]['mesial/distal angulation'] = -torque.y
+			directions[1]['mesiobuccal/lingual'] = -torque.x
 	if kwadrant == 3 or kwadrant == 4:
 		directions[0]['buccal/lingual'] = force.x
 		directions[0]['extrusion/intrusion'] = force.y
-		directions[1]['mesial/distal angulation'] = torque.x
-		directions[1]['mesiobuccal/lingual'] = torque.y
+		directions[1]['bucco/linguoversion'] = -torque.z
 		if kwadrant == 3:
 			directions[0]['mesial/distal'] = force.z
-			directions[1]['bucco/linguoversion'] = torque.z
+			directions[1]['mesial/distal angulation'] = torque.x
+			directions[1]['mesiobuccal/lingual'] = torque.y
 		if kwadrant == 4:
 			directions[0]['mesial/distal'] = -force.z
-			directions[1]['bucco/linguoversion'] = -torque.z
+			directions[1]['mesial/distal angulation'] = -torque.x
+			directions[1]['mesiobuccal/lingual'] = -torque.y
 	return directions
 
 func _handle_client_data(force, torque) -> void:
@@ -101,7 +108,7 @@ func _handle_client_data(force, torque) -> void:
 	Global.corrected_torques.append(torque)
 	
 	# Order forces and torques in various directions
-	var directions = type_force_torque(Global.selectedQuadrant, Global.selectedTooth, force, torque*10)
+	var directions = type_force_torque(Global.selectedQuadrant, Global.selectedTooth, force, torque)
 	emit_signal("directions", directions)
 	Global.clinical_directions = directions
 	# Convert to numbers around 1
