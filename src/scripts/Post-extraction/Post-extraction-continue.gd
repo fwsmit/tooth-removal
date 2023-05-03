@@ -3,6 +3,7 @@ extends Button
 @export var forceps_slipped_checkbox : CheckBox 
 @export var element_fractured_checkbox : CheckBox 
 @export var expoxy_failed_checkbox : CheckBox
+@export var non_representative_checkbox : CheckBox
 @export var post_extraction_notes_field : TextEdit 
 
 func generate_filename(timestamp: int):
@@ -33,6 +34,7 @@ func save_extraction_to_file():
 		"forceps_slipped": Global.forceps_slipped,
 		"element_fractured": Global.element_fractured,
 		"epoxy_failed": Global.epoxy_failed,
+		"nonrepresentative": Global.non_representative,
 		"post_extraction_notes": Global.post_extraction_notes,
 		"person_type": Global.loggedInAs,
 		"start_timestamp": Global.startTimestamp,
@@ -58,6 +60,12 @@ func save_extraction_to_file():
 		"raw_torques_x": fl_raw_torques[0],
 		"raw_torques_y": fl_raw_torques[1],
 		"raw_torques_z": fl_raw_torques[2],
+		"buccal/lingual": Global.clinical_directions[0]['buccal/lingual']
+		"mesial/distal": Global.clinical_directions[0]['mesial/distal']
+		"extrusion/intrusion": Global.clinical_directions[0]['extrusion/intrusion']
+		"mesial/distal angulation": Global.clinical_directions[1]['mesial/distal angulation']
+		"bucco/linguoversion": Global.clinical_directions[1]['bucco/linguoversion']
+		"mesiobuccal/lingual": Global.clinical_directions[1]['mesiobuccal/lingual']
 	}
 	Global.extractionDict = extraction_data
 	var json_data = JSON.stringify(extraction_data, "\t")
@@ -74,8 +82,14 @@ func _pressed():
 	Global.forceps_slipped = forceps_slipped_checkbox.button_pressed
 	Global.element_fractured = element_fractured_checkbox.button_pressed
 	Global.epoxy_failed = expoxy_failed_checkbox.button_pressed
+	Global.non_representative = non_representative_checkbox.button_pressed
 	Global.post_extraction_notes = post_extraction_notes_field.text
 	Global.selectedFile = save_extraction_to_file()
 	Global.fromExtraction = true
+
+	# Do not store extraction data for demo user
+	if Global.loggedInAs != "Demo":
+		save_extraction_to_file()
+
 	Global.reset_extraction_data()
 	Global.goto_scene("res://scenes/show_extraction.tscn")

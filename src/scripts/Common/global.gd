@@ -13,6 +13,7 @@ var raw_forces = []
 var raw_torques = []
 var corrected_forces = []
 var corrected_torques = []
+var clinical_directions = null
 var startTimestamp = -1 # start of extraction
 var endTimestamp = -1 # end of extraction
 
@@ -21,6 +22,7 @@ var forceps_slipped = null
 var element_fractured = null
 var epoxy_failed = null
 var post_extraction_notes = null
+var non_representative = null
 
 # View extractions
 var selectedFile = "extraction_data_2023-04-26T10:09:01.json"
@@ -74,6 +76,7 @@ func reset_extraction_data():
 	element_fractured = null
 	epoxy_failed = null
 	post_extraction_notes = null
+	non_representative = null
 
 func is_pre_extraction_data_valid():
 	return selectedQuadrant != null and \

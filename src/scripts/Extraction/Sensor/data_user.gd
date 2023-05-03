@@ -11,6 +11,7 @@ var _client: Client = Client.new()
 signal connected
 signal disconnected
 signal data
+signal directions
 
 func _ready() -> void:
 	_client.connect("connected",Callable(self,"_handle_client_connected"))
@@ -57,6 +58,35 @@ func vector_tand_frame(kwadrant, tand, vector):
 		vector = Vector3(cos(angle)*vector.x + sin(angle)*vector.z,vector.y, -sin(angle)*vector.x + cos(angle)*vector.z)
 	return vector
 
+# deze functie ordent de kracht en momentvectoren in de richtingen gedefinieerd in tandheelkunde. 
+# De eerstegnoemde is altijd positief, dus bij buccal lingual, geldt dat een positieve waarde in de buccale richting is
+func type_force_torque(kwadrant, tand, force, torque):
+	var directions = [{'buccal/lingual': 0, 'mesial/distal': 0, 'extrusion/intrusion': 0},\
+	{'mesial/distal angulation': 0, 'bucco/linguoversion': 0, 'mesiobuccal/lingual': 0}] # directions = [{forces}, {torques}]
+	if kwadrant == 1 or kwadrant == 2:
+		directions[0]['buccal/lingual'] = force.y
+		directions[0]['extrusion/intrusion'] = force.x
+		directions[1]['mesial/distal angulation'] = torque.y
+		directions[1]['mesiobuccal/lingual'] = torque.x
+		if kwadrant == 1:
+			directions[0]['mesial/distal'] = -force.z
+			directions[1]['bucco/linguoversion'] = -torque.z
+		if kwadrant == 2:
+			directions[0]['mesial/distal'] = force.z
+			directions[1]['bucco/linguoversion'] = torque.z
+	if kwadrant == 3 or kwadrant == 4:
+		directions[0]['buccal/lingual'] = force.x
+		directions[0]['extrusion/intrusion'] = force.y
+		directions[1]['mesial/distal angulation'] = torque.x
+		directions[1]['mesiobuccal/lingual'] = torque.y
+		if kwadrant == 3:
+			directions[0]['mesial/distal'] = force.z
+			directions[1]['bucco/linguoversion'] = torque.z
+		if kwadrant == 4:
+			directions[0]['mesial/distal'] = -force.z
+			directions[1]['bucco/linguoversion'] = -torque.z
+	return directions
+
 func _handle_client_data(force, torque) -> void:
 	emit_signal("data", force, torque)
 	Global.raw_forces.append(force)
@@ -66,12 +96,18 @@ func _handle_client_data(force, torque) -> void:
 	torque = convert_torque(torque, force, locatie)
 	torque = vector_tand_frame(Global.selectedQuadrant, Global.selectedTooth, torque)
 	force = vector_tand_frame(Global.selectedQuadrant, Global.selectedTooth, force)
+	
 	Global.corrected_forces.append(force)
 	Global.corrected_torques.append(torque)
+	
+	# Order forces and torques in various directions
+	var directions = type_force_torque(Global.selectedQuadrant, Global.selectedTooth, force, torque*10)
+	emit_signal("directions", directions)
+	Global.clinical_directions = directions
 	# Convert to numbers around 1
 	force = force / 40
 	torque = torque / 3
-#	
+	
 	transform.origin.x = force.x
 	transform.origin.y = force.y
 	transform.origin.z = force.z

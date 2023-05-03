@@ -4,6 +4,7 @@ import argparse
 import matplotlib.pyplot as plt
 from xdg_base_dirs import xdg_data_home
 from scipy.interpolate import CubicSpline
+from scipy.ndimage import uniform_filter1d
 import matplotlib
 import numpy as np
 
@@ -20,18 +21,52 @@ def split_vectors(forces):
         zs.append(float(f_s[2]))
     return xs, ys, zs
 
+def merge_vectors(x, y, z):
+    return np.column_stack([x,y,z])
+
+# Return length of all vectors in array
+def vectors_mag(vectors):
+    mags = []
+    for v in vectors:
+        mags.append(np.linalg.norm(v))
+
+    return mags
+
+def find_start_end_from_vec(vec, threshold):
+    abs_vec = vectors_mag(vec) 
+
+    # Find moving average
+    filter_size = 10
+    filtered = uniform_filter1d(abs_vec, filter_size)
+    
+    greater = np.argwhere(filtered > threshold)
+
+    return greater[0], greater[-1]
+
+def find_starting_point(force, torque):
+    force_start, force_end = find_start_end_from_vec(force, 1)
+    torque_start, torque_end = find_start_end_from_vec(torque, 0.2)
+    return (force_start + torque_start)/2, (force_end + torque_end) / 2
+
 def fix_vector(vectors, duration):
     num_samples_per_second = 990 # rough guess
     num_samples = round(duration * num_samples_per_second)
     return vectors[-num_samples:]
 
-def plot_vectors(axis, vectors, _title, duration):
+def plot_vectors(axis, vectors, _title, duration, points=None):
     x = range(len(vectors))
     n_points = 300
-    x_smooth = np.linspace(0, len(vectors)-1, n_points)  
+    x_smooth = np.linspace(0, len(vectors)-1, n_points)
+
     timelabel = np.linspace(0, duration, n_points)  
     cs = CubicSpline(x, vectors)
+
     axis.plot(timelabel, cs(x_smooth), label=_title)
+
+    if points:
+        for p in points:
+            t = p / len(vectors) * duration
+            axis.plot(t, cs(p), marker="o")
 
 def parse_json(filename):
     filepath = os.path.join(dataDir, filename)
@@ -57,6 +92,9 @@ def show_file_stats(filename):
         torque_z = fix_vector(torque_z, duration)
     fig, ax = plt.subplots(2,3, sharex='col', sharey='row')
 
+    forces = merge_vectors(force_x, force_y, force_z)
+    torques = merge_vectors(torque_x, torque_y, torque_z)
+
     arguments = [
             [ax[0][0],force_x, "Force (x)"],
             [ax[0][1],force_y, "Force (y)"],
@@ -70,8 +108,10 @@ def show_file_stats(filename):
     for a in ax[1]:
         a.set_xlabel("Time (s)")
 
+    start, end = find_starting_point(forces, torques)
+
     for a in arguments:
-        plot_vectors(a[0], a[1], a[2], duration)
+        plot_vectors(a[0], a[1], a[2], duration, [start, end])
         a[0].title.set_text(a[2])
     fig.tight_layout()
     plt.show()
@@ -128,6 +168,6 @@ if args.filename is not None:
     show_file_stats(args.filename)
     exit(0)
 
-fileIndex = 2
+fileIndex = 4
 
 show_file_stats(possible_files[fileIndex])
