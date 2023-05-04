@@ -53,13 +53,16 @@ def fix_vector(vectors, duration):
     num_samples = round(duration * num_samples_per_second)
     return vectors[-num_samples:]
 
-def plot_vectors(axis, vectors, _title, duration, points=None):
+def get_smoothened_line(vectors, n_points):
     x = range(len(vectors))
-    n_points = 300
     x_smooth = np.linspace(0, len(vectors)-1, n_points)
-
-    timelabel = np.linspace(0, duration, n_points)  
     cs = CubicSpline(x, vectors)
+    return x_smooth, cs
+
+def plot_vectors(axis, vectors, _title, duration, points=None):
+    n_points = 300
+    x_smooth, cs = get_smoothened_line(vectors, n_points)
+    timelabel = np.linspace(0, duration, n_points)  
 
     axis.plot(timelabel, cs(x_smooth), label=_title)
 
@@ -77,6 +80,7 @@ def show_file_stats(filename):
     propDic = parse_json(filename)
     duration = propDic["end_timestamp"] - propDic["start_timestamp"]
     print("Duration:", round(duration), "seconds")
+    print("Tooth:", propDic["tooth"])
     force_x, force_y, force_z = split_vectors(propDic["corrected_forces"])
     torque_x, torque_y, torque_z = split_vectors(propDic["corrected_torques"])
 
