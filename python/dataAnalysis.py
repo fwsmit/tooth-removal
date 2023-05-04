@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 from xdg_base_dirs import xdg_data_home
 from scipy.interpolate import CubicSpline
 from scipy.ndimage import uniform_filter1d
+from scipy.signal import find_peaks
 import matplotlib
 import numpy as np
 
@@ -59,12 +60,21 @@ def get_smoothened_line(vectors, n_points):
     cs = CubicSpline(x, vectors)
     return x_smooth, cs
 
-def plot_vectors(axis, vectors, _title, duration, points=None):
+def analyze_peaks(vectors):
+    peak_width_min = 1
+    prominence_min = 1
+    return find_peaks(vectors, width=peak_width_min, prominence=prominence_min)
+
+def plot_vectors(axis, vectors, _title, duration, points=None, showPeaks=False):
     n_points = 300
     x_smooth, cs = get_smoothened_line(vectors, n_points)
     timelabel = np.linspace(0, duration, n_points)  
 
     axis.plot(timelabel, cs(x_smooth), label=_title)
+
+    if showPeaks:
+        peaks, properties = analyze_peaks(vectors)
+        points.extend(peaks)
 
     if points:
         for p in points:
@@ -115,7 +125,7 @@ def show_file_stats(filename):
     start, end = find_starting_point(forces, torques)
 
     for a in arguments:
-        plot_vectors(a[0], a[1], a[2], duration, [start, end])
+        plot_vectors(a[0], a[1], a[2], duration, [start, end], True)
         a[0].title.set_text(a[2])
     fig.tight_layout()
     plt.show()
