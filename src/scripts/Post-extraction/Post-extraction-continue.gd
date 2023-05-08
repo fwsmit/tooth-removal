@@ -60,13 +60,18 @@ func save_extraction_to_file():
 		"raw_torques_x": fl_raw_torques[0],
 		"raw_torques_y": fl_raw_torques[1],
 		"raw_torques_z": fl_raw_torques[2],
+		
+	}
+	if Global.clinical_directions != null:
+		var directions = {
 		"buccal/lingual": Global.clinical_directions[0]['buccal/lingual'],
 		"mesial/distal": Global.clinical_directions[0]['mesial/distal'],
 		"extrusion/intrusion": Global.clinical_directions[0]['extrusion/intrusion'],
 		"mesial/distal angulation": Global.clinical_directions[1]['mesial/distal angulation'],
 		"bucco/linguoversion": Global.clinical_directions[1]['bucco/linguoversion'],
 		"mesiobuccal/lingual": Global.clinical_directions[1]['mesiobuccal/lingual'],
-	}
+		}
+		extraction_data.merge(directions)
 	Global.extractionDict = extraction_data
 	var json_data = JSON.stringify(extraction_data, "\t")
 	
