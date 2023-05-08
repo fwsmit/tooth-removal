@@ -90,13 +90,19 @@ def parse_json(filename):
     with open(filepath) as f:
         return json.load(f)
 
+def get_forces(dic):
+    return dic["corrected_forces_x"], dic["corrected_forces_y"], dic["corrected_forces_z"]
+
+def get_torques(dic):
+    return dic["corrected_torques_x"], dic["corrected_torques_y"], dic["corrected_torques_z"]
+
 def show_file_stats(filename):
     propDic = parse_json(filename)
     duration = propDic["end_timestamp"] - propDic["start_timestamp"]
     print("Duration:", round(duration), "seconds")
     print("Tooth:", propDic["tooth"])
-    force_x, force_y, force_z = split_vectors(propDic["corrected_forces"])
-    torque_x, torque_y, torque_z = split_vectors(propDic["corrected_torques"])
+    force_x, force_y, force_z = get_forces(propDic)
+    torque_x, torque_y, torque_z = get_torques(propDic)
 
     # Fix data collection error because of bug #24
     if len(force_x)/duration > 1000:
