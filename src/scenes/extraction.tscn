@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://b7e3ysukvljsy"]
+[gd_scene load_steps=13 format=3 uid="uid://b1tluf6bya11l"]
 
 [ext_resource type="Script" path="res://scripts/Extraction/Sensor/data_user.gd" id="1_0ob14"]
 [ext_resource type="Script" path="res://scripts/Common/showLoggedInAs.gd" id="2_i4l7v"]
