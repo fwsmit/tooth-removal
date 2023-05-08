@@ -82,3 +82,19 @@ func is_pre_extraction_data_valid():
 	return selectedQuadrant != null and \
 		selectedTooth != null and \
 		selectedType != null
+
+func get_avg_vector(n, vecs):
+	var total = Vector3.ZERO
+	if len(vecs) < n:
+		return Vector3.ZERO
+
+	for i in range(n):
+		total += vecs[-(i+1)]
+	return total/n
+
+# Get average force vector over last n sample points
+func get_avg_force(n):
+	return get_avg_vector(n, corrected_forces)
+
+func get_avg_torque(n):
+	return get_avg_vector(n, corrected_torques)

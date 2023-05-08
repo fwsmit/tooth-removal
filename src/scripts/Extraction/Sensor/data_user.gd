@@ -101,22 +101,29 @@ func _handle_client_data(force, torque) -> void:
 	
 	Global.corrected_forces.append(force)
 	Global.corrected_torques.append(torque)
-	
+
 	# Order forces and torques in various directions
 	var directions = type_force_torque(Global.selectedQuadrant, Global.selectedTooth, force, torque)
 	emit_signal("directions", directions)
 	Global.clinical_directions = directions
-	# Convert to numbers around 1
-	force = force / 40
-	torque = torque / 3
+
+	# Remove noise by using average
+	var n = 100
+	var avg_force = Global.get_avg_force(n)
+	var avg_torque = Global.get_avg_torque(n)
 	
-	transform.origin.x = force.x
-	transform.origin.y = force.y
-	transform.origin.z = force.z
+	# Convert to numbers around 1
+	avg_force = avg_force / 40
+	avg_torque = avg_torque / 3
+
+	transform.origin.x = avg_force.x
+	transform.origin.y = avg_force.y
+	transform.origin.z = avg_force.z
+
 	var rotation: Transform3D = Transform3D.IDENTITY
-	rotation = rotation.rotated(Vector3( 1, 0, 0 ), torque.x)
-	rotation = rotation.rotated(Vector3( 0, 1, 0 ), torque.y)
-	rotation = rotation.rotated(Vector3( 0, 0, 1 ), torque.z)
+	rotation = rotation.rotated(Vector3( 1, 0, 0 ), avg_torque.x)
+	rotation = rotation.rotated(Vector3( 0, 1, 0 ), avg_torque.y)
+	rotation = rotation.rotated(Vector3( 0, 0, 1 ), avg_torque.z)
 	transform.basis = rotation.basis
 
 func _handle_client_disconnected() -> void:
