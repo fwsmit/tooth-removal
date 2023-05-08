@@ -111,7 +111,7 @@ def plot_frequencies(ax, vec, name):
     ax.plot(xf, 2.0/N * np.abs(yf[:N//2]))
 
 def butter_lowpass(cutoff, fs, order=5):
-    return butter(order, cutoff, fs=fs, btype='low', analog=False)
+    return butter(order, cutoff, fs=fs, btype='lowpass', analog=False)
 
 def lowpass_filter(vec, cutoff, fs=1000, order=5):
     b, a = butter_lowpass(cutoff, fs, order=order)
@@ -124,10 +124,15 @@ def show_file_stats(filename, show_frequencies):
     print("Duration:", round(duration), "seconds")
     print("Tooth:", propDic["tooth"])
     forces = get_forces(propDic)
-    forces_norm = norm_vectors(forces)
     torques = get_torques(propDic)
-    torques_norm = norm_vectors(torques)
 
+    cutoff = 3
+    for i in range(len(forces)):
+        forces[i] = lowpass_filter(forces[i], cutoff)
+        torques[i] = lowpass_filter(torques[i], cutoff)
+
+    forces_norm = norm_vectors(forces)
+    torques_norm = norm_vectors(torques)
     if show_frequencies:
         # Show frequencies
         fig, ax = plt.subplots(1,2)
@@ -147,8 +152,8 @@ def show_file_stats(filename, show_frequencies):
                 [ax[1][0], torques[0], "Torque (x)", False],
                 [ax[1][1], torques[1], "Torque (y)", False],
                 [ax[1][2], torques[2], "Torque (z)", False],
-                [ax[1][3], torques_norm, "Torque absolute", False],
-                [ax[0][3], forces_norm, "Force absolute", True],
+                # [ax[1][3], torques_norm, "Torque absolute", False],
+                # [ax[0][3], forces_norm, "Force absolute", True],
                 ]
         ax[0][0].set_ylabel("Force (N)")
         ax[1][0].set_ylabel("Torque (Nm)")
