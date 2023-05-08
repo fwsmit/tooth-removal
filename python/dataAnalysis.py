@@ -92,10 +92,10 @@ def parse_json(filename):
         return json.load(f)
 
 def get_forces(dic):
-    return dic["corrected_forces_x"], dic["corrected_forces_y"], dic["corrected_forces_z"]
+    return [dic["corrected_forces_x"], dic["corrected_forces_y"], dic["corrected_forces_z"]]
 
 def get_torques(dic):
-    return dic["corrected_torques_x"], dic["corrected_torques_y"], dic["corrected_torques_z"]
+    return [dic["corrected_torques_x"], dic["corrected_torques_y"], dic["corrected_torques_z"]]
 
 def plot_frequencies(ax, vec, name):
     # Number of samplepoints
@@ -123,12 +123,9 @@ def show_file_stats(filename, show_frequencies):
     duration = propDic["end_timestamp"] - propDic["start_timestamp"]
     print("Duration:", round(duration), "seconds")
     print("Tooth:", propDic["tooth"])
-    force_x, force_y, force_z = get_forces(propDic)
-    torque_x, torque_y, torque_z = get_torques(propDic)
-
-    forces = merge_vectors(force_x, force_y, force_z)
+    forces = get_forces(propDic)
     forces_norm = norm_vectors(forces)
-    torques = merge_vectors(torque_x, torque_y, torque_z)
+    torques = get_torques(propDic)
     torques_norm = norm_vectors(torques)
 
     if show_frequencies:
@@ -144,12 +141,12 @@ def show_file_stats(filename, show_frequencies):
     else:
         fig, ax = plt.subplots(2,4, sharex='col', sharey='row')
         arguments = [
-                [ax[0][0], force_x, "Force (x)", True],
-                [ax[0][1], force_y, "Force (y)", True],
-                [ax[0][2], force_z, "Force (z)", True],
-                [ax[1][0], torque_x, "Torque (x)", False],
-                [ax[1][1], torque_y, "Torque (y)", False],
-                [ax[1][2], torque_z, "Torque (z)", False],
+                [ax[0][0], forces[0], "Force (x)", True],
+                [ax[0][1], forces[1], "Force (y)", True],
+                [ax[0][2], forces[2], "Force (z)", True],
+                [ax[1][0], torques[0], "Torque (x)", False],
+                [ax[1][1], torques[1], "Torque (y)", False],
+                [ax[1][2], torques[2], "Torque (z)", False],
                 [ax[1][3], torques_norm, "Torque absolute", False],
                 [ax[0][3], forces_norm, "Force absolute", True],
                 ]
