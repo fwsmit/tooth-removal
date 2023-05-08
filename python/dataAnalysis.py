@@ -187,6 +187,7 @@ parser = argparse.ArgumentParser(description='Show graphs of sensor data')
 parser.add_argument('filename', nargs="?", help='Path to data file. This file must be in JSON format')
 parser.add_argument('--update_index', required=False, action='store_true', help='Update index of all data files')
 parser.add_argument('--fix_data', required=False, action='store_true')
+parser.add_argument('--disable_graph', required=False, action='store_true')
 
 args = parser.parse_args()
 
@@ -241,4 +242,5 @@ if args.filename is not None:
 
 fileIndex = 4
 
-show_file_stats(possible_files[fileIndex])
+if not args.disable_graph:
+    show_file_stats(possible_files[fileIndex])
