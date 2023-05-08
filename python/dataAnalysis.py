@@ -126,17 +126,6 @@ def show_file_stats(filename, show_frequencies):
     force_x, force_y, force_z = get_forces(propDic)
     torque_x, torque_y, torque_z = get_torques(propDic)
 
-    # Fix data collection error because of bug #24
-    if len(force_x)/duration > 1000:
-        print("Fixing vectors")
-        # for v in [force_x, force_y, force_z, torque_x, torque_y, torque_z]:
-        force_x = fix_vector(force_x, duration)
-        force_y = fix_vector(force_y, duration)
-        force_z = fix_vector(force_z, duration)
-        torque_x = fix_vector(torque_x, duration)
-        torque_y = fix_vector(torque_y, duration)
-        torque_z = fix_vector(torque_z, duration)
-
     forces = merge_vectors(force_x, force_y, force_z)
     forces_norm = norm_vectors(forces)
     torques = merge_vectors(torque_x, torque_y, torque_z)
