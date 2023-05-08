@@ -24,10 +24,8 @@ def split_vectors(forces):
     return xs, ys, zs
 
 def norm_vectors(vectors):
-    res = []
-    for v in vectors:
-        res.append(np.linalg.norm(v))
-    return res
+    arr = np.array(vectors)
+    return np.linalg.norm(arr, axis=0)
 
 def merge_vectors(x, y, z):
     return np.column_stack([x,y,z])
@@ -44,17 +42,19 @@ def find_start_end_from_vec(vec, threshold):
     abs_vec = vectors_mag(vec) 
 
     # Find moving average
-    filter_size = 10
+    filter_size = 1
     filtered = uniform_filter1d(abs_vec, filter_size)
     
     greater = np.argwhere(filtered > threshold)
 
-    return greater[0], greater[-1]
+    return greater[0][0], greater[-1][0]
 
 def find_starting_point(force, torque):
     force_start, force_end = find_start_end_from_vec(force, 1)
     torque_start, torque_end = find_start_end_from_vec(torque, 0.2)
-    return (force_start + torque_start)/2, (force_end + torque_end) / 2
+    start = (force_start + torque_start)/2
+    end = (force_end + torque_end) / 2
+    return start, end
 
 def fix_vector(vectors, duration):
     num_samples_per_second = 1000 # sample frequency of sensor
@@ -74,17 +74,15 @@ def analyze_peaks(vectors):
     return peaks
 
 def plot_vectors(axis, vectors, _title, duration, points=None):
-    n_points = 300
-    x_smooth, cs = get_smoothened_line(vectors, n_points)
+    n_points = len(vectors)
     timelabel = np.linspace(0, duration, n_points)  
 
-    #axis.plot(timelabel, cs(x_smooth), label=_title)
-    axis.plot(vectors)
+    axis.plot(timelabel, vectors, label=_title)
 
     if points:
         for p in points:
             t = p / len(vectors) * duration
-            axis.plot(p, cs(p), marker="o")
+            axis.plot(t, vectors[round(p)], marker="o")
 
 def parse_json(filename):
     filepath = os.path.join(dataDir, filename)
@@ -152,8 +150,8 @@ def show_file_stats(filename, show_frequencies):
                 [ax[1][0], torques[0], "Torque (x)", False],
                 [ax[1][1], torques[1], "Torque (y)", False],
                 [ax[1][2], torques[2], "Torque (z)", False],
-                # [ax[1][3], torques_norm, "Torque absolute", False],
-                # [ax[0][3], forces_norm, "Force absolute", True],
+                [ax[1][3], torques_norm, "Torque absolute", False],
+                [ax[0][3], forces_norm, "Force absolute", True],
                 ]
         ax[0][0].set_ylabel("Force (N)")
         ax[1][0].set_ylabel("Torque (Nm)")
