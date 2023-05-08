@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 from xdg_base_dirs import xdg_data_home
 from scipy.interpolate import CubicSpline
 from scipy.ndimage import uniform_filter1d
-from scipy.signal import find_peaks
+from scipy.signal import find_peaks, butter, lfilter
 from scipy.fft import fft, fftfreq
 import matplotlib
 import numpy as np
@@ -109,6 +109,14 @@ def plot_frequencies(ax, vec, name):
     xf = np.linspace(0.0, 1.0/(2.0*T), N//2)
 
     ax.plot(xf, 2.0/N * np.abs(yf[:N//2]))
+
+def butter_lowpass(cutoff, fs, order=5):
+    return butter(order, cutoff, fs=fs, btype='low', analog=False)
+
+def lowpass_filter(vec, cutoff, fs=1000, order=5):
+    b, a = butter_lowpass(cutoff, fs, order=order)
+    y = lfilter(b, a, vec)
+    return y
 
 def show_file_stats(filename, show_frequencies):
     propDic = parse_json(filename)
