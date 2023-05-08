@@ -56,7 +56,7 @@ def find_starting_point(force, torque):
     return (force_start + torque_start)/2, (force_end + torque_end) / 2
 
 def fix_vector(vectors, duration):
-    num_samples_per_second = 990 # rough guess
+    num_samples_per_second = 1000 # sample frequency of sensor
     num_samples = round(duration * num_samples_per_second)
     return vectors[-num_samples:]
 
@@ -152,10 +152,35 @@ def show_file_stats(filename):
     fig.tight_layout()
     plt.show()
 
+def fix_data_vector(dic, duration, name):
+    vectors = list(split_vectors(dic[name]))
+    if len(vectors[0])/duration > 1000:
+        for i in range(len(vectors)):
+            vectors[i] = fix_vector(vectors[i], duration)
+
+    appedices = ["_x", "_y", "_z"]
+    for v, a in zip(vectors, appedices):
+        dic[name+a] = v
+
+def fix_data_cutoff(filename):
+    propDic = parse_json(filename)
+    duration = propDic["end_timestamp"] - propDic["start_timestamp"]
+
+    # Fix data collection error because of bug #24
+    print("Fixing vectors of", filename)
+    for name in ["corrected_forces", "corrected_torques", "raw_forces", "raw_torques"]:
+        fix_data_vector(propDic, duration, name)
+        propDic.pop(name, None)
+
+    filepath = os.path.join(dataDir, filename)
+    with open(filepath, 'w') as f:
+        json.dump(propDic, f, indent="\t")
+
 
 parser = argparse.ArgumentParser(description='Show graphs of sensor data')
 parser.add_argument('filename', nargs="?", help='Path to data file. This file must be in JSON format')
 parser.add_argument('--update_index', required=False, action='store_true', help='Update index of all data files')
+parser.add_argument('--fix_data', required=False, action='store_true')
 
 args = parser.parse_args()
 
@@ -199,6 +224,10 @@ if args.update_index:
     else:
         print("Nothing has changed")
     exit(0)
+
+if args.fix_data:
+    for f in possible_files:
+        fix_data_cutoff(f)
 
 if args.filename is not None:
     show_file_stats(args.filename)
