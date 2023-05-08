@@ -6,6 +6,7 @@ from xdg_base_dirs import xdg_data_home
 from scipy.interpolate import CubicSpline
 from scipy.ndimage import uniform_filter1d
 from scipy.signal import find_peaks
+from scipy.fft import fft, fftfreq
 import matplotlib
 import numpy as np
 
@@ -96,7 +97,19 @@ def get_forces(dic):
 def get_torques(dic):
     return dic["corrected_torques_x"], dic["corrected_torques_y"], dic["corrected_torques_z"]
 
-def show_file_stats(filename):
+def plot_frequencies(ax, vec, name):
+    # Number of samplepoints
+    N = len(vec)
+    # sample spacing
+    T = 1.0 / 1000.0
+    x = np.linspace(0.0, N*T, N)
+    y = 10 + np.sin(50.0 * 2.0*np.pi*x) + 0.5*np.sin(80.0 * 2.0*np.pi*x)
+    yf = fft(y)
+    xf = np.linspace(0.0, 1.0/(2.0*T), N//2)
+
+    ax.plot(xf, 2.0/N * np.abs(yf[:N//2]))
+
+def show_file_stats(filename, show_frequencies):
     propDic = parse_json(filename)
     duration = propDic["end_timestamp"] - propDic["start_timestamp"]
     print("Duration:", round(duration), "seconds")
@@ -114,49 +127,62 @@ def show_file_stats(filename):
         torque_x = fix_vector(torque_x, duration)
         torque_y = fix_vector(torque_y, duration)
         torque_z = fix_vector(torque_z, duration)
-    fig, ax = plt.subplots(2,4, sharex='col', sharey='row')
 
     forces = merge_vectors(force_x, force_y, force_z)
     forces_norm = norm_vectors(forces)
     torques = merge_vectors(torque_x, torque_y, torque_z)
     torques_norm = norm_vectors(torques)
 
-    arguments = [
-            [ax[0][0], force_x, "Force (x)", True],
-            [ax[0][1], force_y, "Force (y)", True],
-            [ax[0][2], force_z, "Force (z)", True],
-            [ax[1][0], torque_x, "Torque (x)", False],
-            [ax[1][1], torque_y, "Torque (y)", False],
-            [ax[1][2], torque_z, "Torque (z)", False],
-            [ax[1][3], torques_norm, "Torque absolute", False],
-            [ax[0][3], forces_norm, "Force absolute", True],
-            ]
-    ax[0][0].set_ylabel("Force (N)")
-    ax[1][0].set_ylabel("Torque (Nm)")
-    for a in ax[1]:
-        a.set_xlabel("Time (s)")
+    if show_frequencies:
+        # Show frequencies
+        fig, ax = plt.subplots(1,2)
+        arguments = [
+                [ax[0], forces_norm, "Force frequencies"],
+                [ax[1], torques_norm, "Torque frequencies"],
+                ]
 
-    start, end = find_starting_point(forces, torques)
-    points = [start, end]
-    force_peaks = analyze_peaks(forces_norm)
-    force_points = []
-    force_points.extend(points)
-    force_points.extend(force_peaks)
-    torque_peaks = analyze_peaks(torques_norm)
-    torque_points = []
-    torque_points.extend(points)
-    torque_points.extend(torque_peaks)
+        for a in arguments:
+            plot_frequencies(a[0], a[1], a[2])
+        plt.show()
+    else:
+        fig, ax = plt.subplots(2,4, sharex='col', sharey='row')
+        arguments = [
+                [ax[0][0], force_x, "Force (x)", True],
+                [ax[0][1], force_y, "Force (y)", True],
+                [ax[0][2], force_z, "Force (z)", True],
+                [ax[1][0], torque_x, "Torque (x)", False],
+                [ax[1][1], torque_y, "Torque (y)", False],
+                [ax[1][2], torque_z, "Torque (z)", False],
+                [ax[1][3], torques_norm, "Torque absolute", False],
+                [ax[0][3], forces_norm, "Force absolute", True],
+                ]
+        ax[0][0].set_ylabel("Force (N)")
+        ax[1][0].set_ylabel("Torque (Nm)")
+        for a in ax[1]:
+            a.set_xlabel("Time (s)")
 
-    for a in arguments:
-        isForce = a[3]
-        if isForce:
-            p = force_points
-        else:
-            p = torque_points
-        plot_vectors(a[0], a[1], a[2], duration, p)
-        a[0].title.set_text(a[2])
-    fig.tight_layout()
-    plt.show()
+            start, end = find_starting_point(forces, torques)
+            points = [start, end]
+            force_peaks = analyze_peaks(forces_norm)
+            force_points = []
+            force_points.extend(points)
+            force_points.extend(force_peaks)
+            torque_peaks = analyze_peaks(torques_norm)
+            torque_points = []
+            torque_points.extend(points)
+            torque_points.extend(torque_peaks)
+
+        for a in arguments:
+            isForce = a[3]
+            if isForce:
+                p = force_points
+            else:
+                p = torque_points
+            plot_vectors(a[0], a[1], a[2], duration, p)
+            a[0].title.set_text(a[2])
+        fig.tight_layout()
+        plt.show()
+    
 
 def fix_data_vector(dic, duration, name):
     vectors = list(split_vectors(dic[name]))
@@ -188,6 +214,7 @@ parser.add_argument('filename', nargs="?", help='Path to data file. This file mu
 parser.add_argument('--update_index', required=False, action='store_true', help='Update index of all data files')
 parser.add_argument('--fix_data', required=False, action='store_true')
 parser.add_argument('--disable_graph', required=False, action='store_true')
+parser.add_argument('--show_frequencies', required=False, action='store_true')
 
 args = parser.parse_args()
 
@@ -243,4 +270,4 @@ if args.filename is not None:
 fileIndex = 4
 
 if not args.disable_graph:
-    show_file_stats(possible_files[fileIndex])
+    show_file_stats(possible_files[fileIndex], args.show_frequencies)
