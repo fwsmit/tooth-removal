@@ -103,6 +103,7 @@ script = ExtResource("7_jhp4k")
 debugText = NodePath("DebugInfo")
 
 [node name="DebugInfo" type="RichTextLabel" parent="DebugButton"]
+visible = false
 layout_mode = 0
 offset_left = 6.0
 offset_top = -232.0
