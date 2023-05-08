@@ -89,12 +89,11 @@ func _pressed():
 	Global.epoxy_failed = expoxy_failed_checkbox.button_pressed
 	Global.non_representative = non_representative_checkbox.button_pressed
 	Global.post_extraction_notes = post_extraction_notes_field.text
-	Global.selectedFile = save_extraction_to_file()
 	Global.fromExtraction = true
 
 	# Do not store extraction data for demo user
 	if Global.loggedInAs != "Demo":
-		save_extraction_to_file()
+		Global.selectedFile = save_extraction_to_file()
 
 	Global.reset_extraction_data()
 	Global.goto_scene("res://scenes/show_extraction.tscn")
