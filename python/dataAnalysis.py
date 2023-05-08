@@ -22,6 +22,12 @@ def split_vectors(forces):
         zs.append(float(f_s[2]))
     return xs, ys, zs
 
+def norm_vectors(vectors):
+    res = []
+    for v in vectors:
+        res.append(np.linalg.norm(v))
+    return res
+
 def merge_vectors(x, y, z):
     return np.column_stack([x,y,z])
 
@@ -63,21 +69,16 @@ def get_smoothened_line(vectors, n_points):
 def analyze_peaks(vectors):
     peak_width_min = 100
     prominence_min = 0.25
-    return find_peaks(vectors, width=peak_width_min, prominence=prominence_min)
+    peaks, properties = find_peaks(vectors, width=peak_width_min, prominence=prominence_min)
+    return peaks
 
-def plot_vectors(axis, vectors, _title, duration, points=None, showPeaks=False):
+def plot_vectors(axis, vectors, _title, duration, points=None):
     n_points = 300
     x_smooth, cs = get_smoothened_line(vectors, n_points)
     timelabel = np.linspace(0, duration, n_points)  
 
     #axis.plot(timelabel, cs(x_smooth), label=_title)
     axis.plot(vectors)
-
-    if showPeaks:
-        peaks, properties = analyze_peaks(vectors)
-        points.extend(peaks)
-        valleys, properties2 = analyze_peaks(np.negative(vectors))
-        points.extend(valleys)
 
     if points:
         for p in points:
@@ -107,18 +108,22 @@ def show_file_stats(filename):
         torque_x = fix_vector(torque_x, duration)
         torque_y = fix_vector(torque_y, duration)
         torque_z = fix_vector(torque_z, duration)
-    fig, ax = plt.subplots(2,3, sharex='col', sharey='row')
+    fig, ax = plt.subplots(2,4, sharex='col', sharey='row')
 
     forces = merge_vectors(force_x, force_y, force_z)
+    forces_norm = norm_vectors(forces)
     torques = merge_vectors(torque_x, torque_y, torque_z)
+    torques_norm = norm_vectors(torques)
 
     arguments = [
-            [ax[0][0],force_x, "Force (x)"],
-            [ax[0][1],force_y, "Force (y)"],
-            [ax[0][2],force_z, "Force (z)"],
-            [ax[1][0],torque_x, "Torque (x)"],
-            [ax[1][1],torque_y, "Torque (y)"],
-            [ax[1][2],torque_z, "Torque (z)"],
+            [ax[0][0], force_x, "Force (x)", True],
+            [ax[0][1], force_y, "Force (y)", True],
+            [ax[0][2], force_z, "Force (z)", True],
+            [ax[1][0], torque_x, "Torque (x)", False],
+            [ax[1][1], torque_y, "Torque (y)", False],
+            [ax[1][2], torque_z, "Torque (z)", False],
+            [ax[1][3], torques_norm, "Torque absolute", False],
+            [ax[0][3], forces_norm, "Force absolute", True],
             ]
     ax[0][0].set_ylabel("Force (N)")
     ax[1][0].set_ylabel("Torque (Nm)")
@@ -126,9 +131,23 @@ def show_file_stats(filename):
         a.set_xlabel("Time (s)")
 
     start, end = find_starting_point(forces, torques)
+    points = [start, end]
+    force_peaks = analyze_peaks(forces_norm)
+    force_points = []
+    force_points.extend(points)
+    force_points.extend(force_peaks)
+    torque_peaks = analyze_peaks(torques_norm)
+    torque_points = []
+    torque_points.extend(points)
+    torque_points.extend(torque_peaks)
 
     for a in arguments:
-        plot_vectors(a[0], a[1], a[2], duration, [start, end], True)
+        isForce = a[3]
+        if isForce:
+            p = force_points
+        else:
+            p = torque_points
+        plot_vectors(a[0], a[1], a[2], duration, p)
         a[0].title.set_text(a[2])
     fig.tight_layout()
     plt.show()
