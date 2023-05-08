@@ -7,8 +7,3 @@ func _ready():
 		text = Global.selectedFile
 	else:
 		text = "No file selected"
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass

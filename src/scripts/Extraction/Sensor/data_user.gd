@@ -14,8 +14,6 @@ signal data
 signal directions
 
 func _ready() -> void:
-	var test_t =  Vector3(0, -1, 0)
-	var test_k = 4
 	_client.connect("connected",Callable(self,"_handle_client_connected"))
 	_client.connect("disconnected",Callable(self,"_handle_client_disconnected"))
 	_client.connect("error",Callable(self,"_handle_client_error"))
@@ -62,34 +60,34 @@ func vector_tand_frame(kwadrant, tand, vector):
 
 # deze functie ordent de kracht en momentvectoren in de richtingen gedefinieerd in tandheelkunde. 
 # De eerstegnoemde is altijd positief, dus bij buccal lingual, geldt dat een positieve waarde in de buccale richting is
-func type_force_torque(kwadrant, tand, force, torque):
-	var directions = [{'buccal/lingual': 0, 'mesial/distal': 0, 'extrusion/intrusion': 0},\
+func type_force_torque(kwadrant, _tand, force, torque):
+	var result = [{'buccal/lingual': 0, 'mesial/distal': 0, 'extrusion/intrusion': 0},\
 	{'mesial/distal angulation': 0, 'bucco/linguoversion': 0, 'mesiobuccal/lingual': 0}] # directions = [{forces}, {torques}]
 	if kwadrant == 1 or kwadrant == 2:
-		directions[0]['buccal/lingual'] = force.y
-		directions[0]['extrusion/intrusion'] = force.x
-		directions[1]['bucco/linguoversion'] = torque.z
+		result[0]['buccal/lingual'] = force.y
+		result[0]['extrusion/intrusion'] = force.x
+		result[1]['bucco/linguoversion'] = torque.z
 		if kwadrant == 1:
-			directions[0]['mesial/distal'] = -force.z
-			directions[1]['mesial/distal angulation'] = torque.y
-			directions[1]['mesiobuccal/lingual'] = torque.x
+			result[0]['mesial/distal'] = -force.z
+			result[1]['mesial/distal angulation'] = torque.y
+			result[1]['mesiobuccal/lingual'] = torque.x
 		if kwadrant == 2:
-			directions[0]['mesial/distal'] = force.z
-			directions[1]['mesial/distal angulation'] = -torque.y
-			directions[1]['mesiobuccal/lingual'] = -torque.x
+			result[0]['mesial/distal'] = force.z
+			result[1]['mesial/distal angulation'] = -torque.y
+			result[1]['mesiobuccal/lingual'] = -torque.x
 	if kwadrant == 3 or kwadrant == 4:
-		directions[0]['buccal/lingual'] = force.x
-		directions[0]['extrusion/intrusion'] = force.y
-		directions[1]['bucco/linguoversion'] = -torque.z
+		result[0]['buccal/lingual'] = force.x
+		result[0]['extrusion/intrusion'] = force.y
+		result[1]['bucco/linguoversion'] = -torque.z
 		if kwadrant == 3:
-			directions[0]['mesial/distal'] = force.z
-			directions[1]['mesial/distal angulation'] = torque.x
-			directions[1]['mesiobuccal/lingual'] = torque.y
+			result[0]['mesial/distal'] = force.z
+			result[1]['mesial/distal angulation'] = torque.x
+			result[1]['mesiobuccal/lingual'] = torque.y
 		if kwadrant == 4:
-			directions[0]['mesial/distal'] = -force.z
-			directions[1]['mesial/distal angulation'] = -torque.x
-			directions[1]['mesiobuccal/lingual'] = -torque.y
-	return directions
+			result[0]['mesial/distal'] = -force.z
+			result[1]['mesial/distal angulation'] = -torque.x
+			result[1]['mesiobuccal/lingual'] = -torque.y
+	return result
 
 func _handle_client_data(force, torque) -> void:
 	emit_signal("data", force, torque)
@@ -105,9 +103,9 @@ func _handle_client_data(force, torque) -> void:
 	Global.corrected_torques.append(torque)
 
 	# Order forces and torques in various directions
-	var directions = type_force_torque(Global.selectedQuadrant, Global.selectedTooth, force, torque)
-	emit_signal("directions", directions)
-	Global.clinical_directions = directions
+	var dir = type_force_torque(Global.selectedQuadrant, Global.selectedTooth, force, torque)
+	emit_signal("directions", dir)
+	Global.clinical_directions = dir
 
 	# Remove noise by using average
 	var n = 100
@@ -122,11 +120,11 @@ func _handle_client_data(force, torque) -> void:
 	transform.origin.y = avg_force.y
 	transform.origin.z = avg_force.z
 
-	var rotation: Transform3D = Transform3D.IDENTITY
-	rotation = rotation.rotated(Vector3( 1, 0, 0 ), avg_torque.x)
-	rotation = rotation.rotated(Vector3( 0, 1, 0 ), avg_torque.y)
-	rotation = rotation.rotated(Vector3( 0, 0, 1 ), avg_torque.z)
-	transform.basis = rotation.basis
+	var rot: Transform3D = Transform3D.IDENTITY
+	rot = rot.rotated(Vector3( 1, 0, 0 ), avg_torque.x)
+	rot = rot.rotated(Vector3( 0, 1, 0 ), avg_torque.y)
+	rot = rot.rotated(Vector3( 0, 0, 1 ), avg_torque.z)
+	transform.basis = rot.basis
 
 func _handle_client_disconnected() -> void:
 	emit_signal("disconnected")

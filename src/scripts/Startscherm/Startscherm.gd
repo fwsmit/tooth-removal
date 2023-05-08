@@ -11,7 +11,3 @@ func login():
 func _ready():
 	list.select(0)
 	loginButton.connect("pressed", login)
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
