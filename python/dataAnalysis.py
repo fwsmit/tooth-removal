@@ -101,10 +101,11 @@ def plot_frequencies(ax, vec, name):
     # Number of samplepoints
     N = len(vec)
     # sample spacing
-    T = 1.0 / 1000.0
+    T = 1.0 / 1000
     x = np.linspace(0.0, N*T, N)
-    y = 10 + np.sin(50.0 * 2.0*np.pi*x) + 0.5*np.sin(80.0 * 2.0*np.pi*x)
+    y = vec
     yf = fft(y)
+    yf[0] = 0
     xf = np.linspace(0.0, 1.0/(2.0*T), N//2)
 
     ax.plot(xf, 2.0/N * np.abs(yf[:N//2]))
@@ -143,7 +144,6 @@ def show_file_stats(filename, show_frequencies):
 
         for a in arguments:
             plot_frequencies(a[0], a[1], a[2])
-        plt.show()
     else:
         fig, ax = plt.subplots(2,4, sharex='col', sharey='row')
         arguments = [
@@ -180,8 +180,10 @@ def show_file_stats(filename, show_frequencies):
                 p = torque_points
             plot_vectors(a[0], a[1], a[2], duration, p)
             a[0].title.set_text(a[2])
-        fig.tight_layout()
-        plt.show()
+
+    # Show plots
+    fig.tight_layout()
+    plt.show()
     
 
 def fix_data_vector(dic, duration, name):
