@@ -45,13 +45,7 @@ func save_extraction_to_file():
 		"person_type": Global.loggedInAs,
 		"start_timestamp": Global.startTimestamp,
 		"end_timestamp": Global.endTimestamp,
-		"format_version": 1, # version of the data formt
-
-		# Force data (kept for compatibility)
-		"raw_forces": Global.raw_forces,
-		"raw_torques": Global.raw_torques,
-		"corrected_forces": Global.corrected_forces,
-		"corrected_torques": Global.corrected_torques,
+		"format_version": 2, # version of the data format
 
 		# Force data split by axis
 		"corrected_forces_x": fl_corrected_forces[0],
