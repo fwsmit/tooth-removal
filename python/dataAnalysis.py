@@ -61,8 +61,8 @@ def get_smoothened_line(vectors, n_points):
     return x_smooth, cs
 
 def analyze_peaks(vectors):
-    peak_width_min = 1
-    prominence_min = 1
+    peak_width_min = 100
+    prominence_min = 0.25
     return find_peaks(vectors, width=peak_width_min, prominence=prominence_min)
 
 def plot_vectors(axis, vectors, _title, duration, points=None, showPeaks=False):
@@ -70,16 +70,19 @@ def plot_vectors(axis, vectors, _title, duration, points=None, showPeaks=False):
     x_smooth, cs = get_smoothened_line(vectors, n_points)
     timelabel = np.linspace(0, duration, n_points)  
 
-    axis.plot(timelabel, cs(x_smooth), label=_title)
+    #axis.plot(timelabel, cs(x_smooth), label=_title)
+    axis.plot(vectors)
 
     if showPeaks:
         peaks, properties = analyze_peaks(vectors)
         points.extend(peaks)
+        valleys, properties2 = analyze_peaks(np.negative(vectors))
+        points.extend(valleys)
 
     if points:
         for p in points:
             t = p / len(vectors) * duration
-            axis.plot(t, cs(p), marker="o")
+            axis.plot(p, cs(p), marker="o")
 
 def parse_json(filename):
     filepath = os.path.join(dataDir, filename)
