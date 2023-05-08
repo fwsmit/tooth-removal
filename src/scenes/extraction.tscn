@@ -121,7 +121,7 @@ offset_left = 41.0
 offset_top = 23.0
 offset_right = 94.0
 offset_bottom = 54.0
-text = "Terug"
+text = "Back"
 script = ExtResource("10_dbgyb")
 
 [node name="RichTextLabel2" type="RichTextLabel" parent="."]
