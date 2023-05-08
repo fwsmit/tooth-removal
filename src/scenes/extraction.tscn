@@ -1,8 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://b1tluf6bya11l"]
+[gd_scene load_steps=13 format=3 uid="uid://b7e3ysukvljsy"]
 
 [ext_resource type="Script" path="res://scripts/Extraction/Sensor/data_user.gd" id="1_0ob14"]
 [ext_resource type="Script" path="res://scripts/Common/showLoggedInAs.gd" id="2_i4l7v"]
 [ext_resource type="Script" path="res://scripts/Extraction/ShowConnected.gd" id="3_ak075"]
+[ext_resource type="Script" path="res://scripts/Extraction/selectedtooth.gd" id="3_j7f80"]
 [ext_resource type="Texture2D" uid="uid://jn2edbaf0g6y" path="res://assets/Figures/connected.svg" id="4_uka1a"]
 [ext_resource type="Texture2D" uid="uid://bxtjqe348c13g" path="res://assets/Figures/disconnected.svg" id="5_egje7"]
 [ext_resource type="Script" path="res://scripts/Extraction/Extraction_finished.gd" id="6_msgkl"]
@@ -10,6 +11,7 @@
 [ext_resource type="FontFile" uid="uid://w6rhidxui6pe" path="res://assets/NotoSansMono-Regular.ttf" id="7_pt815"]
 [ext_resource type="Script" path="res://scripts/Extraction/DebugInfo.gd" id="9_yq4k5"]
 [ext_resource type="Script" path="res://scripts/Extraction/Terug.gd" id="10_dbgyb"]
+[ext_resource type="Script" path="res://scripts/Extraction/selectedquadrant.gd" id="11_uxmjs"]
 
 [node name="Node3D2" type="Node3D"]
 
@@ -28,8 +30,10 @@ light_energy = 1.914
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -177.0
-offset_bottom = 30.0
+offset_left = -408.0
+offset_top = 5.0
+offset_right = -15.0
+offset_bottom = 35.0
 grow_horizontal = 0
 text = "Logged in as: "
 fit_content = true
@@ -118,6 +122,22 @@ offset_right = 94.0
 offset_bottom = 54.0
 text = "Terug"
 script = ExtResource("10_dbgyb")
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="."]
+offset_left = 1008.0
+offset_top = 6.0
+offset_right = 1091.0
+offset_bottom = 46.0
+text = "Q: "
+script = ExtResource("11_uxmjs")
+
+[node name="RichTextLabel3" type="RichTextLabel" parent="."]
+offset_left = 1066.0
+offset_top = 7.0
+offset_right = 1142.0
+offset_bottom = 47.0
+text = "T: "
+script = ExtResource("3_j7f80")
 
 [connection signal="connected" from="CSGBox3D" to="MarginContainer" method="showConnected"]
 [connection signal="connected" from="CSGBox3D" to="DebugButton/DebugInfo" method="on_sensor_connected"]
