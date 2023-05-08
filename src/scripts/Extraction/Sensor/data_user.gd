@@ -14,6 +14,8 @@ signal data
 signal directions
 
 func _ready() -> void:
+	var test_t =  Vector3(0, -1, 0)
+	var test_k = 4
 	_client.connect("connected",Callable(self,"_handle_client_connected"))
 	_client.connect("disconnected",Callable(self,"_handle_client_disconnected"))
 	_client.connect("error",Callable(self,"_handle_client_error"))
