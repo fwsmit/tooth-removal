@@ -3,6 +3,7 @@ extends Button
 @export var forceps_slipped_checkbox : CheckBox 
 @export var element_fractured_checkbox : CheckBox 
 @export var expoxy_failed_checkbox : CheckBox
+@export var non_representative_checkbox : CheckBox
 @export var post_extraction_notes_field : TextEdit 
 
 func generate_filename(timestamp: int):
@@ -33,6 +34,7 @@ func save_extraction_to_file():
 		"forceps_slipped": Global.forceps_slipped,
 		"element_fractured": Global.element_fractured,
 		"epoxy_failed": Global.epoxy_failed,
+		"nonrepresentative": Global.non_representative,
 		"post_extraction_notes": Global.post_extraction_notes,
 		"person_type": Global.loggedInAs,
 		"start_timestamp": Global.startTimestamp,
@@ -65,19 +67,29 @@ func save_extraction_to_file():
 		"bucco/linguoversion": Global.clinical_directions[1]['bucco/linguoversion']
 		"mesiobuccal/lingual": Global.clinical_directions[1]['mesiobuccal/lingual']
 	}
+	Global.extractionDict = extraction_data
 	var json_data = JSON.stringify(extraction_data, "\t")
 	
 	# Stores file in user data directory 
 	# see https://docs.godotengine.org/en/latest/tutorials/io/data_paths.html#doc-data-paths
-	var save_file = FileAccess.open("user://extraction_data_"+filename+".json", FileAccess.WRITE)
+	var filepath = "user://extraction_data_"+filename+".json"
+	var save_file = FileAccess.open(filepath, FileAccess.WRITE)
 	save_file.store_line(json_data)
+	return filename + ".json"
 
 # Called when the node enters the scene tree for the first time.
 func _pressed():
 	Global.forceps_slipped = forceps_slipped_checkbox.button_pressed
 	Global.element_fractured = element_fractured_checkbox.button_pressed
 	Global.epoxy_failed = expoxy_failed_checkbox.button_pressed
+	Global.non_representative = non_representative_checkbox.button_pressed
 	Global.post_extraction_notes = post_extraction_notes_field.text
-	save_extraction_to_file()
+	Global.selectedFile = save_extraction_to_file()
+	Global.fromExtraction = true
+
+	# Do not store extraction data for demo user
+	if Global.loggedInAs != "Demo":
+		save_extraction_to_file()
+
 	Global.reset_extraction_data()
-	Global.goto_scene("res://scenes/dashboard.tscn")
+	Global.goto_scene("res://scenes/show_extraction.tscn")
