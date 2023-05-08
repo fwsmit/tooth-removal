@@ -7,7 +7,13 @@ extends Button
 @export var post_extraction_notes_field : TextEdit 
 
 func generate_filename(timestamp: int):
-	return Time.get_datetime_string_from_unix_time(timestamp)
+	var filename = Time.get_datetime_string_from_unix_time(timestamp)
+	var i = 0
+	for c in filename:
+		if c == ':':
+			filename[i] = ';'
+		i += 1
+	return filename
 
 func flatten_vector(vecs):
 	var xs = []
