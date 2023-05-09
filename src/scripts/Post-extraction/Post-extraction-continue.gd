@@ -31,8 +31,6 @@ func save_extraction_to_file():
 	var filename = generate_filename(Global.startTimestamp)
 	var fl_raw_forces = flatten_vector(Global.raw_forces)
 	var fl_raw_torques = flatten_vector(Global.raw_torques)
-	var fl_corrected_forces = flatten_vector(Global.corrected_forces)
-	var fl_corrected_torques = flatten_vector(Global.corrected_torques)
 	var extraction_data = {
 		"quadrant": Global.selectedQuadrant,
 		"tooth": Global.selectedTooth,
@@ -50,16 +48,8 @@ func save_extraction_to_file():
 		# Force data (kept for compatibility)
 		"raw_forces": Global.raw_forces,
 		"raw_torques": Global.raw_torques,
-		"corrected_forces": Global.corrected_forces,
-		"corrected_torques": Global.corrected_torques,
 
 		# Force data split by axis
-		"corrected_forces_x": fl_corrected_forces[0],
-		"corrected_forces_y": fl_corrected_forces[1],
-		"corrected_forces_z": fl_corrected_forces[2],
-		"corrected_torques_x": fl_corrected_torques[0],
-		"corrected_torques_y": fl_corrected_torques[1],
-		"corrected_torques_z": fl_corrected_torques[2],
 		"raw_forces_x": fl_raw_forces[0],
 		"raw_forces_y": fl_raw_forces[1],
 		"raw_forces_z": fl_raw_forces[2],
@@ -68,16 +58,16 @@ func save_extraction_to_file():
 		"raw_torques_z": fl_raw_torques[2],
 		
 	}
-	if Global.clinical_directions != null:
-		var directions = {
-		"buccal/lingual": Global.clinical_directions[0]['buccal/lingual'],
-		"mesial/distal": Global.clinical_directions[0]['mesial/distal'],
-		"extrusion/intrusion": Global.clinical_directions[0]['extrusion/intrusion'],
-		"mesial/distal angulation": Global.clinical_directions[1]['mesial/distal angulation'],
-		"bucco/linguoversion": Global.clinical_directions[1]['bucco/linguoversion'],
-		"mesiobuccal/lingual": Global.clinical_directions[1]['mesiobuccal/lingual'],
-		}
-		extraction_data.merge(directions)
+	
+	var directions = {
+	"buccal/lingual": Global.clinical_directions[0]['buccal/lingual'],
+	"mesial/distal": Global.clinical_directions[0]['mesial/distal'],
+	"extrusion/intrusion": Global.clinical_directions[0]['extrusion/intrusion'],
+	"mesial/distal angulation": Global.clinical_directions[1]['mesial/distal angulation'],
+	"bucco/linguoversion": Global.clinical_directions[1]['bucco/linguoversion'],
+	"mesiobuccal/lingual": Global.clinical_directions[1]['mesiobuccal/lingual'],
+	}
+	extraction_data.merge(directions)
 	Global.extractionDict = extraction_data
 	var json_data = JSON.stringify(extraction_data, "\t")
 	

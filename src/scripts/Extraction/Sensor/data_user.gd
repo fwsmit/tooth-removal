@@ -105,7 +105,13 @@ func _handle_client_data(force, torque) -> void:
 	# Order forces and torques in various directions
 	var dir = type_force_torque(Global.selectedQuadrant, Global.selectedTooth, force, torque)
 	emit_signal("directions", dir)
-	Global.clinical_directions = dir
+	
+	for key in dir[0].keys():
+		Global.clinical_directions[0][key].append(dir[0][key])
+	
+	for key in dir[1].keys():
+		Global.clinical_directions[1][key].append(dir[1][key])
+	
 
 	# Remove noise by using average
 	var n = 100
