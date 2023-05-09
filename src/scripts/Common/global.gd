@@ -98,3 +98,6 @@ func get_avg_force(n):
 
 func get_avg_torque(n):
 	return get_avg_vector(n, corrected_torques)
+
+func python_run(args):
+	OS.execute("python", args)
