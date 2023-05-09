@@ -1,11 +1,11 @@
-[gd_scene load_steps=17 format=3 uid="uid://dcsb7lavmwhr1"]
+[gd_scene load_steps=17 format=3 uid="uid://c4vbxhjh7m7h6"]
 
 [ext_resource type="Script" path="res://scripts/Extraction/Sensor/data_user.gd" id="1_vu16l"]
 [ext_resource type="PackedScene" uid="uid://cto4jgqgmwgrd" path="res://scenes/Togglebutton.tscn" id="2_llarb"]
 [ext_resource type="Script" path="res://scripts/Dashboard/Togglebutton.gd" id="3_g0m3n"]
 [ext_resource type="Script" path="res://scripts/Common/showLoggedInAs.gd" id="4_1kkys"]
+[ext_resource type="Script" path="res://scripts/Extraction/Cluster.gd" id="4_dhmkb"]
 [ext_resource type="Texture2D" uid="uid://m01wmoh8ftqy" path="res://assets/Figures/Subtract (8).png" id="5_6wcuc"]
-[ext_resource type="Script" path="res://scenes/Roation_node.gd" id="6_wwwgp"]
 [ext_resource type="Texture2D" uid="uid://dwtc21ukm1qev" path="res://assets/Figures/Group 4 (1).png" id="7_l0rmo"]
 [ext_resource type="Texture2D" uid="uid://buo4omrbfuikh" path="res://assets/Figures/Rectangle 3 (4).png" id="8_0om6e"]
 [ext_resource type="Script" path="res://scripts/Extraction/DebugButton.gd" id="8_dqdr0"]
@@ -120,6 +120,7 @@ size_flags_vertical = 3
 
 [node name="GridContainer" type="GridContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer"]
 layout_mode = 2
+script = ExtResource("4_dhmkb")
 
 [node name="3D box container" type="MarginContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer/GridContainer"]
 layout_mode = 2
@@ -149,7 +150,6 @@ theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
-script = ExtResource("6_wwwgp")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer/GridContainer/Axis 1"]
 layout_mode = 2
@@ -166,7 +166,7 @@ texture = ExtResource("5_6wcuc")
 stretch_mode = 4
 
 [node name="Needle_1" type="Sprite2D" parent="VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer/GridContainer/Axis 1/VBoxContainer/PanelContainer"]
-position = Vector2(173, 175)
+position = Vector2(179, 175.5)
 scale = Vector2(0.627049, 0.905714)
 texture = ExtResource("7_l0rmo")
 offset = Vector2(0, -90)
@@ -180,13 +180,7 @@ texture = ExtResource("8_0om6e")
 position = Vector2(173, 16)
 texture = ExtResource("9_yqw6e")
 
-[node name="TextureProgressBar" type="TextureProgressBar" parent="VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer/GridContainer/Axis 1/VBoxContainer"]
-visible = false
-layout_mode = 2
-texture_under = ExtResource("8_0om6e")
-
 [node name="Axis 2" type="MarginContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer/GridContainer"]
-visible = false
 custom_minimum_size = Vector2(0, 180)
 layout_mode = 2
 size_flags_horizontal = 10
@@ -196,50 +190,73 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="TextureRect" type="TextureRect" parent="VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer/GridContainer/Axis 2"]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer/GridContainer/Axis 2"]
 layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer/GridContainer/Axis 2/VBoxContainer"]
+layout_mode = 2
+
+[node name="Radial" type="TextureRect" parent="VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer/GridContainer/Axis 2/VBoxContainer/PanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 texture = ExtResource("5_6wcuc")
-expand_mode = 3
 stretch_mode = 4
 
-[node name="Node2D" type="Node2D" parent="VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer/GridContainer/Axis 2"]
-position = Vector2(10, 10)
-
-[node name="Needle_2" type="Sprite2D" parent="VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer/GridContainer/Axis 2"]
-position = Vector2(172, 170.5)
+[node name="Needle_2" type="Sprite2D" parent="VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer/GridContainer/Axis 2/VBoxContainer/PanelContainer"]
+position = Vector2(179, 175.5)
 scale = Vector2(0.627049, 0.905714)
 texture = ExtResource("7_l0rmo")
 offset = Vector2(0, -90)
 
-[node name="Axis 3" type="MarginContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer/GridContainer"]
-visible = false
-custom_minimum_size = Vector2(0, 180)
+[node name="Bar2" type="TextureRect" parent="VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer/GridContainer/Axis 2/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 8
+size_flags_vertical = 8
+texture = ExtResource("8_0om6e")
+
+[node name="Bar2_slider" type="Sprite2D" parent="VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer/GridContainer/Axis 2/VBoxContainer/Bar2"]
+position = Vector2(179, 17.5)
+texture = ExtResource("9_yqw6e")
+
+[node name="Axis 3" type="MarginContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer/GridContainer"]
+custom_minimum_size = Vector2(0, 180)
+layout_mode = 2
+size_flags_horizontal = 10
 size_flags_vertical = 10
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="TextureRect" type="TextureRect" parent="VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer/GridContainer/Axis 3"]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer/GridContainer/Axis 3"]
 layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer/GridContainer/Axis 3/VBoxContainer"]
+layout_mode = 2
+
+[node name="Radial" type="TextureRect" parent="VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer/GridContainer/Axis 3/VBoxContainer/PanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 texture = ExtResource("5_6wcuc")
-expand_mode = 3
 stretch_mode = 4
 
-[node name="Node2D" type="Node2D" parent="VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer/GridContainer/Axis 3"]
-
-[node name="Needle_3" type="Sprite2D" parent="VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer/GridContainer/Axis 3"]
-position = Vector2(172, 170.5)
+[node name="Needle_3" type="Sprite2D" parent="VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer/GridContainer/Axis 3/VBoxContainer/PanelContainer"]
+position = Vector2(179, 175.5)
 scale = Vector2(0.627049, 0.905714)
 texture = ExtResource("7_l0rmo")
 offset = Vector2(0, -90)
 
-[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer/GridContainer"]
-visible = false
-custom_minimum_size = Vector2(100, 100)
+[node name="Bar3" type="TextureRect" parent="VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer/GridContainer/Axis 3/VBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+texture = ExtResource("8_0om6e")
+
+[node name="Bar3_slider" type="Sprite2D" parent="VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer/GridContainer/Axis 3/VBoxContainer/Bar3"]
+position = Vector2(179, 16.5)
+texture = ExtResource("9_yqw6e")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2

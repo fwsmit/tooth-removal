@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/Extraction/Sensor/data_user.gd" id="1_0ob14"]
 [ext_resource type="Script" path="res://scripts/Common/showLoggedInAs.gd" id="2_i4l7v"]
-[ext_resource type="ArrayMesh" uid="uid://dr7pwxynf7ehf" path="res://assets/16921_molar_with_root_V1.obj" id="2_qguxn"]
+[ext_resource type="ArrayMesh" path="res://assets/16921_molar_with_root_V1.obj" id="2_qguxn"]
 [ext_resource type="Script" path="res://scripts/Extraction/ShowConnected.gd" id="3_ak075"]
 [ext_resource type="Script" path="res://scripts/Extraction/selectedtooth.gd" id="3_j7f80"]
 [ext_resource type="Texture2D" uid="uid://jn2edbaf0g6y" path="res://assets/Figures/connected.svg" id="4_uka1a"]
