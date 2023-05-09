@@ -13,7 +13,7 @@ parser.add_argument('filename', nargs="?", help='Path to data file. This file mu
 parser.add_argument('--update_index', required=False, action='store_true', help='Update index of all data files')
 parser.add_argument('--fix_data', required=False, action='store_true')
 parser.add_argument('--disable_graph', required=False, action='store_true')
-parser.add_argument('--show_frequencies', required=False, action='store_true')
+parser.add_argument('--graph_frequencies', required=False, action='store_true')
 
 args = parser.parse_args()
 
@@ -31,14 +31,13 @@ if args.fix_data:
     for f in possible_files:
         fix_data_cutoff(f, dataDir)
 
-if args.filename is not None:
-    show_file_stats(args.filename, args.show_frequencies, dataDir)
-    exit(0)
-
 fileIndex = 4
+chosenFile = possible_files[fileIndex]
 
+if args.filename is not None:
+    chosenFile = args.filename
 
-if args.show_frequencies:
+if args.graph_frequencies:
     graph_freqencies()
 else:
-    graph_ft(possible_files[fileIndex], dataDir)
+    graph_ft(chosenFile, dataDir)
