@@ -107,7 +107,7 @@ def show_file_stats(filename, show_frequencies, dataDir):
         forces[i] = lowpass_filter(forces[i], cutoff)
         torques[i] = lowpass_filter(torques[i], cutoff)
 
-    print_parameters(forces[0], "fx")
+    print(get_parameters(forces, torques))
 
     if show_frequencies:
         fig = graph_freqencies()

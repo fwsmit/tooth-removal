@@ -64,13 +64,32 @@ def get_auc_neg_sec(v):
 def get_max(v):
     return max(v)
 
-def print_parameters(v, axisName):
+def get_axis_parameters(v, axisName, is_mag=False):
     params = ["auc", "auc_sec", "auc_pos", "auc_pos_sec", "auc_neg", "auc_neg_sec", "max", "sec_pos", "sec_neg"]
+    dic = {}
     for p in params:
         funcname = "get_"+p
+        if is_mag and "neg" in funcname or "pos" in funcname:
+            continue
         func = globals()[funcname]
         val = func(v)
-        print(axisName+"_"+p, "\t\t", val)
+        dic[axisName+"_"+p] = val
+    return dic
+
+def get_parameters(forces, torques):
+    f_names = ["fx", "fy", "fz"]
+    t_names = ["tx", "ty", "tz"]
+    dic = {}
+
+    for i in range(len(forces)):
+        dic.update(get_axis_parameters(forces[i], f_names[i]))
+        dic.update(get_axis_parameters(torques[i], t_names[i]))
+    
+    f_mag = norm_vectors(forces)
+    t_mag = norm_vectors(torques)
+    dic.update(get_axis_parameters(f_mag, "fmag", True))
+    dic.update(get_axis_parameters(t_mag, "tmag", True))
+    return dic
 
 ## End of comparison parameters
 
