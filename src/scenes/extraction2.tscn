@@ -4,9 +4,9 @@
 [ext_resource type="PackedScene" uid="uid://cto4jgqgmwgrd" path="res://scenes/Togglebutton.tscn" id="2_llarb"]
 [ext_resource type="Script" path="res://scripts/Dashboard/Togglebutton.gd" id="3_g0m3n"]
 [ext_resource type="Script" path="res://scripts/Common/showLoggedInAs.gd" id="4_1kkys"]
-[ext_resource type="Texture2D" path="res://assets/Figures/Subtract (8).png" id="5_6wcuc"]
+[ext_resource type="Texture2D" uid="uid://m01wmoh8ftqy" path="res://assets/Figures/Subtract (8).png" id="5_6wcuc"]
 [ext_resource type="Script" path="res://scenes/Roation_node.gd" id="6_wwwgp"]
-[ext_resource type="Texture2D" path="res://assets/Figures/Group 4 (1).png" id="7_l0rmo"]
+[ext_resource type="Texture2D" uid="uid://dwtc21ukm1qev" path="res://assets/Figures/Group 4 (1).png" id="7_l0rmo"]
 [ext_resource type="Script" path="res://scripts/Extraction/DebugButton.gd" id="8_dqdr0"]
 [ext_resource type="FontFile" uid="uid://w6rhidxui6pe" path="res://assets/NotoSansMono-Regular.ttf" id="9_ickr0"]
 [ext_resource type="Script" path="res://scripts/Extraction/DebugInfo.gd" id="10_tfsdg"]
@@ -147,6 +147,7 @@ theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
+script = ExtResource("6_wwwgp")
 
 [node name="TextureRect" type="TextureRect" parent="VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer/GridContainer/Axis 1"]
 layout_mode = 2
@@ -154,14 +155,15 @@ texture = ExtResource("5_6wcuc")
 expand_mode = 3
 stretch_mode = 4
 
-[node name="Node2D" type="Node2D" parent="VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer/GridContainer/Axis 1"]
+[node name="Needle_node" type="Node2D" parent="VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer/GridContainer/Axis 1"]
+visible = false
 position = Vector2(172, 170.5)
-script = ExtResource("6_wwwgp")
 
-[node name="Sprite2D" type="Sprite2D" parent="VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer/GridContainer/Axis 1/Node2D"]
-position = Vector2(0, -79.75)
+[node name="Needle_1" type="Sprite2D" parent="VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer/GridContainer/Axis 1"]
+position = Vector2(172, 170.5)
 scale = Vector2(0.627049, 0.905714)
 texture = ExtResource("7_l0rmo")
+offset = Vector2(0, -90)
 
 [node name="Axis 2" type="MarginContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer/GridContainer"]
 custom_minimum_size = Vector2(0, 180)
@@ -179,6 +181,15 @@ texture = ExtResource("5_6wcuc")
 expand_mode = 3
 stretch_mode = 4
 
+[node name="Node2D" type="Node2D" parent="VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer/GridContainer/Axis 2"]
+position = Vector2(10, 10)
+
+[node name="Needle_2" type="Sprite2D" parent="VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer/GridContainer/Axis 2"]
+position = Vector2(172, 170.5)
+scale = Vector2(0.627049, 0.905714)
+texture = ExtResource("7_l0rmo")
+offset = Vector2(0, -90)
+
 [node name="Axis 3" type="MarginContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer/GridContainer"]
 custom_minimum_size = Vector2(0, 180)
 layout_mode = 2
@@ -194,6 +205,14 @@ layout_mode = 2
 texture = ExtResource("5_6wcuc")
 expand_mode = 3
 stretch_mode = 4
+
+[node name="Node2D" type="Node2D" parent="VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer/GridContainer/Axis 3"]
+
+[node name="Needle_3" type="Sprite2D" parent="VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer/GridContainer/Axis 3"]
+position = Vector2(172, 170.5)
+scale = Vector2(0.627049, 0.905714)
+texture = ExtResource("7_l0rmo")
+offset = Vector2(0, -90)
 
 [node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer/GridContainer"]
 visible = false

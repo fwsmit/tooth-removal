@@ -1,14 +1,18 @@
-extends MarginContainer
+extends GridContainer
 
-@onready var Needle_1: Sprite2D = $Needle_1
-#@onready var Needle_2: Sprite2D = $"Axis 2/Needle_2"
-#@onready var Needle_3: Sprite2D = $"Axis 3/Needle_3"
+
+@onready var Needle_1: Sprite2D = $"Axis 1/Needle_1"
+@onready var Needle_2: Sprite2D = $"Axis 2/Needle_2"
+@onready var Needle_3: Sprite2D = $"Axis 3/Needle_3"
+
 signal data 
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	Needle_1.rotation = 0.0
+	Needle_1.rotation = 0
+	Needle_2.rotation = 0
+	Needle_3.rotation = 0
 	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -31,9 +35,8 @@ func _process(delta):
 		var torque_m_l = Global.clinical_directions[1]["mesiobuccal/lingual"]
 #		
 		Needle_1.rotation = torque_m_d
-#		Needle_2.rotation = torque_b_l
-#		Needle_3.rotation = torque_m_l
-		
+		Needle_2.rotation = torque_b_l
+		Needle_3.rotation = torque_m_l
 	else:
 		print('werkt niet')
 
