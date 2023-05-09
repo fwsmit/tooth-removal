@@ -1,4 +1,4 @@
-extends CSGBox3D
+extends Node3D
 
 #const HOST: String = "127.0.0.1"
 const HOST: String = "192.168.0.100"
