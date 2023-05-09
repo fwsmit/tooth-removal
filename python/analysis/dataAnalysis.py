@@ -3,40 +3,14 @@ import json
 import argparse
 import matplotlib.pyplot as plt
 from xdg_base_dirs import xdg_data_home
-from scipy.interpolate import CubicSpline
 from scipy.ndimage import uniform_filter1d
 from scipy.signal import find_peaks, butter, lfilter
 from scipy.fft import fft, fftfreq
+from vec_util import *
 import matplotlib
 import numpy as np
 
 dataDir = os.path.join(xdg_data_home(),"godot", "app_userdata", "Tooth removal")
-
-def split_vectors(forces):
-    xs = []
-    ys = []
-    zs = []
-    for f in forces:
-        f_s = f[1:-1].split(",")
-        xs.append(float(f_s[0]))
-        ys.append(float(f_s[1]))
-        zs.append(float(f_s[2]))
-    return xs, ys, zs
-
-def norm_vectors(vectors):
-    arr = np.array(vectors)
-    return np.linalg.norm(arr, axis=0)
-
-def merge_vectors(x, y, z):
-    return np.column_stack([x,y,z])
-
-# Return length of all vectors in array
-def vectors_mag(vectors):
-    mags = []
-    for v in vectors:
-        mags.append(np.linalg.norm(v))
-
-    return mags
 
 def find_start_end_from_vec(vec, threshold):
     abs_vec = vectors_mag(vec) 
@@ -60,12 +34,6 @@ def fix_vector(vectors, duration):
     num_samples_per_second = 1000 # sample frequency of sensor
     num_samples = round(duration * num_samples_per_second)
     return vectors[-num_samples:]
-
-def get_smoothened_line(vectors, n_points):
-    x = range(len(vectors))
-    x_smooth = np.linspace(0, len(vectors)-1, n_points)
-    cs = CubicSpline(x, vectors)
-    return x_smooth, cs
 
 def analyze_peaks(vectors):
     peak_width_min = 100
