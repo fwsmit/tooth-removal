@@ -2,9 +2,9 @@ import os
 import argparse
 from xdg_base_dirs import xdg_data_home
 
-from fix_data import *
-from index import *
-from graphs import *
+from fix_data import fix_data_cutoff
+from index import update_index
+from graphs import show_file_stats
 
 dataDir = os.path.join(xdg_data_home(),"godot", "app_userdata", "Tooth removal")
 
