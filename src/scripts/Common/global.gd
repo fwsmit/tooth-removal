@@ -100,7 +100,10 @@ func get_avg_torque(n):
 	return get_avg_vector(n, corrected_torques)
 
 func python_run(args):
-	OS.execute("python", args)
+	var output = []
+	var exit_code = OS.execute("python", args, output, true)
+	if exit_code != 0:
+		print(output)
 
 func update_index():
 	python_run(["../python/analysis/dataAnalysis.py", "--update-index"])
