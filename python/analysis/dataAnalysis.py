@@ -6,6 +6,7 @@ from fix_data import fix_data_cutoff
 from index import update_index
 from graphs import graph_ft, graph_freqencies
 
+
 dataDir = os.path.join(xdg_data_home(),"godot", "app_userdata", "Tooth removal")
 
 parser = argparse.ArgumentParser(description='Show graphs of sensor data')
@@ -14,6 +15,7 @@ parser.add_argument('--update_index', required=False, action='store_true', help=
 parser.add_argument('--fix_data', required=False, action='store_true')
 parser.add_argument('--graph_frequencies', required=False, action='store_true')
 parser.add_argument('--graph_force_torque', required=False, action='store_true')
+parser.add_argument('--complete_analysis', required=False, action='store_true')
 
 args = parser.parse_args()
 
@@ -38,7 +40,7 @@ if args.filename is not None:
     chosenFile = args.filename
 
 if args.graph_frequencies:
-    graph_freqencies()
+    graph_freqencies(chosenFile, dataDir)
 
 if args.graph_force_torque:
     graph_ft(chosenFile, dataDir)
