@@ -106,7 +106,7 @@ func python_run(args):
 		print(output)
 
 func update_index():
-	python_run(["../python/analysis/dataAnalysis.py", "--update-index"])
+	python_run(["../python/analysis/dataAnalysis.py", "--update_index"])
 
 func show_graphs(filename):
 	python_run(["../python/analysis/dataAnalysis.py", filename])
