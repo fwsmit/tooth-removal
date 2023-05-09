@@ -17,8 +17,6 @@ func connectUpdate(node):
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	print("Updating index")
-	Global.update_index()
 	var filepath = FileAccess.open("user://index.json", FileAccess.READ)
 	index = JSON.parse_string(filepath.get_as_text())
 	for filename in index:

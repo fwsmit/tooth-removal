@@ -95,5 +95,7 @@ func _pressed():
 	if Global.loggedInAs != "Demo":
 		Global.selectedFile = save_extraction_to_file()
 
+	print("Updating index")
+	Global.update_index()
 	Global.reset_extraction_data()
 	Global.goto_scene("res://scenes/show_extraction.tscn")
