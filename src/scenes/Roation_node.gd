@@ -1,14 +1,20 @@
 extends MarginContainer
 
-@onready var Needle_1: Sprite2D = $Needle_1
+@onready var Needle_1: Sprite2D = $VBoxContainer/PanelContainer/Needle_1
 #@onready var Needle_2: Sprite2D = $"Axis 2/Needle_2"
 #@onready var Needle_3: Sprite2D = $"Axis 3/Needle_3"
+
+@onready var Bar1: TextureProgressBar = $VBoxContainer/Bar/Bar1_slider
+#@onready var Bar2: TextureProgressBar = $HBoxContainer/Bar2
+#@onready var Bar3: TextureProgressBar = $HBoxContainer/Bar3
+
 signal data 
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	Needle_1.rotation = 0.0
+	Bar1.postion = 0
 	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -31,8 +37,13 @@ func _process(delta):
 		var torque_m_l = Global.clinical_directions[1]["mesiobuccal/lingual"]
 #		
 		Needle_1.rotation = torque_m_d
+		Bar1.position.x = force_m_d
+		
 #		Needle_2.rotation = torque_b_l
+#		Bar2.value = force_b_l
+		
 #		Needle_3.rotation = torque_m_l
+#		Bar3.value = force_e_i
 		
 	else:
 		print('werkt niet')
