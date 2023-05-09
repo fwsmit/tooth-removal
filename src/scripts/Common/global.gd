@@ -101,3 +101,9 @@ func get_avg_torque(n):
 
 func python_run(args):
 	OS.execute("python", args)
+
+func update_index():
+	python_run(["../python/analysis/dataAnalysis.py", "--update-index"])
+
+func show_graphs(filename):
+	python_run(["../python/analysis/dataAnalysis.py", filename])
