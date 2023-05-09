@@ -104,7 +104,7 @@ func python_run(args):
 	var exit_code = OS.execute("python", args, output, true)
 	if exit_code != 0:
 		printerr("Python command has failed")
-		printerr(output)
+		printerr(output[0])
 
 func update_index():
 	python_run(["../python/analysis/dataAnalysis.py", "--update_index"])
