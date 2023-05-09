@@ -1,4 +1,4 @@
-extends CSGBox3D
+extends Node3D
 
 #const HOST: String = "127.0.0.1"
 const HOST: String = "192.168.0.100"
@@ -21,7 +21,7 @@ func _ready() -> void:
 	add_child(_client)
 	_client.connect_to_host(HOST, PORT)
 	Global.startTimestamp = Time.get_unix_time_from_system()
-
+	
 func _connect_after_timeout(timeout: float) -> void:
 	await get_tree().create_timer(timeout).timeout # Delay for timeout
 	_client.connect_to_host(HOST, PORT)
@@ -60,32 +60,34 @@ func vector_tand_frame(kwadrant, tand, vector):
 
 # deze functie ordent de kracht en momentvectoren in de richtingen gedefinieerd in tandheelkunde. 
 # De eerstegnoemde is altijd positief, dus bij buccal lingual, geldt dat een positieve waarde in de buccale richting is
-func type_force_torque(kwadrant, tand, force, torque):
-	var directions = [{'buccal/lingual': 0, 'mesial/distal': 0, 'extrusion/intrusion': 0},\
+func type_force_torque(kwadrant, _tand, force, torque):
+	var result = [{'buccal/lingual': 0, 'mesial/distal': 0, 'extrusion/intrusion': 0},\
 	{'mesial/distal angulation': 0, 'bucco/linguoversion': 0, 'mesiobuccal/lingual': 0}] # directions = [{forces}, {torques}]
 	if kwadrant == 1 or kwadrant == 2:
-		directions[0]['buccal/lingual'] = force.y
-		directions[0]['extrusion/intrusion'] = force.x
-		directions[1]['mesial/distal angulation'] = torque.y
-		directions[1]['mesiobuccal/lingual'] = torque.x
+		result[0]['buccal/lingual'] = force.y
+		result[0]['extrusion/intrusion'] = force.x
+		result[1]['bucco/linguoversion'] = torque.z
 		if kwadrant == 1:
-			directions[0]['mesial/distal'] = -force.z
-			directions[1]['bucco/linguoversion'] = -torque.z
+			result[0]['mesial/distal'] = -force.z
+			result[1]['mesial/distal angulation'] = torque.y
+			result[1]['mesiobuccal/lingual'] = torque.x
 		if kwadrant == 2:
-			directions[0]['mesial/distal'] = force.z
-			directions[1]['bucco/linguoversion'] = torque.z
+			result[0]['mesial/distal'] = force.z
+			result[1]['mesial/distal angulation'] = -torque.y
+			result[1]['mesiobuccal/lingual'] = -torque.x
 	if kwadrant == 3 or kwadrant == 4:
-		directions[0]['buccal/lingual'] = force.x
-		directions[0]['extrusion/intrusion'] = force.y
-		directions[1]['mesial/distal angulation'] = torque.x
-		directions[1]['mesiobuccal/lingual'] = torque.y
+		result[0]['buccal/lingual'] = force.x
+		result[0]['extrusion/intrusion'] = force.y
+		result[1]['bucco/linguoversion'] = -torque.z
 		if kwadrant == 3:
-			directions[0]['mesial/distal'] = force.z
-			directions[1]['bucco/linguoversion'] = torque.z
+			result[0]['mesial/distal'] = force.z
+			result[1]['mesial/distal angulation'] = torque.x
+			result[1]['mesiobuccal/lingual'] = torque.y
 		if kwadrant == 4:
-			directions[0]['mesial/distal'] = -force.z
-			directions[1]['bucco/linguoversion'] = -torque.z
-	return directions
+			result[0]['mesial/distal'] = -force.z
+			result[1]['mesial/distal angulation'] = -torque.x
+			result[1]['mesiobuccal/lingual'] = -torque.y
+	return result
 
 func _handle_client_data(force, torque) -> void:
 	emit_signal("data", force, torque)
@@ -99,23 +101,36 @@ func _handle_client_data(force, torque) -> void:
 	
 	Global.corrected_forces.append(force)
 	Global.corrected_torques.append(torque)
-	
+
 	# Order forces and torques in various directions
-	var directions = type_force_torque(Global.selectedQuadrant, Global.selectedTooth, force, torque*10)
-	emit_signal("directions", directions)
-	Global.clinical_directions = directions
-	# Convert to numbers around 1
-	force = force / 40
-	torque = torque / 3
+	var dir = type_force_torque(Global.selectedQuadrant, Global.selectedTooth, force, torque)
+	emit_signal("directions", dir)
 	
-	transform.origin.x = force.x
-	transform.origin.y = force.y
-	transform.origin.z = force.z
-	var rotation: Transform3D = Transform3D.IDENTITY
-	rotation = rotation.rotated(Vector3( 1, 0, 0 ), torque.x)
-	rotation = rotation.rotated(Vector3( 0, 1, 0 ), torque.y)
-	rotation = rotation.rotated(Vector3( 0, 0, 1 ), torque.z)
-	transform.basis = rotation.basis
+	for key in dir[0].keys():
+		Global.clinical_directions[0][key].append(dir[0][key])
+	
+	for key in dir[1].keys():
+		Global.clinical_directions[1][key].append(dir[1][key])
+	
+
+	# Remove noise by using average
+	var n = 100
+	var avg_force = Global.get_avg_force(n)
+	var avg_torque = Global.get_avg_torque(n)
+	
+	# Convert to numbers around 1
+	avg_force = avg_force / 40
+	avg_torque = avg_torque / 3
+
+	transform.origin.x = avg_force.x
+	transform.origin.y = avg_force.y
+	transform.origin.z = avg_force.z
+
+	var rot: Transform3D = Transform3D.IDENTITY
+	rot = rot.rotated(Vector3( 1, 0, 0 ), avg_torque.x)
+	rot = rot.rotated(Vector3( 0, 1, 0 ), avg_torque.y)
+	rot = rot.rotated(Vector3( 0, 0, 1 ), avg_torque.z)
+	transform.basis = rot.basis
 
 func _handle_client_disconnected() -> void:
 	emit_signal("disconnected")

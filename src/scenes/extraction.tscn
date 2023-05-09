@@ -1,8 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://b1tluf6bya11l"]
+[gd_scene load_steps=14 format=3 uid="uid://b1tluf6bya11l"]
 
 [ext_resource type="Script" path="res://scripts/Extraction/Sensor/data_user.gd" id="1_0ob14"]
 [ext_resource type="Script" path="res://scripts/Common/showLoggedInAs.gd" id="2_i4l7v"]
+[ext_resource type="ArrayMesh" uid="uid://dr7pwxynf7ehf" path="res://assets/16921_molar_with_root_V1.obj" id="2_qguxn"]
 [ext_resource type="Script" path="res://scripts/Extraction/ShowConnected.gd" id="3_ak075"]
+[ext_resource type="Script" path="res://scripts/Extraction/selectedtooth.gd" id="3_j7f80"]
 [ext_resource type="Texture2D" uid="uid://jn2edbaf0g6y" path="res://assets/Figures/connected.svg" id="4_uka1a"]
 [ext_resource type="Texture2D" uid="uid://bxtjqe348c13g" path="res://assets/Figures/disconnected.svg" id="5_egje7"]
 [ext_resource type="Script" path="res://scripts/Extraction/Extraction_finished.gd" id="6_msgkl"]
@@ -10,6 +12,7 @@
 [ext_resource type="FontFile" uid="uid://w6rhidxui6pe" path="res://assets/NotoSansMono-Regular.ttf" id="7_pt815"]
 [ext_resource type="Script" path="res://scripts/Extraction/DebugInfo.gd" id="9_yq4k5"]
 [ext_resource type="Script" path="res://scripts/Extraction/Terug.gd" id="10_dbgyb"]
+[ext_resource type="Script" path="res://scripts/Extraction/selectedquadrant.gd" id="11_uxmjs"]
 
 [node name="Node3D2" type="Node3D"]
 
@@ -17,8 +20,13 @@
 transform = Transform3D(-4.37114e-08, -0.603208, 0.797584, 0, 0.797584, 0.603208, -1, 2.63671e-08, -3.48635e-08, 4.979, 3.748, 0)
 current = true
 
-[node name="CSGBox3D" type="CSGBox3D" parent="."]
+[node name="CSGBox3D" type="Node3D" parent="."]
 script = ExtResource("1_0ob14")
+
+[node name="16921MolarWithRootV1" type="MeshInstance3D" parent="CSGBox3D"]
+transform = Transform3D(-4.37114e-08, -1, -4.37114e-08, 0, -4.37114e-08, 1, -1, 4.37114e-08, 1.91069e-15, 0.214994, -0.363556, 0.0715685)
+mesh = ExtResource("2_qguxn")
+skeleton = NodePath("../..")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.022199, -0.788643, 0.61445, -9.77091e-09, 0.614602, 0.788838, -0.999754, 0.0175114, -0.0136435, -7.39606, 5.13621, 2.08942)
@@ -28,8 +36,10 @@ light_energy = 1.914
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -177.0
-offset_bottom = 30.0
+offset_left = -408.0
+offset_top = 5.0
+offset_right = -15.0
+offset_bottom = 35.0
 grow_horizontal = 0
 text = "Logged in as: "
 fit_content = true
@@ -99,6 +109,7 @@ script = ExtResource("7_jhp4k")
 debugText = NodePath("DebugInfo")
 
 [node name="DebugInfo" type="RichTextLabel" parent="DebugButton"]
+visible = false
 layout_mode = 0
 offset_left = 6.0
 offset_top = -232.0
@@ -116,8 +127,24 @@ offset_left = 41.0
 offset_top = 23.0
 offset_right = 94.0
 offset_bottom = 54.0
-text = "Terug"
+text = "Back"
 script = ExtResource("10_dbgyb")
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="."]
+offset_left = 1008.0
+offset_top = 6.0
+offset_right = 1091.0
+offset_bottom = 46.0
+text = "Q: "
+script = ExtResource("11_uxmjs")
+
+[node name="RichTextLabel3" type="RichTextLabel" parent="."]
+offset_left = 1066.0
+offset_top = 7.0
+offset_right = 1142.0
+offset_bottom = 47.0
+text = "T: "
+script = ExtResource("3_j7f80")
 
 [connection signal="connected" from="CSGBox3D" to="MarginContainer" method="showConnected"]
 [connection signal="connected" from="CSGBox3D" to="DebugButton/DebugInfo" method="on_sensor_connected"]

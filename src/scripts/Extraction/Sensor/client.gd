@@ -93,13 +93,13 @@ func connect_to_host(host: String, port: int) -> void:
 		print("Error connecting to host.")
 		emit_signal("error")
 
-func send(data: PackedByteArray) -> bool:
+func send(dataPacket: PackedByteArray) -> bool:
 	if _status != _stream.STATUS_CONNECTED:
 		print("Error: Stream is not currently connected.")
 		return false
-	var error: int = _stream.put_data(data)
-	if error != OK:
-		print("Error writing to stream: ", error)
+	var errorNum: int = _stream.put_data(dataPacket)
+	if errorNum != OK:
+		print("Error writing to stream: ", errorNum)
 		return false
 	return true
 
@@ -109,9 +109,9 @@ func wait_for_response_and_consume():
 	while available_bytes <= 0:
 		available_bytes = _stream.get_available_bytes()
 	
-	var data: Array = _stream.get_partial_data(available_bytes)
-	if data[0] != OK:
-		print("Error getting data from stream: ", data[0])
+	var dataPacket: Array = _stream.get_partial_data(available_bytes)
+	if dataPacket[0] != OK:
+		print("Error getting data from stream: ", dataPacket[0])
 		emit_signal("error")
 
 func initializeSensor():

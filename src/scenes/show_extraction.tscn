@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://drtlcwie8j6jy"]
+[gd_scene load_steps=6 format=3 uid="uid://drtlcwie8j6jy"]
 
 [ext_resource type="Script" path="res://scripts/Show-extraction/Title.gd" id="1_waj4s"]
 [ext_resource type="Script" path="res://scripts/Show-extraction/show_extraction_info.gd" id="2_3aks3"]
 [ext_resource type="Script" path="res://scripts/Show-extraction/show_graphs.gd" id="3_n5m37"]
 [ext_resource type="Script" path="res://scripts/Common/SceneLoader.gd" id="3_tma3q"]
+[ext_resource type="Script" path="res://scripts/Show-extraction/Continue.gd" id="4_7wnru"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -43,12 +44,33 @@ layout_mode = 2
 text = "Show graphs"
 script = ExtResource("3_n5m37")
 
+[node name="Continue" type="Button" parent="." node_paths=PackedStringArray("backButton", "continueButton")]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -198.0
+offset_top = -79.0
+offset_right = -119.0
+offset_bottom = -48.0
+grow_horizontal = 0
+grow_vertical = 0
+size_flags_horizontal = 8
+size_flags_vertical = 8
+text = "Continue"
+script = ExtResource("4_7wnru")
+backButton = NodePath("../Terug")
+continueButton = NodePath(".")
+sceneName = "dashboard.tscn"
+
 [node name="Terug" type="Button" parent="."]
 layout_mode = 0
 offset_left = 41.0
 offset_top = 23.0
 offset_right = 94.0
 offset_bottom = 54.0
-text = "Terug"
+text = "Back"
 script = ExtResource("3_tma3q")
 sceneName = "previous-extractions.tscn"

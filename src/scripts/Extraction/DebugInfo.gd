@@ -51,11 +51,12 @@ func updateText():
 		text += "buccal/lingual: " + num_to_string_padded(directions[0]['buccal/lingual'])  + "\n"
 		text += "mesial/distal: " + num_to_string_padded(directions[0]['mesial/distal']) + "\n"
 		text += "extrusion/intrusion: " + num_to_string_padded(directions[0]['extrusion/intrusion']) + "\n"
-		text += "mesial/distal angulation: " + num_to_string_padded(directions[1]['mesial/distal angulation']) + "\n"
-		text += "bucco/linguoversion: " + num_to_string_padded(directions[1]['bucco/linguoversion']) + "\n"
-		text += "mesiobuccal/lingual: " + num_to_string_padded(directions[1]['mesiobuccal/lingual']) + "\n"
+		text += "mesial/distal angulation: " + num_to_string_padded(10*directions[1]['mesial/distal angulation']) + "E-1\n"
+		text += "bucco/linguoversion: " + num_to_string_padded(10*directions[1]['bucco/linguoversion']) + "E-1\n"
+		text += "mesiobuccal/lingual: " + num_to_string_padded(10*directions[1]['mesiobuccal/lingual']) + "E-1\n"
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	if not timerStarted:
 		timerStarted = true
 		updateText()
