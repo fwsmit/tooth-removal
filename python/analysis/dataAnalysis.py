@@ -1,14 +1,16 @@
 import os
-import json
 import argparse
 import matplotlib.pyplot as plt
 from xdg_base_dirs import xdg_data_home
 from scipy.ndimage import uniform_filter1d
 from scipy.signal import find_peaks, butter, lfilter
 from scipy.fft import fft, fftfreq
-from vec_util import *
 import matplotlib
 import numpy as np
+
+from vec_util import *
+from fix_data import *
+from json_parse import *
 
 dataDir = os.path.join(xdg_data_home(),"godot", "app_userdata", "Tooth removal")
 
@@ -30,11 +32,6 @@ def find_starting_point(force, torque):
     end = (force_end + torque_end) / 2
     return start, end
 
-def fix_vector(vectors, duration):
-    num_samples_per_second = 1000 # sample frequency of sensor
-    num_samples = round(duration * num_samples_per_second)
-    return vectors[-num_samples:]
-
 def analyze_peaks(vectors):
     peak_width_min = 100
     prominence_min = 0.25
@@ -51,11 +48,6 @@ def plot_vectors(axis, vectors, _title, duration, points=None):
         for p in points:
             t = p / len(vectors) * duration
             axis.plot(t, vectors[round(p)], marker="o")
-
-def parse_json(filename):
-    filepath = os.path.join(dataDir, filename)
-    with open(filepath) as f:
-        return json.load(f)
 
 def get_forces(dic):
     return [dic["corrected_forces_x"], dic["corrected_forces_y"], dic["corrected_forces_z"]]
@@ -97,7 +89,7 @@ def get_direction_changes(v, peaks):
     return count
 
 def show_file_stats(filename, show_frequencies):
-    propDic = parse_json(filename)
+    propDic = parse_json(filename, dataDir)
     duration = propDic["end_timestamp"] - propDic["start_timestamp"]
     print("Duration:", round(duration), "seconds")
     print("Tooth:", propDic["tooth"])
@@ -173,31 +165,6 @@ def show_file_stats(filename, show_frequencies):
     plt.show()
     
 
-def fix_data_vector(dic, duration, name):
-    vectors = list(split_vectors(dic[name]))
-    if len(vectors[0])/duration > 1000:
-        for i in range(len(vectors)):
-            vectors[i] = fix_vector(vectors[i], duration)
-
-    appedices = ["_x", "_y", "_z"]
-    for v, a in zip(vectors, appedices):
-        dic[name+a] = v
-
-def fix_data_cutoff(filename):
-    propDic = parse_json(filename)
-    duration = propDic["end_timestamp"] - propDic["start_timestamp"]
-
-    # Fix data collection error because of bug #24
-    print("Fixing vectors of", filename)
-    for name in ["corrected_forces", "corrected_torques", "raw_forces", "raw_torques"]:
-        fix_data_vector(propDic, duration, name)
-        propDic.pop(name, None)
-
-    filepath = os.path.join(dataDir, filename)
-    with open(filepath, 'w') as f:
-        json.dump(propDic, f, indent="\t")
-
-
 parser = argparse.ArgumentParser(description='Show graphs of sensor data')
 parser.add_argument('filename', nargs="?", help='Path to data file. This file must be in JSON format')
 parser.add_argument('--update_index', required=False, action='store_true', help='Update index of all data files')
@@ -215,7 +182,7 @@ for filename in os.listdir(dataDir):
 if args.update_index:
     print("Updating index")
     index_filepath = os.path.join(dataDir, "index.json")
-    index_dic = parse_json("index.json")
+    index_dic = parse_json("index.json", dataDir)
     index_changed = False
 
     # Add new files
@@ -223,7 +190,7 @@ if args.update_index:
         if f in index_dic:
             continue
         index_changed = True
-        dic = parse_json(f)
+        dic = parse_json(f, dataDir)
         for i in ["", "_x", "_y", "_z"]:
             dic.pop("corrected_forces"+i, None)
             dic.pop("corrected_torques"+i, None)
@@ -250,7 +217,7 @@ if args.update_index:
 
 if args.fix_data:
     for f in possible_files:
-        fix_data_cutoff(f)
+        fix_data_cutoff(f, dataDir)
 
 if args.filename is not None:
     show_file_stats(args.filename)
