@@ -97,6 +97,7 @@ def show_file_stats(filename, show_frequencies, dataDir):
     propDic = parse_json(filename, dataDir)
     duration = propDic["end_timestamp"] - propDic["start_timestamp"]
     print("Duration:", round(duration), "seconds")
+    print("Quadrant:", propDic["quadrant"])
     print("Tooth:", propDic["tooth"])
     forces = get_forces(propDic)
     torques = get_torques(propDic)
