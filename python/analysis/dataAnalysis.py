@@ -2,9 +2,7 @@ import os
 import argparse
 from xdg_base_dirs import xdg_data_home
 
-from vec_util import *
 from fix_data import *
-from json_parse import *
 from index import *
 from graphs import *
 
