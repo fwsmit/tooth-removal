@@ -116,6 +116,21 @@ def lowpass_filter(vec, cutoff, fs=1000, order=5):
     y = lfilter(b, a, vec)
     return y
 
+def get_direction_changes(v):
+    peaks = analyze_peaks(v)
+    count = 0
+    sign = 0
+
+    print(peaks)
+    for p in peaks:
+        y = v[round(p)]
+        print(y)
+        if sign != np.sign(y):
+            count += 1
+            sign = np.sign(y)
+
+    return count
+
 def show_file_stats(filename, show_frequencies):
     propDic = parse_json(filename)
     duration = propDic["end_timestamp"] - propDic["start_timestamp"]
@@ -128,6 +143,16 @@ def show_file_stats(filename, show_frequencies):
     for i in range(len(forces)):
         forces[i] = lowpass_filter(forces[i], cutoff)
         torques[i] = lowpass_filter(torques[i], cutoff)
+
+    f_direction_changes = []
+    t_direction_changes = []
+    # find number of direction changes
+    for i in range(len(forces)):
+        f_direction_changes.append(get_direction_changes(forces[i]))
+        t_direction_changes.append(get_direction_changes(torques[i]))
+
+    # print(f_direction_changes)
+    print(t_direction_changes)
 
     forces_norm = norm_vectors(forces)
     torques_norm = norm_vectors(torques)
