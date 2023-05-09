@@ -103,7 +103,8 @@ func python_run(args):
 	var output = []
 	var exit_code = OS.execute("python", args, output, true)
 	if exit_code != 0:
-		print(output)
+		printerr("Python command has failed")
+		printerr(output)
 
 func update_index():
 	python_run(["../python/analysis/dataAnalysis.py", "--update_index"])
