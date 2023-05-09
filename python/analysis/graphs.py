@@ -5,6 +5,12 @@ from json_parse import *
 from vec_util import *
 from analysis import *
 
+fig = None
+
+def show_plots(fig):
+    fig.tight_layout()
+    plt.show()
+
 def plot_frequencies(ax, vec, name):
     # Number of samplepoints
     N = len(vec)
@@ -29,7 +35,11 @@ def plot_vectors(axis, vectors, _title, duration, points=None):
             t = p / len(vectors) * duration
             axis.plot(t, vectors[round(p)], marker="o")
 
-def graph_freqencies():
+def graph_freqencies(filename, dataDir):
+    propDic = parse_json(filename, dataDir)
+    forces = get_forces(propDic)
+    torques = get_torques(propDic)
+
     forces_norm = norm_vectors(forces)
     torques_norm = norm_vectors(torques)
     # Show frequencies
@@ -41,11 +51,23 @@ def graph_freqencies():
 
     for a in arguments:
         plot_frequencies(a[0], a[1], a[2])
-    return fig
 
-def graph_ft(forces, torques, duration):
+    show_plots(fig)
+
+def graph_ft(filename, dataDir):
+    propDic = parse_json(filename, dataDir)
+    duration = propDic["end_timestamp"] - propDic["start_timestamp"]
+    print("Duration:", round(duration), "seconds")
+    print("Quadrant:", propDic["quadrant"])
+    print("Tooth:", propDic["tooth"])
+    forces = get_forces(propDic)
+    torques = get_torques(propDic)
+
+    forces,torques = lowpass_filter_all(forces, torques)
+
     forces_norm = norm_vectors(forces)
     torques_norm = norm_vectors(torques)
+
     fig, ax = plt.subplots(2,4, sharex='col', sharey='row')
     arguments = [
             [ax[0][0], forces[0], "Force (x)", True],
@@ -91,29 +113,4 @@ def graph_ft(forces, torques, duration):
             p = torque_points
         plot_vectors(a[0], a[1], a[2], duration, p)
         a[0].title.set_text(a[2])
-    return fig
-
-def show_file_stats(filename, show_frequencies, dataDir):
-    propDic = parse_json(filename, dataDir)
-    duration = propDic["end_timestamp"] - propDic["start_timestamp"]
-    print("Duration:", round(duration), "seconds")
-    print("Quadrant:", propDic["quadrant"])
-    print("Tooth:", propDic["tooth"])
-    forces = get_forces(propDic)
-    torques = get_torques(propDic)
-
-    cutoff = 3
-    for i in range(len(forces)):
-        forces[i] = lowpass_filter(forces[i], cutoff)
-        torques[i] = lowpass_filter(torques[i], cutoff)
-
-    print(get_parameters(forces, torques))
-
-    if show_frequencies:
-        fig = graph_freqencies()
-    else:
-        fig = graph_ft(forces, torques, duration)
-
-    # Show plots
-    fig.tight_layout()
-    plt.show()
+    show_plots(fig)

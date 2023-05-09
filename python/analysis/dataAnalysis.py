@@ -4,7 +4,7 @@ from xdg_base_dirs import xdg_data_home
 
 from fix_data import fix_data_cutoff
 from index import update_index
-from graphs import show_file_stats
+from graphs import graph_ft, graph_freqencies
 
 dataDir = os.path.join(xdg_data_home(),"godot", "app_userdata", "Tooth removal")
 
@@ -37,5 +37,8 @@ if args.filename is not None:
 
 fileIndex = 4
 
-if not args.disable_graph:
-    show_file_stats(possible_files[fileIndex], args.show_frequencies, dataDir)
+
+if args.show_frequencies:
+    graph_freqencies()
+else:
+    graph_ft(possible_files[fileIndex], dataDir)

@@ -102,6 +102,15 @@ def lowpass_filter(vec, cutoff, fs=1000, order=5):
     y = lfilter(b, a, vec)
     return y
 
+def lowpass_filter_all(forces, torques):
+    cutoff = 3
+    for i in range(len(forces)):
+        forces[i] = lowpass_filter(forces[i], cutoff)
+        torques[i] = lowpass_filter(torques[i], cutoff)
+
+    return forces, torques
+
+
 def get_direction_changes(v, peaks):
     count = 0
     sign = 0
