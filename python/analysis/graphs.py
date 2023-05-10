@@ -71,12 +71,12 @@ def graph_ft(filename, dataDir):
 
     fig, ax = plt.subplots(2,4, sharex='col', sharey='row')
     arguments = [
-            [ax[0][0], forces[0], "Force (x)", True],
-            [ax[0][1], forces[1], "Force (y)", True],
-            [ax[0][2], forces[2], "Force (z)", True],
-            [ax[1][0], torques[0], "Torque (x)", False],
-            [ax[1][1], torques[1], "Torque (y)", False],
-            [ax[1][2], torques[2], "Torque (z)", False],
+            [ax[0][0], forces[0], "Buccal/lingual", True],
+            [ax[0][1], forces[1], "Mesial/distal", True],
+            [ax[0][2], forces[2], "Extrusion/intrusion", True],
+            [ax[1][0], torques[0], "Mesial/distal angulation", False],
+            [ax[1][1], torques[1], "Bucco/linguoversion", False],
+            [ax[1][2], torques[2], "Mesiobuccal/lingual", False],
             [ax[1][3], torques_norm, "Torque absolute", False],
             [ax[0][3], forces_norm, "Force absolute", True],
             ]
