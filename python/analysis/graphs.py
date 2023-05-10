@@ -121,6 +121,7 @@ def plot_bar_from_data(data, key, ax, label):
     teeth = range(1,9)
     force_auc = []
     labels = []
+    errors = []
     for ul in upper_lower:
         t_range = teeth
         if ul:
@@ -128,6 +129,7 @@ def plot_bar_from_data(data, key, ax, label):
         for t in t_range:
             matching_extractions = filter_extraction(data, ul, t)
             force_auc.append(get_avg_val(matching_extractions, key))
+            errors.append(get_std_val(matching_extractions, key))
             l = ""
             if ul:
                 l += "U"
@@ -136,7 +138,8 @@ def plot_bar_from_data(data, key, ax, label):
             l += str(t)
             l += " (n = {})".format(len(matching_extractions))
             labels.append(l)
-    ax.barh(labels, force_auc)
+
+    ax.barh(labels, force_auc, xerr=errors)
     ax.set_xlabel(label)
 
 def plot_analysis(analysis):

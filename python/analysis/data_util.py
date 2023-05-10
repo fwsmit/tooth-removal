@@ -1,3 +1,4 @@
+import numpy as np
 
 def filter_extraction(data, upper, tooth):
     res = []
@@ -9,12 +10,18 @@ def filter_extraction(data, upper, tooth):
                 res.append(extraction)
     return res
 
-def get_avg_val(data, key):
-    total = 0
+def get_values(data, key):
+    res = []
     for e in data:
-        total += e[key]
+        res.append(e[key])
 
-    return total / len(data)
+    return res
+
+def get_std_val(data, key):
+    return np.std(get_values(data,key))
+
+def get_avg_val(data, key):
+    return np.average(get_values(data,key))
 
 def filter_complications(data):
     res = []
