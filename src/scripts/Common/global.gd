@@ -101,3 +101,16 @@ func get_avg_force(n):
 
 func get_avg_torque(n):
 	return get_avg_vector(n, corrected_torques)
+
+func python_run(args):
+	var output = []
+	var exit_code = OS.execute("python", args, output, true)
+	if exit_code != 0:
+		printerr("Python command has failed")
+		printerr(output[0])
+
+func update_index():
+	python_run(["../python/analysis/dataAnalysis.py", "--update_index"])
+
+func show_graphs(filename):
+	python_run(["../python/analysis/dataAnalysis.py", filename, "--graph_force_torque"])

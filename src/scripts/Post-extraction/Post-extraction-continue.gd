@@ -43,11 +43,7 @@ func save_extraction_to_file():
 		"person_type": Global.loggedInAs,
 		"start_timestamp": Global.startTimestamp,
 		"end_timestamp": Global.endTimestamp,
-		"format_version": 1, # version of the data formt
-
-		# Force data (kept for compatibility)
-#		"raw_forces": Global.raw_forces,
-#		"raw_torques": Global.raw_torques,
+		"format_version": 2, # version of the data format
 
 		# Force data split by axis
 		"raw_forces_x": fl_raw_forces[0],
@@ -91,5 +87,7 @@ func _pressed():
 	if Global.loggedInAs != "Demo":
 		Global.selectedFile = save_extraction_to_file()
 
+	print("Updating index")
+	Global.update_index()
 	Global.reset_extraction_data()
 	Global.goto_scene("res://scenes/show_extraction.tscn")
