@@ -48,22 +48,43 @@ func _process(delta):
 				
 				var torque_m_l = Global.get_avg_torque(n).x
 				Needle_3.rotation = torque_m_l
-#			
-#
-#			if kwadrant == 2:
-#				result[0]['mesial/distal'] = force.z
-#				result[1]['mesial/distal angulation'] = -torque.y
-#				result[1]['mesiobuccal/lingual'] = -torque.x
-#		if kwadrant == 3 or kwadrant == 4:
-#			result[0]['buccal/lingual'] = force.x
-#			result[0]['extrusion/intrusion'] = force.y
-#			result[1]['bucco/linguoversion'] = -torque.z
-#			if kwadrant == 3:
-#				result[0]['mesial/distal'] = force.z
-#				result[1]['mesial/distal angulation'] = torque.x
-#				result[1]['mesiobuccal/lingual'] = torque.y
-#			if kwadrant == 4:
-#				result[0]['mesial/distal'] = -force.z
-#				result[1]['mesial/distal angulation'] = -torque.x
-#				result[1]['mesiobuccal/lingual'] = -torque.y
-#	return result
+				
+			if Global.selectedQuadrant == 2:
+				var force_m_d = Global.get_avg_force(n).z
+				Bar1.position.x = 179 - 10*(force_m_d)
+				
+				var torque_m_d = -Global.get_avg_torque(n).y
+				Bar2.position.x = 179 - 10*(force_m_d)
+				
+				var torque_m_l = -Global.get_avg_torque(n).x
+				Needle_3.rotation = torque_m_l
+
+		if Global.selectedQuadrant == 3 or Global.selectedQuadrant == 4:
+			var force_b_l = Global.get_avg_force(n).x
+			Needle_2.rotation = -0.5*force_b_l
+			
+			var force_e_i = Global.get_avg_force(n).y
+			Bar3.position.x = 179 - 10*(force_e_i)
+			
+			var torque_b_l = -Global.get_avg_torque(n).z
+			Needle_1.rotation = -torque_b_l
+			
+			if Global.selectedQuadrant == 3:
+				var force_m_d = Global.get_avg_force(n).z
+				Bar1.position.x = 179 - 10*(force_m_d)
+				
+				var torque_m_d = Global.get_avg_torque(n).x
+				Bar2.position.x = 179 - 10*(force_m_d)
+				
+				var torque_m_l = Global.get_avg_torque(n).y
+				Needle_3.rotation = torque_m_l
+				
+			if Global.selectedQuadrant == 4:
+				var force_m_d = -Global.get_avg_force(n).z
+				Bar1.position.x = 179 - 10*(force_m_d)
+				
+				var torque_m_d = -Global.get_avg_torque(n).x
+				Bar2.position.x = 179 - 10*(force_m_d)
+				
+				var torque_m_l = -Global.get_avg_torque(n).y
+				Needle_3.rotation = torque_m_l
