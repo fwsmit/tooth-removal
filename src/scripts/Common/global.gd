@@ -13,7 +13,8 @@ var raw_forces = []
 var raw_torques = []
 var corrected_forces = []
 var corrected_torques = []
-var clinical_directions = null
+var clinical_directions = [{'buccal/lingual': [], 'mesial/distal': [], 'extrusion/intrusion': []},\
+	{'mesial/distal angulation': [], 'bucco/linguoversion': [], 'mesiobuccal/lingual': []}]
 var startTimestamp = -1 # start of extraction
 var endTimestamp = -1 # end of extraction
 
@@ -67,6 +68,8 @@ func reset_extraction_data():
 	raw_torques = []
 	corrected_forces = []
 	corrected_torques = []
+	clinical_directions = [{'buccal/lingual': [], 'mesial/distal': [], 'extrusion/intrusion': []},\
+	{'mesial/distal angulation': [], 'bucco/linguoversion': [], 'mesiobuccal/lingual': []}]
 	startTimestamp = -1 # start of extraction
 	endTimestamp = -1 # end of extraction
 	selectedQuadrant = null
