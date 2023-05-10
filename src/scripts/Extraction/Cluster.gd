@@ -23,7 +23,7 @@ func _ready():
 	Bar3.position.y = 16.5
 	
 func _process(delta):
-	var n = 100
+	var n = 1000
 	print(Global.get_avg_torque(n))
 	print(Global.get_avg_force(n))
 	

@@ -66,3 +66,11 @@ func _process(_delta):
 
 
 
+
+
+func _on_csg_mesh_3d_connected():
+	pass # Replace with function body.
+
+
+func _on_csg_mesh_3d_data():
+	pass # Replace with function body.
