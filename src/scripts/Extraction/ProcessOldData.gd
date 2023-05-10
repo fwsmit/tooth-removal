@@ -5,14 +5,16 @@ const Post_extraction_continue = preload("res://scripts/Post-extraction/Post-ext
 
 var filing = Post_extraction_continue.new()
 var frame = data_user.new()
+var directory_path = "C:/Users/valen/OneDrive/Documenten/Werktuigbouwkunde/BEP/26 april 2023 - Field trip Amsterdam (corrected)/26 april 2023 - Field trip Amsterdam (corrected)"
+var files = get_files_at(directory_path)
 # Called when the node enters the scene tree for the first time.
 
 
 
-
 func _ready():
-	process_data("C:/Users/valen/OneDrive/Documenten/Werktuigbouwkunde/BEP/26 april 2023 - Field trip Amsterdam (corrected)/26 april 2023 - Field trip Amsterdam (corrected)/extraction_data_2023-04-26T09;44;23.json")
-	filing.save_extraction_to_file()
+	for file_name in files:
+		process_data(directory_path+'/'+file_name)
+		filing.save_extraction_to_file()
 
 
 
@@ -20,7 +22,24 @@ func _ready():
 func _process(delta):
 	pass
 
-#filePath = "C:/Users/valen/OneDrive/Documenten/Werktuigbouwkunde/BEP/26 april 2023 - Field trip Amsterdam/extraction_data_2023-04-26T09;44;23.json"
+
+func get_files_at(path: String):
+	var dir = DirAccess.open(path)
+	var files: Array = []
+	if dir:
+		dir.list_dir_begin()
+		var file_name = dir.get_next()
+		while file_name != "":
+			if dir.current_is_dir():
+				print("Found directory: " + file_name)
+			else:
+				files.append(file_name)
+			file_name = dir.get_next()
+	else:
+		print("An error occurred when trying to access the path.")
+	return files
+
+
 func load_json_file(filePath: String):
 	if FileAccess.file_exists(filePath):
 		
