@@ -2,10 +2,10 @@ import numpy as np
 from scipy.interpolate import CubicSpline
 
 def get_forces(dic):
-    return [dic["corrected_forces_x"], dic["corrected_forces_y"], dic["corrected_forces_z"]]
+    return [dic["buccal/lingual"], dic["mesial/distal"], dic["extrusion/intrusion"]]
 
 def get_torques(dic):
-    return [dic["corrected_torques_x"], dic["corrected_torques_y"], dic["corrected_torques_z"]]
+    return [dic["mesial/distal angulation"], dic["bucco/linguoversion"], dic["mesiobuccal/lingual"]]
 
 def split_vectors(forces):
     xs = []
