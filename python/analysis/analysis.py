@@ -4,6 +4,8 @@ from scipy.fft import fft, fftfreq
 from scipy.ndimage import uniform_filter1d
 
 from vec_util import *
+from json_parse import *
+from data_util import *
 
 # Sample frequency of sensor
 frequency = 1000
@@ -146,3 +148,22 @@ def analyze_peaks(vectors):
     prominence_min = 0.25
     peaks, properties = find_peaks(vectors, width=peak_width_min, prominence=prominence_min)
     return peaks
+
+def analyze_file(filename, dataDir):
+    dic = parse_json(filename, dataDir)
+    forces = get_forces(dic)
+    torques = get_torques(dic)
+    if len(forces) == 0:
+        print("Empty file, skipping", filename)
+        return {}
+    forces, torques = lowpass_filter_all(forces, torques)
+    dic.update(get_parameters(forces, torques))
+    return dic
+
+def complete_analysis(files, dataDir):
+    analysis = []
+    for f in files:
+        dic = analyze_file(f, dataDir)
+        analysis.append(dic)
+    analysis = filter_complications(analysis)
+    return analysis

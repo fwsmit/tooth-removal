@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 from json_parse import *
 from vec_util import *
 from analysis import *
+from data_util import *
 
 fig = None
 
@@ -114,3 +115,33 @@ def graph_ft(filename, dataDir):
         plot_vectors(a[0], a[1], a[2], duration, p)
         a[0].title.set_text(a[2])
     show_plots(fig)
+
+def plot_bar_from_data(data, key, ax, label):
+    upper_lower = [False, True]
+    teeth = range(1,9)
+    force_auc = []
+    labels = []
+    for ul in upper_lower:
+        t_range = teeth
+        if ul:
+            t_range = reversed(t_range)
+        for t in t_range:
+            matching_extractions = filter_extraction(data, ul, t)
+            force_auc.append(get_avg_val(matching_extractions, key))
+            l = ""
+            if ul:
+                l += "U"
+            else:
+                l += "L"
+            l += str(t)
+            l += " (n = {})".format(len(matching_extractions))
+            labels.append(l)
+    ax.barh(labels, force_auc)
+    ax.set_xlabel(label)
+
+def plot_analysis(analysis):
+    fig, ax = plt.subplots(1, 2)
+    plot_bar_from_data(analysis, "fmag_auc", ax[0], "Force auc [Ns]")
+    plot_bar_from_data(analysis, "tmag_auc", ax[1], "Torque auc [Nms]")
+    show_plots(fig)
+

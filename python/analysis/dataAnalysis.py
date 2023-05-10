@@ -4,7 +4,8 @@ from xdg_base_dirs import xdg_data_home
 
 from fix_data import fix_data_cutoff
 from index import update_index
-from graphs import graph_ft, graph_freqencies
+from graphs import graph_ft, graph_freqencies, plot_analysis
+from analysis import complete_analysis
 
 
 dataDir = os.path.join(xdg_data_home(),"godot", "app_userdata", "Tooth removal")
@@ -32,6 +33,10 @@ if args.update_index:
 if args.fix_data:
     for f in possible_files:
         fix_data_cutoff(f, dataDir)
+
+if args.complete_analysis:
+    analysis = complete_analysis(possible_files, dataDir)
+    plot_analysis(analysis)
 
 fileIndex = 4
 chosenFile = possible_files[fileIndex]
