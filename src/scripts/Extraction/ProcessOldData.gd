@@ -7,16 +7,12 @@ var filing = Post_extraction_continue.new()
 var frame = data_user.new()
 # Called when the node enters the scene tree for the first time.
 
-var file_path := "C:\Users\valen\OneDrive\Documenten\Werktuigbouwkunde\BEP\26 april 2023 - Field trip Amsterdam (corrected)\26 april 2023 - Field trip Amsterdam (corrected)\extraction_data_2023-04-26T09;44;23.json"
-var converted_path := file_path.replace("\\", "/")
-
 
 
 
 func _ready():
-#	process_data("C:/Users/valen/OneDrive/Documenten/Werktuigbouwkunde/BEP/26 april 2023 - Field trip Amsterdam (corrected)/26 april 2023 - Field trip Amsterdam (corrected)/extraction_data_2023-04-26T09;44;23.json")
-#	filing.save_extraction_to_file()
-	print(converted_path)
+	process_data("C:/Users/valen/OneDrive/Documenten/Werktuigbouwkunde/BEP/26 april 2023 - Field trip Amsterdam (corrected)/26 april 2023 - Field trip Amsterdam (corrected)/extraction_data_2023-04-26T09;44;23.json")
+	filing.save_extraction_to_file()
 
 
 
