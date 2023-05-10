@@ -46,8 +46,8 @@ func save_extraction_to_file():
 		"format_version": 1, # version of the data formt
 
 		# Force data (kept for compatibility)
-		"raw_forces": Global.raw_forces,
-		"raw_torques": Global.raw_torques,
+#		"raw_forces": Global.raw_forces,
+#		"raw_torques": Global.raw_torques,
 
 		# Force data split by axis
 		"raw_forces_x": fl_raw_forces[0],

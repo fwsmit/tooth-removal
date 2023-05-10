@@ -15,6 +15,7 @@ func _ready():
 	for file_name in files:
 		process_data(directory_path+'/'+file_name)
 		filing.save_extraction_to_file()
+		Global.reset_extraction_data()
 
 
 
