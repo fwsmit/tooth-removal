@@ -1,3 +1,4 @@
 # Godot 4+ specific ignores
 src/.godot/
 src/exports/
+python/analysis/__pycache__
