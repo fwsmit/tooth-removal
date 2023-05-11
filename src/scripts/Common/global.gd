@@ -4,8 +4,8 @@ var current_scene = null
 
 # Data requested before extraction
 var loggedInAs = "Unknown"
-var selectedQuadrant = null
-var selectedTooth = null
+var selectedQuadrant = 1
+var selectedTooth = 1
 var selectedType = null
 
 # Data stored during extraction
