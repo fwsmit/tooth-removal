@@ -243,6 +243,8 @@ texture = ExtResource("9_yqw6e")
 custom_minimum_size = Vector2(10, 20)
 layout_mode = 2
 text = "bucco/linguoversion & buccal/lingual"
+fit_content = true
+scroll_active = false
 
 [node name="Axis 2" type="MarginContainer" parent="VBoxContainer/Body/VBoxContainer/PanelContainer/GridContainer"]
 custom_minimum_size = Vector2(0, 180)
@@ -287,6 +289,8 @@ texture = ExtResource("9_yqw6e")
 custom_minimum_size = Vector2(10, 20)
 layout_mode = 2
 text = "Mesial - Distal"
+fit_content = true
+scroll_active = false
 
 [node name="Axis 3" type="MarginContainer" parent="VBoxContainer/Body/VBoxContainer/PanelContainer/GridContainer"]
 custom_minimum_size = Vector2(0, 180)
@@ -331,6 +335,8 @@ texture = ExtResource("9_yqw6e")
 custom_minimum_size = Vector2(10, 20)
 layout_mode = 2
 text = "mesiobuccal/lingual & Extrusion/Intrusion"
+fit_content = true
+scroll_active = false
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Body/VBoxContainer"]
 layout_mode = 2
