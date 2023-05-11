@@ -1,7 +1,7 @@
 [gd_scene load_steps=15 format=3 uid="uid://cnu4bkdspar6m"]
 
 [ext_resource type="Script" path="res://scripts/Extraction/Sensor/data_user.gd" id="1_vu16l"]
-[ext_resource type="PackedScene" uid="uid://dv5q83it48w5j" path="res://scenes/Togglebutton.tscn" id="2_llarb"]
+[ext_resource type="PackedScene" uid="uid://cto4jgqgmwgrd" path="res://scenes/Togglebutton.tscn" id="2_llarb"]
 [ext_resource type="Script" path="res://scripts/Dashboard/Togglebutton.gd" id="3_g0m3n"]
 [ext_resource type="Script" path="res://scripts/Common/showLoggedInAs.gd" id="4_1kkys"]
 [ext_resource type="Script" path="res://scripts/Extraction/radial_meter.gd" id="5_4c24j"]
