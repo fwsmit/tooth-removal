@@ -23,7 +23,7 @@ func _ready():
 	Bar3.position.x = 176
 	Bar3.position.y = 16.5
 	
-func _process(delta):
+func _process(_delta):
 	var n = 500
 	
 	#Set parameters for the clustermeters:
