@@ -13,6 +13,11 @@ signal disconnected
 signal data
 signal directions
 
+@export var molar_3d : MeshInstance3D
+@export var incisor_3d : MeshInstance3D
+@export var canine_3d : MeshInstance3D
+@export var premolar_3d : MeshInstance3D
+
 func _ready() -> void:
 	_client.connect("connected",Callable(self,"_handle_client_connected"))
 	_client.connect("disconnected",Callable(self,"_handle_client_disconnected"))
@@ -21,6 +26,18 @@ func _ready() -> void:
 	add_child(_client)
 	_client.connect_to_host(HOST, PORT)
 	Global.startTimestamp = Time.get_unix_time_from_system()
+
+	var t = Global.selectedTooth
+	molar_3d.visible = false
+	if t == 1 or t == 2:
+		incisor_3d.visible = true
+	elif t == 3:
+		canine_3d.visible = true
+	elif t == 4 or t == 5:
+		premolar_3d.visible = true
+	elif t > 5:
+		molar_3d.visible = true
+		
 	
 func _connect_after_timeout(timeout: float) -> void:
 	await get_tree().create_timer(timeout).timeout # Delay for timeout

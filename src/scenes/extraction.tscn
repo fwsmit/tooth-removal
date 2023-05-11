@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://c4vbxhjh7m7h6"]
+[gd_scene load_steps=23 format=3 uid="uid://c4vbxhjh7m7h6"]
 
 [ext_resource type="Script" path="res://scripts/Extraction/Sensor/data_user.gd" id="1_vu16l"]
 [ext_resource type="PackedScene" uid="uid://cto4jgqgmwgrd" path="res://scenes/Togglebutton.tscn" id="2_llarb"]
@@ -11,11 +11,14 @@
 [ext_resource type="Texture2D" uid="uid://dwtc21ukm1qev" path="res://assets/Figures/Group 4 (1).png" id="7_l0rmo"]
 [ext_resource type="Texture2D" uid="uid://buo4omrbfuikh" path="res://assets/Figures/Rectangle 3 (4).png" id="8_0om6e"]
 [ext_resource type="Script" path="res://scripts/Extraction/DebugButton.gd" id="8_dqdr0"]
-[ext_resource type="ArrayMesh" uid="uid://dr7pwxynf7ehf" path="res://assets/16921_molar_with_root_V1.obj" id="8_komf0"]
+[ext_resource type="ArrayMesh" uid="uid://dr7pwxynf7ehf" path="res://assets/3d models/16921_molar_with_root_V1.obj" id="8_yf5s0"]
+[ext_resource type="ArrayMesh" uid="uid://d0lnfsgkna77c" path="res://assets/3d models/16923_incisor_with_root_V1.obj" id="9_3iqj8"]
 [ext_resource type="FontFile" uid="uid://w6rhidxui6pe" path="res://assets/NotoSansMono-Regular.ttf" id="9_ickr0"]
 [ext_resource type="Texture2D" uid="uid://lvjds1fwa0nb" path="res://assets/Figures/Rectangle 4.png" id="9_yqw6e"]
 [ext_resource type="Script" path="res://scripts/Extraction/DebugInfo.gd" id="10_tfsdg"]
+[ext_resource type="ArrayMesh" uid="uid://dsoasfrcesisb" path="res://assets/3d models/16925_canine_with_root_v1.obj" id="10_v3dci"]
 [ext_resource type="Script" path="res://scripts/Extraction/ShowConnected.gd" id="11_8fuch"]
+[ext_resource type="ArrayMesh" uid="uid://cusnk6x8g36gs" path="res://assets/3d models/16927_bicuspid_with_root_v1_NEW.obj" id="11_yu6q1"]
 [ext_resource type="Texture2D" uid="uid://jn2edbaf0g6y" path="res://assets/Figures/connected.svg" id="12_rh6w6"]
 [ext_resource type="Texture2D" uid="uid://bxtjqe348c13g" path="res://assets/Figures/disconnected.svg" id="13_t2tbb"]
 [ext_resource type="Script" path="res://scripts/Extraction/Extraction_finished.gd" id="14_i783s"]
@@ -158,12 +161,34 @@ theme_override_constants/margin_bottom = 10
 transform = Transform3D(-4.37114e-08, -0.603208, 0.797584, 0, 0.797584, 0.603208, -1, 2.63671e-08, -3.48635e-08, 4.979, 3.748, 0)
 current = true
 
-[node name="CSGBox3D2" type="Node3D" parent="VBoxContainer/Body/VBoxContainer/PanelContainer/GridContainer/3D box container/Node3D"]
+[node name="CSGBox3D2" type="Node3D" parent="VBoxContainer/Body/VBoxContainer/PanelContainer/GridContainer/3D box container/Node3D" node_paths=PackedStringArray("molar_3d", "incisor_3d", "canine_3d", "premolar_3d")]
 script = ExtResource("1_vu16l")
+molar_3d = NodePath("molar")
+incisor_3d = NodePath("incisor")
+canine_3d = NodePath("canine")
+premolar_3d = NodePath("premolar")
 
-[node name="16921MolarWithRootV1" type="MeshInstance3D" parent="VBoxContainer/Body/VBoxContainer/PanelContainer/GridContainer/3D box container/Node3D/CSGBox3D2"]
+[node name="molar" type="MeshInstance3D" parent="VBoxContainer/Body/VBoxContainer/PanelContainer/GridContainer/3D box container/Node3D/CSGBox3D2"]
 transform = Transform3D(-4.37114e-08, -1, -4.37114e-08, 0, -4.37114e-08, 1, -1, 4.37114e-08, 1.91069e-15, 0.214994, -0.363556, 0.0715685)
-mesh = ExtResource("8_komf0")
+mesh = ExtResource("8_yf5s0")
+skeleton = NodePath("../..")
+
+[node name="incisor" type="MeshInstance3D" parent="VBoxContainer/Body/VBoxContainer/PanelContainer/GridContainer/3D box container/Node3D/CSGBox3D2"]
+transform = Transform3D(-4.37114e-08, -1, -4.37114e-08, 0, -4.37114e-08, 1, -1, 4.37114e-08, 1.91069e-15, -0.0893723, -0.363556, 0.0715685)
+visible = false
+mesh = ExtResource("9_3iqj8")
+skeleton = NodePath("../..")
+
+[node name="canine" type="MeshInstance3D" parent="VBoxContainer/Body/VBoxContainer/PanelContainer/GridContainer/3D box container/Node3D/CSGBox3D2"]
+transform = Transform3D(0.0574943, -0.998346, -4.36391e-08, 0, -4.37114e-08, 1, -0.998346, -0.0574943, -2.51316e-09, -1.01145, -1.14717, 1.18795)
+visible = false
+mesh = ExtResource("10_v3dci")
+skeleton = NodePath("../..")
+
+[node name="premolar" type="MeshInstance3D" parent="VBoxContainer/Body/VBoxContainer/PanelContainer/GridContainer/3D box container/Node3D/CSGBox3D2"]
+transform = Transform3D(-4.37114e-08, -1, -4.37114e-08, -8.74228e-08, 4.37114e-08, -1, 1, -4.37114e-08, -8.74228e-08, 0.907139, -0.160831, 0.128616)
+visible = false
+mesh = ExtResource("11_yu6q1")
 skeleton = NodePath("../..")
 
 [node name="DirectionalLight3D2" type="DirectionalLight3D" parent="VBoxContainer/Body/VBoxContainer/PanelContainer/GridContainer/3D box container/Node3D"]
