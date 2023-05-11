@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://c4vbxhjh7m7h6"]
+[gd_scene load_steps=24 format=3 uid="uid://c4vbxhjh7m7h6"]
 
 [ext_resource type="Script" path="res://scripts/Extraction/Sensor/data_user.gd" id="1_vu16l"]
 [ext_resource type="PackedScene" uid="uid://cto4jgqgmwgrd" path="res://scenes/Togglebutton.tscn" id="2_llarb"]
@@ -22,6 +22,7 @@
 [ext_resource type="Texture2D" uid="uid://jn2edbaf0g6y" path="res://assets/Figures/connected.svg" id="12_rh6w6"]
 [ext_resource type="Texture2D" uid="uid://bxtjqe348c13g" path="res://assets/Figures/disconnected.svg" id="13_t2tbb"]
 [ext_resource type="Script" path="res://scripts/Extraction/Extraction_finished.gd" id="14_i783s"]
+[ext_resource type="Script" path="res://scripts/Extraction/Terug.gd" id="23_5e3ct"]
 
 [node name="Node3D2" type="Control"]
 layout_mode = 3
@@ -71,6 +72,11 @@ layout_mode = 2
 mouse_default_cursor_shape = 2
 script = ExtResource("3_g0m3n")
 sidebar = NodePath("../../../../../Body/Sidebar")
+
+[node name="Button" type="Button" parent="VBoxContainer/Top/Topbar/HBoxContainer"]
+layout_mode = 2
+text = "Back"
+script = ExtResource("23_5e3ct")
 
 [node name="Logedin container" type="HBoxContainer" parent="VBoxContainer/Top/Topbar/HBoxContainer"]
 custom_minimum_size = Vector2(200, 0)
