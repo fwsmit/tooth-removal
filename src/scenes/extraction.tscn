@@ -11,7 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://dwtc21ukm1qev" path="res://assets/Figures/Group 4 (1).png" id="7_l0rmo"]
 [ext_resource type="Texture2D" uid="uid://buo4omrbfuikh" path="res://assets/Figures/Rectangle 3 (4).png" id="8_0om6e"]
 [ext_resource type="Script" path="res://scripts/Extraction/DebugButton.gd" id="8_dqdr0"]
-[ext_resource type="ArrayMesh" uid="uid://dr7pwxynf7ehf" path="res://assets/16921_molar_with_root_V1.obj" id="8_komf0"]
+[ext_resource type="ArrayMesh" uid="uid://dr7pwxynf7ehf" path="res://assets/3d models/16921_molar_with_root_V1.obj" id="8_yf5s0"]
 [ext_resource type="FontFile" uid="uid://w6rhidxui6pe" path="res://assets/NotoSansMono-Regular.ttf" id="9_ickr0"]
 [ext_resource type="Texture2D" uid="uid://lvjds1fwa0nb" path="res://assets/Figures/Rectangle 4.png" id="9_yqw6e"]
 [ext_resource type="Script" path="res://scripts/Extraction/DebugInfo.gd" id="10_tfsdg"]
@@ -163,7 +163,7 @@ script = ExtResource("1_vu16l")
 
 [node name="16921MolarWithRootV1" type="MeshInstance3D" parent="VBoxContainer/Body/VBoxContainer/PanelContainer/GridContainer/3D box container/Node3D/CSGBox3D2"]
 transform = Transform3D(-4.37114e-08, -1, -4.37114e-08, 0, -4.37114e-08, 1, -1, 4.37114e-08, 1.91069e-15, 0.214994, -0.363556, 0.0715685)
-mesh = ExtResource("8_komf0")
+mesh = ExtResource("8_yf5s0")
 skeleton = NodePath("../..")
 
 [node name="DirectionalLight3D2" type="DirectionalLight3D" parent="VBoxContainer/Body/VBoxContainer/PanelContainer/GridContainer/3D box container/Node3D"]

@@ -1,0 +1,21 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://cusnk6x8g36gs"
+path="res://.godot/imported/16927_bicuspid_with_root_v1_NEW.obj-7418090a603fe76549af5d6c4269df78.mesh"
+
+[deps]
+
+files=["res://.godot/imported/16927_bicuspid_with_root_v1_NEW.obj-7418090a603fe76549af5d6c4269df78.mesh"]
+
+source_file="res://assets/3d models/16927_bicuspid_with_root_v1_NEW.obj"
+dest_files=["res://.godot/imported/16927_bicuspid_with_root_v1_NEW.obj-7418090a603fe76549af5d6c4269df78.mesh", "res://.godot/imported/16927_bicuspid_with_root_v1_NEW.obj-7418090a603fe76549af5d6c4269df78.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true

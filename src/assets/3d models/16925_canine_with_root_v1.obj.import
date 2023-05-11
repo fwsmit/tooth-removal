@@ -1,0 +1,21 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://dsoasfrcesisb"
+path="res://.godot/imported/16925_canine_with_root_v1.obj-ff7cd66b4488107ec177074ce7f0e999.mesh"
+
+[deps]
+
+files=["res://.godot/imported/16925_canine_with_root_v1.obj-ff7cd66b4488107ec177074ce7f0e999.mesh"]
+
+source_file="res://assets/3d models/16925_canine_with_root_v1.obj"
+dest_files=["res://.godot/imported/16925_canine_with_root_v1.obj-ff7cd66b4488107ec177074ce7f0e999.mesh", "res://.godot/imported/16925_canine_with_root_v1.obj-ff7cd66b4488107ec177074ce7f0e999.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true

@@ -1,0 +1,21 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://d0lnfsgkna77c"
+path="res://.godot/imported/16923_incisor_with_root_V1.obj-88152a3a05c9582a5b770a09f6577428.mesh"
+
+[deps]
+
+files=["res://.godot/imported/16923_incisor_with_root_V1.obj-88152a3a05c9582a5b770a09f6577428.mesh"]
+
+source_file="res://assets/3d models/16923_incisor_with_root_V1.obj"
+dest_files=["res://.godot/imported/16923_incisor_with_root_V1.obj-88152a3a05c9582a5b770a09f6577428.mesh", "res://.godot/imported/16923_incisor_with_root_V1.obj-88152a3a05c9582a5b770a09f6577428.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
