@@ -121,16 +121,28 @@ func _handle_client_data(force, torque) -> void:
 	# Convert to numbers around 1
 	avg_force = avg_force / 40
 	avg_torque = avg_torque / 3
+	
+	if Global.selectedQuadrant == 1 or Global.selectedQuadrant == 2:
+		transform.origin.x = avg_force.y
+		transform.origin.y = avg_force.x
+		transform.origin.z = avg_force.z
 
-	transform.origin.x = avg_force.x
-	transform.origin.y = avg_force.y
-	transform.origin.z = avg_force.z
+		var rot: Transform3D = Transform3D.IDENTITY
+		rot = rot.rotated(Vector3( 1, 0, 0 ), avg_torque.y)
+		rot = rot.rotated(Vector3( 0, 1, 0 ), avg_torque.x)
+		rot = rot.rotated(Vector3( 0, 0, 1 ), avg_torque.z)
+		transform.basis = rot.basis
+	
+	if Global.selectedQuadrant == 3 or Global.selectedQuadrant == 4:
+		transform.origin.x = avg_force.x
+		transform.origin.y = avg_force.y
+		transform.origin.z = avg_force.z
 
-	var rot: Transform3D = Transform3D.IDENTITY
-	rot = rot.rotated(Vector3( 1, 0, 0 ), avg_torque.x)
-	rot = rot.rotated(Vector3( 0, 1, 0 ), avg_torque.y)
-	rot = rot.rotated(Vector3( 0, 0, 1 ), avg_torque.z)
-	transform.basis = rot.basis
+		var rot: Transform3D = Transform3D.IDENTITY
+		rot = rot.rotated(Vector3( 1, 0, 0 ), avg_torque.x)
+		rot = rot.rotated(Vector3( 0, 1, 0 ), avg_torque.y)
+		rot = rot.rotated(Vector3( 0, 0, 1 ), avg_torque.z)
+		transform.basis = rot.basis
 
 func _handle_client_disconnected() -> void:
 	emit_signal("disconnected")
