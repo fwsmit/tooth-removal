@@ -136,7 +136,7 @@ func _handle_client_data(force, torque) -> void:
 	var avg_torque = Global.get_avg_torque(n)
 	
 	# Convert to numbers around 1
-	avg_force = avg_force / 40
+	avg_force = avg_force / 400
 	avg_torque = avg_torque / 3
 	
 	if Global.selectedQuadrant == 1 or Global.selectedQuadrant == 2:
