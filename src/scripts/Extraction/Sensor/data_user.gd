@@ -32,9 +32,9 @@ func _ready() -> void:
 	if t == 1 or t == 2:
 		incisor_3d.visible = true
 	elif t == 3:
-		canine_3d.visible = true
+		incisor_3d.visible = true # Canine model is doing weird
 	elif t == 4 or t == 5:
-		premolar_3d.visible = true
+		molar_3d.visible = true # premolar model is doing weird
 	elif t > 5:
 		molar_3d.visible = true
 		
