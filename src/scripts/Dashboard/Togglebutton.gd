@@ -24,3 +24,7 @@ func _on_gui_input(event):
 				sidebar.custom_minimum_size.x = 100
 			else:
 				sidebar.custom_minimum_size.x = 56
+
+
+func _on_csg_mesh_3d_disconnected():
+	pass # Replace with function body.

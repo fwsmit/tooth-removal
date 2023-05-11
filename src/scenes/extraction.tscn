@@ -1,75 +1,354 @@
-[gd_scene load_steps=14 format=3 uid="uid://b1tluf6bya11l"]
+[gd_scene load_steps=20 format=3 uid="uid://c4vbxhjh7m7h6"]
 
-[ext_resource type="Script" path="res://scripts/Extraction/Sensor/data_user.gd" id="1_0ob14"]
-[ext_resource type="Script" path="res://scripts/Common/showLoggedInAs.gd" id="2_i4l7v"]
-[ext_resource type="ArrayMesh" uid="uid://dr7pwxynf7ehf" path="res://assets/16921_molar_with_root_V1.obj" id="2_qguxn"]
-[ext_resource type="Script" path="res://scripts/Extraction/ShowConnected.gd" id="3_ak075"]
-[ext_resource type="Script" path="res://scripts/Extraction/selectedtooth.gd" id="3_j7f80"]
-[ext_resource type="Texture2D" uid="uid://jn2edbaf0g6y" path="res://assets/Figures/connected.svg" id="4_uka1a"]
-[ext_resource type="Texture2D" uid="uid://bxtjqe348c13g" path="res://assets/Figures/disconnected.svg" id="5_egje7"]
-[ext_resource type="Script" path="res://scripts/Extraction/Extraction_finished.gd" id="6_msgkl"]
-[ext_resource type="Script" path="res://scripts/Extraction/DebugButton.gd" id="7_jhp4k"]
-[ext_resource type="FontFile" uid="uid://w6rhidxui6pe" path="res://assets/NotoSansMono-Regular.ttf" id="7_pt815"]
-[ext_resource type="Script" path="res://scripts/Extraction/DebugInfo.gd" id="9_yq4k5"]
-[ext_resource type="Script" path="res://scripts/Extraction/Terug.gd" id="10_dbgyb"]
-[ext_resource type="Script" path="res://scripts/Extraction/selectedquadrant.gd" id="11_uxmjs"]
+[ext_resource type="Script" path="res://scripts/Extraction/Sensor/data_user.gd" id="1_vu16l"]
+[ext_resource type="PackedScene" uid="uid://cto4jgqgmwgrd" path="res://scenes/Togglebutton.tscn" id="2_llarb"]
+[ext_resource type="Script" path="res://scripts/Dashboard/Togglebutton.gd" id="3_g0m3n"]
+[ext_resource type="Script" path="res://scripts/Common/showLoggedInAs.gd" id="4_1kkys"]
+[ext_resource type="Script" path="res://scripts/Extraction/Cluster.gd" id="4_dhmkb"]
+[ext_resource type="Script" path="res://scripts/Extraction/selectedquadrant.gd" id="4_dxsou"]
+[ext_resource type="Script" path="res://scripts/Extraction/selectedtooth.gd" id="5_3pg21"]
+[ext_resource type="Texture2D" uid="uid://m01wmoh8ftqy" path="res://assets/Figures/Subtract (8).png" id="5_6wcuc"]
+[ext_resource type="Texture2D" uid="uid://dwtc21ukm1qev" path="res://assets/Figures/Group 4 (1).png" id="7_l0rmo"]
+[ext_resource type="Texture2D" uid="uid://buo4omrbfuikh" path="res://assets/Figures/Rectangle 3 (4).png" id="8_0om6e"]
+[ext_resource type="Script" path="res://scripts/Extraction/DebugButton.gd" id="8_dqdr0"]
+[ext_resource type="ArrayMesh" uid="uid://dr7pwxynf7ehf" path="res://assets/16921_molar_with_root_V1.obj" id="8_komf0"]
+[ext_resource type="FontFile" uid="uid://w6rhidxui6pe" path="res://assets/NotoSansMono-Regular.ttf" id="9_ickr0"]
+[ext_resource type="Texture2D" uid="uid://lvjds1fwa0nb" path="res://assets/Figures/Rectangle 4.png" id="9_yqw6e"]
+[ext_resource type="Script" path="res://scripts/Extraction/DebugInfo.gd" id="10_tfsdg"]
+[ext_resource type="Script" path="res://scripts/Extraction/ShowConnected.gd" id="11_8fuch"]
+[ext_resource type="Texture2D" uid="uid://jn2edbaf0g6y" path="res://assets/Figures/connected.svg" id="12_rh6w6"]
+[ext_resource type="Texture2D" uid="uid://bxtjqe348c13g" path="res://assets/Figures/disconnected.svg" id="13_t2tbb"]
+[ext_resource type="Script" path="res://scripts/Extraction/Extraction_finished.gd" id="14_i783s"]
 
-[node name="Node3D2" type="Node3D"]
-
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(-4.37114e-08, -0.603208, 0.797584, 0, 0.797584, 0.603208, -1, 2.63671e-08, -3.48635e-08, 4.979, 3.748, 0)
-current = true
-
-[node name="CSGBox3D" type="Node3D" parent="."]
-script = ExtResource("1_0ob14")
-
-[node name="16921MolarWithRootV1" type="MeshInstance3D" parent="CSGBox3D"]
-transform = Transform3D(-4.37114e-08, -1, -4.37114e-08, 0, -4.37114e-08, 1, -1, 4.37114e-08, 1.91069e-15, 0.214994, -0.363556, 0.0715685)
-mesh = ExtResource("2_qguxn")
-skeleton = NodePath("../..")
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.022199, -0.788643, 0.61445, -9.77091e-09, 0.614602, 0.788838, -0.999754, 0.0175114, -0.0136435, -7.39606, 5.13621, 2.08942)
-light_energy = 1.914
-
-[node name="RichTextLabel" type="RichTextLabel" parent="."]
-anchors_preset = 1
-anchor_left = 1.0
+[node name="Node3D2" type="Control"]
+layout_mode = 3
+anchors_preset = 15
 anchor_right = 1.0
-offset_left = -408.0
-offset_top = 5.0
-offset_right = -15.0
-offset_bottom = 35.0
-grow_horizontal = 0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(400, 56)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Top" type="VBoxContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+
+[node name="Topbar" type="ColorRect" parent="VBoxContainer/Top"]
+layout_mode = 2
+size_flags_vertical = 3
+color = Color(0.172549, 0.643137, 0.980392, 1)
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Top/Topbar"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 12.0
+offset_top = -20.0
+offset_right = -12.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Logo container" type="HBoxContainer" parent="VBoxContainer/Top/Topbar/HBoxContainer"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+
+[node name="Panel" parent="VBoxContainer/Top/Topbar/HBoxContainer/Logo container" node_paths=PackedStringArray("sidebar") instance=ExtResource("2_llarb")]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+script = ExtResource("3_g0m3n")
+sidebar = NodePath("../../../../../Body/Sidebar")
+
+[node name="Logedin container" type="HBoxContainer" parent="VBoxContainer/Top/Topbar/HBoxContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 6
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="VBoxContainer/Top/Topbar/HBoxContainer/Logedin container"]
+layout_mode = 2
+size_flags_horizontal = 10
+theme_override_colors/default_color = Color(1, 1, 1, 1)
 text = "Logged in as: "
 fit_content = true
 autowrap_mode = 0
-script = ExtResource("2_i4l7v")
+script = ExtResource("4_1kkys")
 
-[node name="MarginContainer" type="MarginContainer" parent="." node_paths=PackedStringArray("connectedSprite", "disconnectedSprite")]
-anchors_preset = 2
-anchor_top = 1.0
+[node name="SelectedTooth container" type="HBoxContainer" parent="VBoxContainer/Top/Topbar/HBoxContainer"]
+layout_mode = 2
+
+[node name="RichTextLabel3" type="RichTextLabel" parent="VBoxContainer/Top/Topbar/HBoxContainer/SelectedTooth container"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+text = "Q:"
+script = ExtResource("4_dxsou")
+
+[node name="RichTextLabel4" type="RichTextLabel" parent="VBoxContainer/Top/Topbar/HBoxContainer/SelectedTooth container"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+text = "T: "
+script = ExtResource("5_3pg21")
+
+[node name="Body" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Sidebar" type="HBoxContainer" parent="VBoxContainer/Body"]
+custom_minimum_size = Vector2(56, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 3
+
+[node name="sidebar" type="ColorRect" parent="VBoxContainer/Body/Sidebar"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0.85098, 0.85098, 0.85098, 1)
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/Body/Sidebar/sidebar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -649.0
-offset_right = 40.0
-offset_bottom = -608.0
-grow_vertical = 0
-script = ExtResource("3_ak075")
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Body/Sidebar/sidebar/ScrollContainer"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Body"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/Body/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="GridContainer" type="GridContainer" parent="VBoxContainer/Body/VBoxContainer/PanelContainer"]
+layout_mode = 2
+script = ExtResource("4_dhmkb")
+
+[node name="3D box container" type="MarginContainer" parent="VBoxContainer/Body/VBoxContainer/PanelContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Node3D" type="Node3D" parent="VBoxContainer/Body/VBoxContainer/PanelContainer/GridContainer/3D box container"]
+
+[node name="Camera3D2" type="Camera3D" parent="VBoxContainer/Body/VBoxContainer/PanelContainer/GridContainer/3D box container/Node3D"]
+transform = Transform3D(-4.37114e-08, -0.603208, 0.797584, 0, 0.797584, 0.603208, -1, 2.63671e-08, -3.48635e-08, 4.979, 3.748, 0)
+current = true
+
+[node name="CSGBox3D2" type="Node3D" parent="VBoxContainer/Body/VBoxContainer/PanelContainer/GridContainer/3D box container/Node3D"]
+script = ExtResource("1_vu16l")
+
+[node name="16921MolarWithRootV1" type="MeshInstance3D" parent="VBoxContainer/Body/VBoxContainer/PanelContainer/GridContainer/3D box container/Node3D/CSGBox3D2"]
+transform = Transform3D(-4.37114e-08, -1, -4.37114e-08, 0, -4.37114e-08, 1, -1, 4.37114e-08, 1.91069e-15, 0.214994, -0.363556, 0.0715685)
+mesh = ExtResource("8_komf0")
+skeleton = NodePath("../..")
+
+[node name="DirectionalLight3D2" type="DirectionalLight3D" parent="VBoxContainer/Body/VBoxContainer/PanelContainer/GridContainer/3D box container/Node3D"]
+transform = Transform3D(-0.022199, -0.788643, 0.61445, -9.77091e-09, 0.614602, 0.788838, -0.999754, 0.0175114, -0.0136435, -7.39606, 5.13621, 2.08942)
+light_energy = 1.914
+
+[node name="Axis 1" type="MarginContainer" parent="VBoxContainer/Body/VBoxContainer/PanelContainer/GridContainer"]
+custom_minimum_size = Vector2(0, 180)
+layout_mode = 2
+size_flags_horizontal = 10
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Body/VBoxContainer/PanelContainer/GridContainer/Axis 1"]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/Body/VBoxContainer/PanelContainer/GridContainer/Axis 1/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Radial" type="TextureRect" parent="VBoxContainer/Body/VBoxContainer/PanelContainer/GridContainer/Axis 1/VBoxContainer/PanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("5_6wcuc")
+stretch_mode = 4
+
+[node name="Needle_1" type="Sprite2D" parent="VBoxContainer/Body/VBoxContainer/PanelContainer/GridContainer/Axis 1/VBoxContainer/PanelContainer"]
+position = Vector2(179, 175.5)
+scale = Vector2(0.627049, 0.905714)
+texture = ExtResource("7_l0rmo")
+offset = Vector2(0, -90)
+
+[node name="Bar" type="TextureRect" parent="VBoxContainer/Body/VBoxContainer/PanelContainer/GridContainer/Axis 1/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 8
+texture = ExtResource("8_0om6e")
+
+[node name="Bar1_slider" type="Sprite2D" parent="VBoxContainer/Body/VBoxContainer/PanelContainer/GridContainer/Axis 1/VBoxContainer/Bar"]
+position = Vector2(173, 16)
+texture = ExtResource("9_yqw6e")
+
+[node name="B_L" type="RichTextLabel" parent="VBoxContainer/Body/VBoxContainer/PanelContainer/GridContainer/Axis 1/VBoxContainer"]
+custom_minimum_size = Vector2(10, 20)
+layout_mode = 2
+text = "bucco/linguoversion & buccal/lingual"
+
+[node name="Axis 2" type="MarginContainer" parent="VBoxContainer/Body/VBoxContainer/PanelContainer/GridContainer"]
+custom_minimum_size = Vector2(0, 180)
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 10
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Body/VBoxContainer/PanelContainer/GridContainer/Axis 2"]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/Body/VBoxContainer/PanelContainer/GridContainer/Axis 2/VBoxContainer"]
+layout_mode = 2
+
+[node name="Radial" type="TextureRect" parent="VBoxContainer/Body/VBoxContainer/PanelContainer/GridContainer/Axis 2/VBoxContainer/PanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("5_6wcuc")
+stretch_mode = 4
+
+[node name="Needle_2" type="Sprite2D" parent="VBoxContainer/Body/VBoxContainer/PanelContainer/GridContainer/Axis 2/VBoxContainer/PanelContainer"]
+position = Vector2(179, 175.5)
+scale = Vector2(0.627049, 0.905714)
+texture = ExtResource("7_l0rmo")
+offset = Vector2(0, -90)
+
+[node name="Bar2" type="TextureRect" parent="VBoxContainer/Body/VBoxContainer/PanelContainer/GridContainer/Axis 2/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+texture = ExtResource("8_0om6e")
+
+[node name="Bar2_slider" type="Sprite2D" parent="VBoxContainer/Body/VBoxContainer/PanelContainer/GridContainer/Axis 2/VBoxContainer/Bar2"]
+position = Vector2(179, 17.5)
+texture = ExtResource("9_yqw6e")
+
+[node name="M_D" type="RichTextLabel" parent="VBoxContainer/Body/VBoxContainer/PanelContainer/GridContainer/Axis 2/VBoxContainer"]
+custom_minimum_size = Vector2(10, 20)
+layout_mode = 2
+text = "Mesial - Distal"
+
+[node name="Axis 3" type="MarginContainer" parent="VBoxContainer/Body/VBoxContainer/PanelContainer/GridContainer"]
+custom_minimum_size = Vector2(0, 180)
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 10
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Body/VBoxContainer/PanelContainer/GridContainer/Axis 3"]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/Body/VBoxContainer/PanelContainer/GridContainer/Axis 3/VBoxContainer"]
+layout_mode = 2
+
+[node name="Radial" type="TextureRect" parent="VBoxContainer/Body/VBoxContainer/PanelContainer/GridContainer/Axis 3/VBoxContainer/PanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("5_6wcuc")
+stretch_mode = 4
+
+[node name="Needle_3" type="Sprite2D" parent="VBoxContainer/Body/VBoxContainer/PanelContainer/GridContainer/Axis 3/VBoxContainer/PanelContainer"]
+position = Vector2(179, 175.5)
+scale = Vector2(0.627049, 0.905714)
+texture = ExtResource("7_l0rmo")
+offset = Vector2(0, -90)
+
+[node name="Bar3" type="TextureRect" parent="VBoxContainer/Body/VBoxContainer/PanelContainer/GridContainer/Axis 3/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+texture = ExtResource("8_0om6e")
+
+[node name="Bar3_slider" type="Sprite2D" parent="VBoxContainer/Body/VBoxContainer/PanelContainer/GridContainer/Axis 3/VBoxContainer/Bar3"]
+position = Vector2(179, 16.5)
+texture = ExtResource("9_yqw6e")
+
+[node name="M_L & E_I" type="RichTextLabel" parent="VBoxContainer/Body/VBoxContainer/PanelContainer/GridContainer/Axis 3/VBoxContainer"]
+custom_minimum_size = Vector2(10, 20)
+layout_mode = 2
+text = "mesiobuccal/lingual & Extrusion/Intrusion"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Body/VBoxContainer"]
+layout_mode = 2
+
+[node name="DebugButton" type="Button" parent="VBoxContainer/Body/VBoxContainer/HBoxContainer" node_paths=PackedStringArray("debugText")]
+layout_mode = 2
+size_flags_vertical = 10
+toggle_mode = true
+text = "Debug ▶"
+script = ExtResource("8_dqdr0")
+debugText = NodePath("DebugInfo")
+
+[node name="DebugInfo" type="RichTextLabel" parent="VBoxContainer/Body/VBoxContainer/HBoxContainer/DebugButton"]
+visible = false
+layout_mode = 0
+offset_top = -77.0
+offset_right = 439.0
+offset_bottom = -4.0
+theme_override_fonts/normal_font = ExtResource("9_ickr0")
+text = "Debug info
+a
+a"
+fit_content = true
+script = ExtResource("10_tfsdg")
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/Body/VBoxContainer/HBoxContainer" node_paths=PackedStringArray("connectedSprite", "disconnectedSprite")]
+layout_mode = 2
+size_flags_vertical = 0
+script = ExtResource("11_8fuch")
 connectedSprite = NodePath("Connected")
 disconnectedSprite = NodePath("Disconnected")
 
-[node name="Connected" type="Sprite2D" parent="MarginContainer"]
+[node name="Connected" type="Sprite2D" parent="VBoxContainer/Body/VBoxContainer/HBoxContainer/MarginContainer"]
 visible = false
-position = Vector2(42.925, 615.95)
+position = Vector2(17, 16)
 scale = Vector2(0.05, 0.05)
-texture = ExtResource("4_uka1a")
+texture = ExtResource("12_rh6w6")
 
-[node name="Disconnected" type="Sprite2D" parent="MarginContainer"]
-position = Vector2(42.925, 615.95)
+[node name="Disconnected" type="Sprite2D" parent="VBoxContainer/Body/VBoxContainer/HBoxContainer/MarginContainer"]
+position = Vector2(17, 16)
 scale = Vector2(0.0497904, 0.0497903)
-texture = ExtResource("5_egje7")
+texture = ExtResource("13_t2tbb")
 
-[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/Disconnected"]
+[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/Body/VBoxContainer/HBoxContainer/MarginContainer/Disconnected"]
+anchors_preset = -1
+anchor_left = -0.00214256
+anchor_top = 0.000719653
+anchor_right = -0.0021425
+anchor_bottom = 0.000719653
 offset_left = 363.022
 offset_top = -320.344
 offset_right = 586.022
@@ -78,77 +357,13 @@ scale = Vector2(20, 20)
 theme_override_font_sizes/normal_font_size = 20
 text = "Sensor disconnected"
 fit_content = true
+metadata/_edit_use_anchors_ = true
 
-[node name="Button" type="Button" parent="."]
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -230.0
-offset_top = -60.0
-offset_right = -23.0
-offset_bottom = -20.0
-grow_horizontal = 0
-grow_vertical = 0
+[node name="Button" type="Button" parent="VBoxContainer/Body/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 8
 text = "Finished extraction"
-script = ExtResource("6_msgkl")
+script = ExtResource("14_i783s")
 
-[node name="DebugButton" type="Button" parent="." node_paths=PackedStringArray("debugText")]
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 33.0
-offset_top = -78.0
-offset_right = 83.0
-offset_bottom = -55.0
-grow_vertical = 0
-toggle_mode = true
-text = "Debug ▶"
-script = ExtResource("7_jhp4k")
-debugText = NodePath("DebugInfo")
-
-[node name="DebugInfo" type="RichTextLabel" parent="DebugButton"]
-visible = false
-layout_mode = 0
-offset_left = 6.0
-offset_top = -232.0
-offset_right = 445.0
-offset_bottom = -13.0
-theme_override_fonts/normal_font = ExtResource("7_pt815")
-text = "Debug info
-a
-a"
-fit_content = true
-script = ExtResource("9_yq4k5")
-
-[node name="Terug" type="Button" parent="."]
-offset_left = 41.0
-offset_top = 23.0
-offset_right = 94.0
-offset_bottom = 54.0
-text = "Back"
-script = ExtResource("10_dbgyb")
-
-[node name="RichTextLabel2" type="RichTextLabel" parent="."]
-offset_left = 1008.0
-offset_top = 6.0
-offset_right = 1091.0
-offset_bottom = 46.0
-text = "Q: "
-script = ExtResource("11_uxmjs")
-
-[node name="RichTextLabel3" type="RichTextLabel" parent="."]
-offset_left = 1066.0
-offset_top = 7.0
-offset_right = 1142.0
-offset_bottom = 47.0
-text = "T: "
-script = ExtResource("3_j7f80")
-
-[connection signal="connected" from="CSGBox3D" to="MarginContainer" method="showConnected"]
-[connection signal="connected" from="CSGBox3D" to="DebugButton/DebugInfo" method="on_sensor_connected"]
-[connection signal="data" from="CSGBox3D" to="DebugButton/DebugInfo" method="receiveData"]
-[connection signal="directions" from="CSGBox3D" to="DebugButton/DebugInfo" method="_on_csg_box_3d_directions"]
-[connection signal="disconnected" from="CSGBox3D" to="MarginContainer" method="showDisconnected"]
-[connection signal="disconnected" from="CSGBox3D" to="DebugButton/DebugInfo" method="on_sensor_disconnected"]
+[connection signal="gui_input" from="VBoxContainer/Top/Topbar/HBoxContainer/Logo container/Panel" to="VBoxContainer/Top/Topbar/HBoxContainer/Logo container/Panel" method="_on_gui_input"]
