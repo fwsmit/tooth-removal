@@ -25,8 +25,6 @@ func _ready():
 	
 func _process(delta):
 	var n = 500
-#	print(Global.get_avg_torque(n))
-#	print(Global.get_avg_force(n))
 	
 	#Set parameters for the clustermeters:
 	var min_rotation_degrees = -90
@@ -58,7 +56,6 @@ func _process(delta):
 			var force_b_l = Global.get_avg_force(n).y
 			var weight_pos_b_l = (force_b_l - min_force_b_l) / (max_force_b_l - min_force_b_l)
 			var D_position_b_l = lerp(min_position_x, max_position_x, weight_pos_b_l)
-#			print('B1:', D_position_b_l)
 			Bar1.position.x = D_position_b_l
 			if D_position_b_l > max_position_x:
 				Bar1.position.x = max_position_x
@@ -67,9 +64,7 @@ func _process(delta):
 			
 			var force_e_i = Global.get_avg_force(n).x
 			var weight_pos_e_i = (force_e_i - min_force_e_i) / (max_force_e_i - min_force_e_i)
-			print('FW3:', weight_pos_e_i)
 			var D_position_e_i = lerp(min_position_x, max_position_x, weight_pos_e_i)
-#			print('B3:', D_position_e_i)
 			Bar3.position.x = D_position_e_i
 			if D_position_e_i > max_position_x:
 				Bar3.position.x = max_position_x
@@ -90,7 +85,6 @@ func _process(delta):
 				var force_m_d = -Global.get_avg_force(n).z
 				var weight_pos_m_d = (force_m_d - min_force_m_d) / (max_force_m_d - min_force_m_d)
 				var D_position_m_d = lerp(min_position_x, max_position_x, weight_pos_m_d)
-#				print('B2:', D_position_m_d)
 				Bar2.position.x = D_position_m_d
 				if D_position_m_d > max_position_x:
 					Bar2.position.x = max_position_x
@@ -119,7 +113,6 @@ func _process(delta):
 				var force_m_d = Global.get_avg_force(n).z
 				var weight_pos_m_d = (force_m_d - min_force_m_d) / (max_force_m_d - min_force_m_d)
 				var D_position_m_d = lerp(min_position_x, max_position_x, weight_pos_m_d)
-#				print('B2:', D_position_m_d)
 				Bar2.position.x = D_position_m_d
 				if D_position_m_d > max_position_x:
 					Bar2.position.x = max_position_x
@@ -148,7 +141,6 @@ func _process(delta):
 			var force_b_l = Global.get_avg_force(n).x
 			var weight_pos_b_l = (force_b_l - min_force_b_l) / (max_force_b_l - min_force_b_l)
 			var D_position_b_l = lerp(min_position_x, max_position_x, weight_pos_b_l)
-#			print('B1:', D_position_b_l)
 			Bar1.position.x = D_position_b_l
 			if D_position_b_l > max_position_x:
 				Bar1.position.x = max_position_x
@@ -157,9 +149,7 @@ func _process(delta):
 			
 			var force_e_i = Global.get_avg_force(n).y
 			var weight_pos_e_i = (force_e_i - min_force_e_i) / (max_force_e_i - min_force_e_i)
-#			print('FW3:', weight_pos_e_i)
 			var D_position_e_i = lerp(min_position_x, max_position_x, weight_pos_e_i)
-#			print('B3:', D_position_e_i)
 			Bar3.position.x = D_position_e_i
 			if D_position_e_i > max_position_x:
 				Bar3.position.x = max_position_x
@@ -181,7 +171,6 @@ func _process(delta):
 				var force_m_d = Global.get_avg_force(n).z
 				var weight_pos_m_d = (force_m_d - min_force_m_d) / (max_force_m_d - min_force_m_d)
 				var D_position_m_d = lerp(min_position_x, max_position_x, weight_pos_m_d)
-#				print('B2:', D_position_m_d)
 				Bar2.position.x = D_position_m_d
 				if D_position_m_d > max_position_x:
 					Bar2.position.x = max_position_x
@@ -214,7 +203,6 @@ func _process(delta):
 				var force_m_d = -Global.get_avg_force(n).z
 				var weight_pos_m_d = (force_m_d - min_force_m_d) / (max_force_m_d - min_force_m_d)
 				var D_position_m_d = lerp(min_position_x, max_position_x, weight_pos_m_d)
-#				print('B2:', D_position_m_d)
 				Bar2.position.x = D_position_m_d
 				if D_position_m_d > max_position_x:
 					Bar2.position.x = max_position_x
