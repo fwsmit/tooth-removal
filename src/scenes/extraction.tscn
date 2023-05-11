@@ -208,6 +208,11 @@ texture = ExtResource("8_0om6e")
 position = Vector2(173, 16)
 texture = ExtResource("9_yqw6e")
 
+[node name="B_L" type="RichTextLabel" parent="VBoxContainer/Body/VBoxContainer/PanelContainer/GridContainer/Axis 1/VBoxContainer"]
+custom_minimum_size = Vector2(10, 20)
+layout_mode = 2
+text = "bucco/linguoversion & buccal/lingual"
+
 [node name="Axis 2" type="MarginContainer" parent="VBoxContainer/Body/VBoxContainer/PanelContainer/GridContainer"]
 custom_minimum_size = Vector2(0, 180)
 layout_mode = 2
@@ -247,6 +252,11 @@ texture = ExtResource("8_0om6e")
 position = Vector2(179, 17.5)
 texture = ExtResource("9_yqw6e")
 
+[node name="M_D" type="RichTextLabel" parent="VBoxContainer/Body/VBoxContainer/PanelContainer/GridContainer/Axis 2/VBoxContainer"]
+custom_minimum_size = Vector2(10, 20)
+layout_mode = 2
+text = "Mesial - Distal"
+
 [node name="Axis 3" type="MarginContainer" parent="VBoxContainer/Body/VBoxContainer/PanelContainer/GridContainer"]
 custom_minimum_size = Vector2(0, 180)
 layout_mode = 2
@@ -285,6 +295,11 @@ texture = ExtResource("8_0om6e")
 [node name="Bar3_slider" type="Sprite2D" parent="VBoxContainer/Body/VBoxContainer/PanelContainer/GridContainer/Axis 3/VBoxContainer/Bar3"]
 position = Vector2(179, 16.5)
 texture = ExtResource("9_yqw6e")
+
+[node name="M_L & E_I" type="RichTextLabel" parent="VBoxContainer/Body/VBoxContainer/PanelContainer/GridContainer/Axis 3/VBoxContainer"]
+custom_minimum_size = Vector2(10, 20)
+layout_mode = 2
+text = "mesiobuccal/lingual & Extrusion/Intrusion"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Body/VBoxContainer"]
 layout_mode = 2
