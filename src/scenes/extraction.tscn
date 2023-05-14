@@ -339,11 +339,11 @@ fit_content = true
 scroll_active = false
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Body/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 
 [node name="DebugButton" type="Button" parent="VBoxContainer/Body/VBoxContainer/HBoxContainer" node_paths=PackedStringArray("debugText")]
 layout_mode = 2
-size_flags_vertical = 10
 toggle_mode = true
 text = "Debug ▶"
 script = ExtResource("8_dqdr0")
@@ -370,13 +370,12 @@ connectedSprite = NodePath("Connected")
 disconnectedSprite = NodePath("Disconnected")
 
 [node name="Connected" type="Sprite2D" parent="VBoxContainer/Body/VBoxContainer/HBoxContainer/MarginContainer"]
-visible = false
-position = Vector2(17, 16)
+position = Vector2(18, 24.5)
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("12_rh6w6")
 
 [node name="Disconnected" type="Sprite2D" parent="VBoxContainer/Body/VBoxContainer/HBoxContainer/MarginContainer"]
-position = Vector2(17, 16)
+position = Vector2(18, 24.5)
 scale = Vector2(0.0497904, 0.0497903)
 texture = ExtResource("13_t2tbb")
 
@@ -399,7 +398,6 @@ metadata/_edit_use_anchors_ = true
 [node name="Button" type="Button" parent="VBoxContainer/Body/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 10
-size_flags_vertical = 8
 text = "Finished extraction"
 script = ExtResource("14_i783s")
 
