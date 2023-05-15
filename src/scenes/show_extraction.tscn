@@ -62,11 +62,11 @@ grow_horizontal = 0
 grow_vertical = 0
 size_flags_horizontal = 8
 size_flags_vertical = 8
-text = "Continue"
+text = "Next extraction"
 script = ExtResource("4_7wnru")
 backButton = NodePath("../Terug")
 continueButton = NodePath(".")
-sceneName = "dashboard.tscn"
+sceneName = "pre-extraction.tscn"
 
 [node name="Terug" type="Button" parent="."]
 layout_mode = 0

@@ -99,7 +99,7 @@ offset_left = 41.0
 offset_top = 23.0
 offset_right = 94.0
 offset_bottom = 54.0
-text = "Back"
+text = "Back to dashboard"
 script = ExtResource("3_gbpns")
 
 [connection signal="item_selected" from="JawSelection/VBoxContainer/QuadrantList" to="JawSelection/VBoxContainer/SelectedTooth" method="quadrantChanged"]
