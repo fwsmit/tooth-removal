@@ -113,4 +113,5 @@ func update_index():
 	python_run(["../python/analysis/dataAnalysis.py", "--update_index"])
 
 func show_graphs(filename):
+	print("Showing graphs for: ", filename)
 	python_run(["../python/analysis/dataAnalysis.py", filename, "--graph_force_torque"])
