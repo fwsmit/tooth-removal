@@ -90,4 +90,7 @@ func _pressed():
 	print("Updating index")
 	Global.update_index()
 	Global.reset_extraction_data()
-	Global.goto_scene("res://scenes/show_extraction.tscn")
+	if Global.loggedInAs != "Demo":
+		Global.goto_scene("res://scenes/show_extraction.tscn")
+	else:
+		Global.goto_scene("res://scenes/dashboard.tscn")
