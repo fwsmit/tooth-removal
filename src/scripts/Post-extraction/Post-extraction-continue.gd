@@ -6,8 +6,8 @@ extends Button
 @export var non_representative_checkbox : CheckBox
 @export var post_extraction_notes_field : TextEdit 
 
-func generate_filename(timestamp: int):
-	var filename = Time.get_datetime_string_from_unix_time(timestamp)
+func generate_filename():
+	var filename = Time.get_datetime_string_from_system()
 	var i = 0
 	for c in filename:
 		if c == ':':
@@ -28,7 +28,7 @@ func flatten_vector(vecs):
 	return [xs, ys, zs]
 
 func save_extraction_to_file():
-	var filename = generate_filename(Global.startTimestamp)
+	var filename = generate_filename()
 	var fl_raw_forces = flatten_vector(Global.raw_forces)
 	var fl_raw_torques = flatten_vector(Global.raw_torques)
 	var extraction_data = {
