@@ -2,4 +2,4 @@ extends Node
 
 
 func _pressed():
-	Global.show_graphs("extraction_data_"+Global.selectedFile)
+	Global.show_graphs(Global.selectedFile)
