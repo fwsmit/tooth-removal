@@ -3,7 +3,9 @@ from json_parse import *
 
 def update_index(possible_files, dataDir):
     index_filepath = os.path.join(dataDir, "index.json")
-    index_dic = parse_json("index.json", dataDir)
+    index_dic = {}
+    if os.path.isfile(index_filepath):
+        index_dic = parse_json("index.json", dataDir)
     index_changed = False
 
     # Add new files
@@ -17,6 +19,12 @@ def update_index(possible_files, dataDir):
             dic.pop("corrected_torques"+i, None)
             dic.pop("raw_forces"+i, None)
             dic.pop("raw_torques"+i, None)
+        dic.pop("buccal/lingual")
+        dic.pop("mesial/distal")
+        dic.pop("extrusion/intrusion")
+        dic.pop("mesial/distal angulation")
+        dic.pop("bucco/linguoversion")
+        dic.pop("mesiobuccal/lingual")
         index_dic[f] = dic
         print("Added file", f)
 
