@@ -404,3 +404,8 @@ text = "Finished extraction"
 script = ExtResource("14_i783s")
 
 [connection signal="gui_input" from="VBoxContainer/Top/Topbar/HBoxContainer/Logo container/Panel" to="VBoxContainer/Top/Topbar/HBoxContainer/Logo container/Panel" method="_on_gui_input"]
+[connection signal="connected" from="VBoxContainer/Body/VBoxContainer/PanelContainer/GridContainer/3D box container/Node3D/CSGBox3D2" to="VBoxContainer/Body/VBoxContainer/HBoxContainer/DebugButton/DebugInfo" method="on_sensor_connected"]
+[connection signal="connected" from="VBoxContainer/Body/VBoxContainer/PanelContainer/GridContainer/3D box container/Node3D/CSGBox3D2" to="VBoxContainer/Body/VBoxContainer/HBoxContainer/MarginContainer" method="showConnected"]
+[connection signal="data" from="VBoxContainer/Body/VBoxContainer/PanelContainer/GridContainer/3D box container/Node3D/CSGBox3D2" to="VBoxContainer/Body/VBoxContainer/HBoxContainer/DebugButton/DebugInfo" method="receiveData"]
+[connection signal="disconnected" from="VBoxContainer/Body/VBoxContainer/PanelContainer/GridContainer/3D box container/Node3D/CSGBox3D2" to="VBoxContainer/Body/VBoxContainer/HBoxContainer/DebugButton/DebugInfo" method="on_sensor_disconnected"]
+[connection signal="disconnected" from="VBoxContainer/Body/VBoxContainer/PanelContainer/GridContainer/3D box container/Node3D/CSGBox3D2" to="VBoxContainer/Body/VBoxContainer/HBoxContainer/MarginContainer" method="showDisconnected"]
