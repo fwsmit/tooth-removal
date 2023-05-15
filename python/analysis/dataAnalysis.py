@@ -48,7 +48,7 @@ if args.complete_analysis:
     analysis = complete_analysis(possible_files, dataDir)
     plot_analysis(analysis)
 
-fileIndex = 4
+fileIndex = 0
 chosenFile = possible_files[fileIndex]
 
 if args.filename is not None:
