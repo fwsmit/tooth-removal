@@ -63,14 +63,3 @@ func _process(_delta):
 		await get_tree().create_timer(updateDelaySeconds).timeout
 		updateText()
 		timerStarted = false
-
-
-
-
-
-func _on_csg_mesh_3d_connected():
-	pass # Replace with function body.
-
-
-func _on_csg_mesh_3d_data():
-	pass # Replace with function body.

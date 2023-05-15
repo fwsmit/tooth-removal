@@ -4,8 +4,8 @@ var current_scene = null
 
 # Data requested before extraction
 var loggedInAs = "Unknown"
-var selectedQuadrant = null
-var selectedTooth = null
+var selectedQuadrant = 1
+var selectedTooth = 1
 var selectedType = null
 
 # Data stored during extraction
@@ -113,4 +113,5 @@ func update_index():
 	python_run(["../python/analysis/dataAnalysis.py", "--update_index"])
 
 func show_graphs(filename):
+	print("Showing graphs for: ", filename)
 	python_run(["../python/analysis/dataAnalysis.py", filename, "--graph_force_torque"])

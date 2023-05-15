@@ -1,7 +1,7 @@
 extends Node3D
 
-#const HOST: String = "127.0.0.1"
-const HOST: String = "192.168.0.100"
+const HOST: String = "127.0.0.1"
+#const HOST: String = "192.168.0.100"
 const PORT: int = 2001
 const RECONNECT_TIMEOUT: float = 3.0
 
@@ -13,6 +13,11 @@ signal disconnected
 signal data
 signal directions
 
+@export var molar_3d : MeshInstance3D
+@export var incisor_3d : MeshInstance3D
+@export var canine_3d : MeshInstance3D
+@export var premolar_3d : MeshInstance3D
+
 func _ready() -> void:
 	_client.connect("connected",Callable(self,"_handle_client_connected"))
 	_client.connect("disconnected",Callable(self,"_handle_client_disconnected"))
@@ -21,6 +26,18 @@ func _ready() -> void:
 	add_child(_client)
 	_client.connect_to_host(HOST, PORT)
 	Global.startTimestamp = Time.get_unix_time_from_system()
+
+	var t = Global.selectedTooth
+	molar_3d.visible = false
+	if t == 1 or t == 2:
+		incisor_3d.visible = true
+	elif t == 3:
+		incisor_3d.visible = true # Canine model is doing weird
+	elif t == 4 or t == 5:
+		molar_3d.visible = true # premolar model is doing weird
+	elif t > 5:
+		molar_3d.visible = true
+		
 	
 func _connect_after_timeout(timeout: float) -> void:
 	await get_tree().create_timer(timeout).timeout # Delay for timeout
@@ -119,18 +136,30 @@ func _handle_client_data(force, torque) -> void:
 	var avg_torque = Global.get_avg_torque(n)
 	
 	# Convert to numbers around 1
-	avg_force = avg_force / 40
+	avg_force = avg_force / 400
 	avg_torque = avg_torque / 3
+	
+	if Global.selectedQuadrant == 1 or Global.selectedQuadrant == 2:
+		transform.origin.x = avg_force.y
+		transform.origin.y = avg_force.x
+		transform.origin.z = avg_force.z
 
-	transform.origin.x = avg_force.x
-	transform.origin.y = avg_force.y
-	transform.origin.z = avg_force.z
+		var rot: Transform3D = Transform3D.IDENTITY
+		rot = rot.rotated(Vector3( 1, 0, 0 ), avg_torque.y)
+		rot = rot.rotated(Vector3( 0, 1, 0 ), avg_torque.x)
+		rot = rot.rotated(Vector3( 0, 0, 1 ), avg_torque.z)
+		transform.basis = rot.basis
+	
+	if Global.selectedQuadrant == 3 or Global.selectedQuadrant == 4:
+		transform.origin.x = avg_force.x
+		transform.origin.y = avg_force.y
+		transform.origin.z = avg_force.z
 
-	var rot: Transform3D = Transform3D.IDENTITY
-	rot = rot.rotated(Vector3( 1, 0, 0 ), avg_torque.x)
-	rot = rot.rotated(Vector3( 0, 1, 0 ), avg_torque.y)
-	rot = rot.rotated(Vector3( 0, 0, 1 ), avg_torque.z)
-	transform.basis = rot.basis
+		var rot: Transform3D = Transform3D.IDENTITY
+		rot = rot.rotated(Vector3( 1, 0, 0 ), avg_torque.x)
+		rot = rot.rotated(Vector3( 0, 1, 0 ), avg_torque.y)
+		rot = rot.rotated(Vector3( 0, 0, 1 ), avg_torque.z)
+		transform.basis = rot.basis
 
 func _handle_client_disconnected() -> void:
 	emit_signal("disconnected")

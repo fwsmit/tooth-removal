@@ -25,12 +25,12 @@ def main():
         #print("Sending greetings to client")
         try:
             while (True):
-                Fx = 1.25 # sin(time.time())
-                Fy = 1.5 # sin(time.time())
-                Fz = 1.5 # sin(time.time())
-                Tx = 1.5 # sin(time.time())
-                Ty = 1.5 # sin(time.time())
-                Tz = 1.5 # sin(time.time())
+                Fx = 0.25 # sin(time.time())
+                Fy = 0.5 # sin(time.time())
+                Fz = 0.5 # sin(time.time())
+                Tx = 0.25 # sin(time.time())
+                Ty = 0.25 # sin(time.time())
+                Tz = 0.25 # sin(time.time())
                 data = struct.pack('!6d', Fx, Fy, Fz, Tx, Ty, Tz)
                 msg = bytes([50]+[0])+data
                 #print(msg)

@@ -1,0 +1,21 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://dr7pwxynf7ehf"
+path="res://.godot/imported/16921_molar_with_root_V1.obj-0cd32c0b6585cd0b5abfa393867d164a.mesh"
+
+[deps]
+
+files=["res://.godot/imported/16921_molar_with_root_V1.obj-0cd32c0b6585cd0b5abfa393867d164a.mesh"]
+
+source_file="res://assets/3d models/16921_molar_with_root_V1.obj"
+dest_files=["res://.godot/imported/16921_molar_with_root_V1.obj-0cd32c0b6585cd0b5abfa393867d164a.mesh", "res://.godot/imported/16921_molar_with_root_V1.obj-0cd32c0b6585cd0b5abfa393867d164a.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
