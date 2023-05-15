@@ -68,7 +68,7 @@ item_7/text = "8 (molaar)"
 
 [node name="Type" type="RichTextLabel" parent="JawSelection/VBoxContainer"]
 layout_mode = 2
-text = "Tooth"
+text = "Type"
 fit_content = true
 
 [node name="TypeList" type="ItemList" parent="JawSelection/VBoxContainer"]
@@ -99,7 +99,7 @@ offset_left = 41.0
 offset_top = 23.0
 offset_right = 94.0
 offset_bottom = 54.0
-text = "Back"
+text = "Back to dashboard"
 script = ExtResource("3_gbpns")
 
 [connection signal="item_selected" from="JawSelection/VBoxContainer/QuadrantList" to="JawSelection/VBoxContainer/SelectedTooth" method="quadrantChanged"]

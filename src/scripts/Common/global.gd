@@ -108,9 +108,12 @@ func python_run(args):
 	if exit_code != 0:
 		printerr("Python command has failed")
 		printerr(output[0])
+	else:
+		print(output[0])
 
 func update_index():
 	python_run(["../python/analysis/dataAnalysis.py", "--update_index"])
 
 func show_graphs(filename):
+	print("Showing graphs for: ", filename)
 	python_run(["../python/analysis/dataAnalysis.py", filename, "--graph_force_torque"])

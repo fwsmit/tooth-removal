@@ -1,5 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://c286eccvjer03"]
+[gd_scene load_steps=4 format=3 uid="uid://c286eccvjer03"]
 
+[ext_resource type="Script" path="res://scripts/Previous-extractions/RefreshIndex.gd" id="1_ka3jo"]
 [ext_resource type="Script" path="res://scripts/Previous-extractions/ExtractionList.gd" id="1_xsj6f"]
 [ext_resource type="Script" path="res://scripts/Common/SceneLoader.gd" id="2_ismpd"]
 
@@ -155,14 +156,23 @@ text = "Tandarts"
 layout_mode = 2
 text = "Kaakchirurg"
 
-[node name="ExtractionList" type="ItemList" parent="MarginContainer/VBoxContainer/HBoxContainer2" node_paths=PackedStringArray("quadrantFilter", "toothFilter", "personFilter")]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Refresh" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer"]
+layout_mode = 2
+text = "Refresh"
+script = ExtResource("1_ka3jo")
+
+[node name="ExtractionList" type="ItemList" parent="MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer" node_paths=PackedStringArray("quadrantFilter", "toothFilter", "personFilter")]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("1_xsj6f")
-quadrantFilter = NodePath("../ScrollContainer/HBoxContainer/Quadrant/QuadrantContainer")
-toothFilter = NodePath("../ScrollContainer/HBoxContainer/Tooth/ToothContainer")
-personFilter = NodePath("../ScrollContainer/HBoxContainer/Person/PersonContainer")
+quadrantFilter = NodePath("../../ScrollContainer/HBoxContainer/Quadrant/QuadrantContainer")
+toothFilter = NodePath("../../ScrollContainer/HBoxContainer/Tooth/ToothContainer")
+personFilter = NodePath("../../ScrollContainer/HBoxContainer/Person/PersonContainer")
 
 [node name="Button" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
