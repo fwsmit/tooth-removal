@@ -1,6 +1,5 @@
-[gd_scene load_steps=6 format=3 uid="uid://cos6revlxl42h"]
+[gd_scene load_steps=5 format=3 uid="uid://cos6revlxl42h"]
 
-[ext_resource type="Script" path="res://scripts/Dashboard/Dashboard_button_extraction.gd" id="1_k8jc2"]
 [ext_resource type="PackedScene" uid="uid://cto4jgqgmwgrd" path="res://scenes/Togglebutton.tscn" id="1_u3com"]
 [ext_resource type="Script" path="res://scripts/Common/showLoggedInAs.gd" id="2_6ey11"]
 [ext_resource type="Script" path="res://scripts/Dashboard/Togglebutton.gd" id="2_l0wmj"]
@@ -123,7 +122,9 @@ theme_override_constants/margin_bottom = 100
 [node name="Extraction trainer" type="Button" parent="Full screen/Body/Main screen/Container button 1"]
 layout_mode = 2
 text = "Extraction trainer"
-script = ExtResource("1_k8jc2")
+script = ExtResource("2_tqfgs")
+sceneName = "extraction.tscn"
+newMode = 1
 
 [node name="Container button 2" type="MarginContainer" parent="Full screen/Body/Main screen"]
 layout_mode = 2
@@ -133,10 +134,26 @@ theme_override_constants/margin_top = 100
 theme_override_constants/margin_right = 100
 theme_override_constants/margin_bottom = 100
 
-[node name="Previous extractions" type="Button" parent="Full screen/Body/Main screen/Container button 2"]
+[node name="Automatic mode" type="Button" parent="Full screen/Body/Main screen/Container button 2"]
+layout_mode = 2
+text = "Automatic selection"
+script = ExtResource("2_tqfgs")
+sceneName = "pre-extraction-automatic.tscn"
+newMode = 3
+
+[node name="Container button 3" type="MarginContainer" parent="Full screen/Body/Main screen"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_top = 100
+theme_override_constants/margin_right = 100
+theme_override_constants/margin_bottom = 100
+
+[node name="Previous extractions" type="Button" parent="Full screen/Body/Main screen/Container button 3"]
 layout_mode = 2
 text = "Previous extractions"
 script = ExtResource("2_tqfgs")
 sceneName = "previous-extractions.tscn"
+newMode = 2
 
 [connection signal="gui_input" from="Full screen/Top bar/Topbar/HBoxContainer/Logo container/Panel" to="Full screen/Top bar/Topbar/HBoxContainer/Logo container/Panel" method="_on_gui_input"]

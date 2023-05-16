@@ -1,0 +1,61 @@
+[gd_scene load_steps=3 format=3 uid="uid://ddikhupdravh"]
+
+[ext_resource type="Script" path="res://scripts/Automatic mode/ToothLabel.gd" id="1_heprr"]
+[ext_resource type="Script" path="res://scripts/Pre-extraction/Terug.gd" id="2_suh5f"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="JawSelection" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 120
+theme_override_constants/margin_top = 80
+theme_override_constants/margin_right = 120
+theme_override_constants/margin_bottom = 80
+
+[node name="VBoxContainer" type="VBoxContainer" parent="JawSelection"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="JawSelection/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "Selected tooth is:"
+horizontal_alignment = 1
+script = ExtResource("1_heprr")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="JawSelection/VBoxContainer"]
+layout_mode = 2
+
+[node name="Skip tooth" type="Button" parent="JawSelection/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(0, 400)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Skip tooth"
+
+[node name="Continue" type="Button" parent="JawSelection/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Start extraction"
+
+[node name="Terug" type="Button" parent="."]
+layout_mode = 0
+offset_left = 41.0
+offset_top = 23.0
+offset_right = 94.0
+offset_bottom = 54.0
+text = "Back to dashboard"
+script = ExtResource("2_suh5f")
+
+[connection signal="pressed" from="JawSelection/VBoxContainer/HBoxContainer/Skip tooth" to="JawSelection/VBoxContainer/Label" method="skipTooth"]
+[connection signal="pressed" from="JawSelection/VBoxContainer/HBoxContainer/Continue" to="JawSelection/VBoxContainer/Label" method="gotoExtraction"]
