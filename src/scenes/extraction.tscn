@@ -7,14 +7,14 @@
 [ext_resource type="Script" path="res://scripts/Extraction/Cluster.gd" id="4_dhmkb"]
 [ext_resource type="Script" path="res://scripts/Extraction/selectedquadrant.gd" id="4_dxsou"]
 [ext_resource type="Script" path="res://scripts/Extraction/selectedtooth.gd" id="5_3pg21"]
-[ext_resource type="Texture2D" uid="uid://m01wmoh8ftqy" path="res://assets/Figures/Subtract (8).png" id="5_6wcuc"]
-[ext_resource type="Texture2D" uid="uid://dwtc21ukm1qev" path="res://assets/Figures/Group 4 (1).png" id="7_l0rmo"]
-[ext_resource type="Texture2D" uid="uid://buo4omrbfuikh" path="res://assets/Figures/Rectangle 3 (4).png" id="8_0om6e"]
+[ext_resource type="Texture2D" path="res://assets/Figures/Subtract (8).png" id="5_6wcuc"]
+[ext_resource type="Texture2D" path="res://assets/Figures/Group 4 (1).png" id="7_l0rmo"]
+[ext_resource type="Texture2D" path="res://assets/Figures/Rectangle 3 (4).png" id="8_0om6e"]
 [ext_resource type="Script" path="res://scripts/Extraction/DebugButton.gd" id="8_dqdr0"]
 [ext_resource type="ArrayMesh" uid="uid://dr7pwxynf7ehf" path="res://assets/3d models/16921_molar_with_root_V1.obj" id="8_yf5s0"]
 [ext_resource type="ArrayMesh" uid="uid://d0lnfsgkna77c" path="res://assets/3d models/16923_incisor_with_root_V1.obj" id="9_3iqj8"]
 [ext_resource type="FontFile" uid="uid://w6rhidxui6pe" path="res://assets/NotoSansMono-Regular.ttf" id="9_ickr0"]
-[ext_resource type="Texture2D" uid="uid://lvjds1fwa0nb" path="res://assets/Figures/Rectangle 4.png" id="9_yqw6e"]
+[ext_resource type="Texture2D" path="res://assets/Figures/Rectangle 4.png" id="9_yqw6e"]
 [ext_resource type="Script" path="res://scripts/Extraction/DebugInfo.gd" id="10_tfsdg"]
 [ext_resource type="ArrayMesh" uid="uid://dsoasfrcesisb" path="res://assets/3d models/16925_canine_with_root_v1.obj" id="10_v3dci"]
 [ext_resource type="Script" path="res://scripts/Extraction/ShowConnected.gd" id="11_8fuch"]
@@ -350,11 +350,10 @@ script = ExtResource("8_dqdr0")
 debugText = NodePath("DebugInfo")
 
 [node name="DebugInfo" type="RichTextLabel" parent="VBoxContainer/Body/VBoxContainer/HBoxContainer/DebugButton"]
-visible = false
 layout_mode = 0
-offset_top = -77.0
+offset_top = -229.0
 offset_right = 439.0
-offset_bottom = -4.0
+offset_bottom = -2.0
 theme_override_fonts/normal_font = ExtResource("9_ickr0")
 text = "Debug info
 a
