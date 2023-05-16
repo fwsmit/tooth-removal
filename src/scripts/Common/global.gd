@@ -86,9 +86,13 @@ func reset_extraction_data():
 	{'mesial/distal angulation': [], 'bucco/linguoversion': [], 'mesiobuccal/lingual': []}]
 	startTimestamp = -1 # start of extraction
 	endTimestamp = -1 # end of extraction
-	selectedQuadrant = null
-	selectedTooth = null
-	selectedType = null
+	
+	# Don't reset the selected tooth in automatic extraction mode
+	if mode != MODE.automaticExtraction:
+		selectedQuadrant = null
+		selectedTooth = null
+		selectedType = null
+		
 	forceps_slipped = null
 	element_fractured = null
 	epoxy_failed = null

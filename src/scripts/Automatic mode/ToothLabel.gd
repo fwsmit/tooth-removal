@@ -22,7 +22,7 @@ func selectNewTooth():
 				Global.goto_scene("res://scenes/pre-extraction-automatic.tscn")
 	else:
 		# Select first tooth
-		if Global.selectedJaw == "Upper jaw":
+		if Global.selectedJaw == "Lower jaw":
 			Global.selectedQuadrant = 3
 		else:
 			Global.selectedQuadrant = 1
