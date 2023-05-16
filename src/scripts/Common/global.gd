@@ -2,6 +2,16 @@ extends Node
 
 var current_scene = null
 
+enum MODE{
+	nochange,
+	extractionTrainer,
+	extractionList,
+	automaticExtraction,
+	nomode,
+}
+
+var mode = MODE.nomode
+
 # Data requested before extraction
 var loggedInAs = "Unknown"
 var selectedQuadrant = 1
