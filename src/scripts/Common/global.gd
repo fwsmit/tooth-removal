@@ -8,6 +8,10 @@ var selectedQuadrant = 1
 var selectedTooth = 1
 var selectedType = null
 
+# Used in automatic selection
+var selectedJaw = null
+var automaticModeStarted = false # True if first tooth is already selected
+
 # Data stored during extraction
 var raw_forces = []
 var raw_torques = []
@@ -84,6 +88,10 @@ func reset_extraction_data():
 func is_pre_extraction_data_valid():
 	return selectedQuadrant != null and \
 		selectedTooth != null and \
+		selectedType != null
+
+func is_pre_automatic_extraction_data_valid():
+	return selectedJaw != null and \
 		selectedType != null
 
 func get_avg_vector(n, vecs):

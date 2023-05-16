@@ -139,4 +139,18 @@ text = "Previous extractions"
 script = ExtResource("2_tqfgs")
 sceneName = "previous-extractions.tscn"
 
+[node name="Container button 3" type="MarginContainer" parent="Full screen/Body/Main screen"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_top = 100
+theme_override_constants/margin_right = 100
+theme_override_constants/margin_bottom = 100
+
+[node name="Previous extractions" type="Button" parent="Full screen/Body/Main screen/Container button 3"]
+layout_mode = 2
+text = "Automatic selection"
+script = ExtResource("2_tqfgs")
+sceneName = "previous-extractions.tscn"
+
 [connection signal="gui_input" from="Full screen/Top bar/Topbar/HBoxContainer/Logo container/Panel" to="Full screen/Top bar/Topbar/HBoxContainer/Logo container/Panel" method="_on_gui_input"]
