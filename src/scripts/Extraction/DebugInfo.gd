@@ -2,7 +2,6 @@ extends RichTextLabel
 
 var force = null
 var torque = null
-var directions = null
 var connected = false
 
 var timerStarted = false
@@ -12,8 +11,6 @@ func receiveData(_force, _torque):
 	force = _force
 	torque = _torque
 
-func _on_csg_box_3d_directions(_directions):
-	directions = _directions
 
 func on_sensor_connected():	
 	connected = true
@@ -47,13 +44,13 @@ func updateText():
 	text += "Force: " + vec_to_string(force) + "\n"
 	text += "Torque: " + vec_to_string(torque) + "\n"
 	text += "Connected: " + str(connected) + "\n"
-	if directions != null:
-		text += "buccal/lingual: " + num_to_string_padded(directions[0]['buccal/lingual'])  + "\n"
-		text += "mesial/distal: " + num_to_string_padded(directions[0]['mesial/distal']) + "\n"
-		text += "extrusion/intrusion: " + num_to_string_padded(directions[0]['extrusion/intrusion']) + "\n"
-		text += "mesial/distal angulation: " + num_to_string_padded(10*directions[1]['mesial/distal angulation']) + "E-1\n"
-		text += "bucco/linguoversion: " + num_to_string_padded(10*directions[1]['bucco/linguoversion']) + "E-1\n"
-		text += "mesiobuccal/lingual: " + num_to_string_padded(10*directions[1]['mesiobuccal/lingual']) + "E-1\n"
+	if Global.clinical_directions[0]['buccal/lingual'].size() > 0:
+		text += "buccal/lingual: " + num_to_string_padded(Global.clinical_directions[0]['buccal/lingual'][-1])  + "\n"
+		text += "mesial/distal: " + num_to_string_padded(Global.clinical_directions[0]['mesial/distal'][-1]) + "\n"
+		text += "extrusion/intrusion: " + num_to_string_padded(Global.clinical_directions[0]['extrusion/intrusion'][-1]) + "\n"
+		text += "mesial/distal angulation: " + num_to_string_padded(10*Global.clinical_directions[1]['mesial/distal angulation'][-1]) + "E-1\n"
+		text += "bucco/linguoversion: " + num_to_string_padded(10*Global.clinical_directions[1]['bucco/linguoversion'][-1]) + "E-1\n"
+		text += "mesiobuccal/lingual: " + num_to_string_padded(10*Global.clinical_directions[1]['mesiobuccal/lingual'][-1]) + "E-1\n"
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
