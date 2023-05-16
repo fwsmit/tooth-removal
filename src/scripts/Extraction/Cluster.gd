@@ -1,13 +1,15 @@
 extends GridContainer
 
 
-@onready var Needle_1: Sprite2D = $"Axis 1/VBoxContainer/PanelContainer/Needle_1"
-@onready var Needle_2: Sprite2D = $"Axis 2/VBoxContainer/PanelContainer/Needle_2"
-@onready var Needle_3: Sprite2D = $"Axis 3/VBoxContainer/PanelContainer/Needle_3"
+@onready var Needle_1: Sprite2D = $"Axis 1/VBoxContainer/PanelContainer/Radial/Needle_1"
+@onready var Needle_2: Sprite2D = $"Axis 2/VBoxContainer/PanelContainer/Radial/Needle_2"
+@onready var Needle_3: Sprite2D = $"Axis 3/VBoxContainer/Radial/Needle_3"
 
 @onready var Bar1: Sprite2D = $"Axis 1/VBoxContainer/Bar/Bar1_slider"
 @onready var Bar2: Sprite2D = $"Axis 2/VBoxContainer/Bar2/Bar2_slider"
 @onready var Bar3: Sprite2D = $"Axis 3/VBoxContainer/Bar3/Bar3_slider"
+
+@onready var Bar: TextureRect = $"Axis 1/VBoxContainer/Bar"
 
 signal data 
 
@@ -16,12 +18,12 @@ func _ready():
 	Needle_2.rotation = 0.0
 	Needle_3.rotation = 0.0
 
-	Bar1.position.x = 176
-	Bar1.position.y = 16.5
-	Bar2.position.x = 176
-	Bar2.position.y = 16.5
-	Bar3.position.x = 176
-	Bar3.position.y = 16.5
+	Bar1.position.x = 277
+	Bar1.position.y = 17
+	Bar2.position.x = 277
+	Bar2.position.y = 17
+	Bar3.position.x = 277
+	Bar3.position.y = 17
 	
 func _process(_delta):
 	var n = 500
