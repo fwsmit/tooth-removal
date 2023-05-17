@@ -1,4 +1,4 @@
-extends MarginContainer
+extends Container
 
 @export var connectedSprite: Sprite2D
 @export var disconnectedSprite: Sprite2D
