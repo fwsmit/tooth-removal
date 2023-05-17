@@ -123,7 +123,7 @@ theme_override_constants/margin_bottom = 100
 layout_mode = 2
 text = "Extraction trainer"
 script = ExtResource("2_tqfgs")
-sceneName = "extraction.tscn"
+sceneName = "pre-extraction.tscn"
 newMode = 1
 
 [node name="Container button 2" type="MarginContainer" parent="Full screen/Body/Main screen"]
