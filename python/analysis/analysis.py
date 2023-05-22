@@ -126,7 +126,7 @@ def get_direction_changes(v, peaks):
     return count
 
 def find_start_end_from_vec(vec, threshold):
-    abs_vec = vectors_mag(vec) 
+    abs_vec = vectors_mag(vec)
 
     # Find moving average
     filter_size = 1
@@ -158,6 +158,11 @@ def analyze_file(filename, dataDir):
         return None
     forces, torques = lowpass_filter_all(forces, torques)
     dic.update(get_parameters(forces, torques))
+
+    force_mag = vectors_mag(forces)
+    torque_mag = vectors_mag(torques)
+    peaks = analyze_peaks(torque_mag)
+    dic["direction_changes"] = np.average([get_direction_changes(force_mag, peaks), get_direction_changes(torque_mag, peaks)])
     return dic
 
 def complete_analysis(files, dataDir):
