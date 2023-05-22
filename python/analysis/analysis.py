@@ -159,10 +159,10 @@ def analyze_file(filename, dataDir):
     forces, torques = lowpass_filter_all(forces, torques)
     dic.update(get_parameters(forces, torques))
 
-    force_mag = vectors_mag(forces)
-    torque_mag = vectors_mag(torques)
-    peaks = analyze_peaks(torque_mag)
-    dic["direction_changes"] = np.average([get_direction_changes(force_mag, peaks), get_direction_changes(torque_mag, peaks)])
+    main_axis = torques[1]
+    torque_mag = norm_vectors(torques)
+    peaks = analyze_peaks(np.abs(main_axis))
+    dic["direction_changes"] = get_direction_changes(main_axis, peaks)
     return dic
 
 def complete_analysis(files, dataDir):
