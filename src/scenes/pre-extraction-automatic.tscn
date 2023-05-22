@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://ck5bkddnojobf"]
+[gd_scene load_steps=4 format=3 uid="uid://ck5bkddnojobf"]
 
 [ext_resource type="Script" path="res://scripts/Automatic mode/Pre-extraction/continue.gd" id="1_0v2rv"]
+[ext_resource type="Theme" uid="uid://pvun8g0tgka8" path="res://assets/theme.tres" id="1_edl4w"]
 [ext_resource type="Script" path="res://scripts/Pre-extraction/Terug.gd" id="3_3wc26"]
 
 [node name="Control" type="Control"]
@@ -10,6 +11,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_edl4w")
 
 [node name="JawSelection" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -18,23 +20,23 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 120
-theme_override_constants/margin_top = 80
-theme_override_constants/margin_right = 120
-theme_override_constants/margin_bottom = 80
+theme = ExtResource("1_edl4w")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="JawSelection"]
 layout_mode = 2
+theme = ExtResource("1_edl4w")
 theme_override_constants/separation = 10
 
 [node name="Type" type="RichTextLabel" parent="JawSelection/VBoxContainer"]
 layout_mode = 2
+theme = ExtResource("1_edl4w")
 text = "Upper or lower jaw"
 fit_content = true
 
 [node name="JawTypeList" type="ItemList" parent="JawSelection/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 5
+theme = ExtResource("1_edl4w")
 auto_height = true
 item_count = 2
 max_columns = 2
@@ -44,12 +46,14 @@ item_1/text = "Lower jaw"
 
 [node name="Type2" type="RichTextLabel" parent="JawSelection/VBoxContainer"]
 layout_mode = 2
+theme = ExtResource("1_edl4w")
 text = "Type"
 fit_content = true
 
 [node name="TypeList2" type="ItemList" parent="JawSelection/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 5
+theme = ExtResource("1_edl4w")
 auto_height = true
 item_count = 2
 max_columns = 2
@@ -59,6 +63,7 @@ item_1/text = "Cadaver"
 
 [node name="Continue" type="Button" parent="JawSelection/VBoxContainer" node_paths=PackedStringArray("jawSelection", "typeSelection")]
 layout_mode = 2
+theme = ExtResource("1_edl4w")
 text = "Continue"
 script = ExtResource("1_0v2rv")
 jawSelection = NodePath("../JawTypeList")
@@ -70,5 +75,6 @@ offset_left = 41.0
 offset_top = 23.0
 offset_right = 94.0
 offset_bottom = 54.0
+theme = ExtResource("1_edl4w")
 text = "Back to dashboard"
 script = ExtResource("3_3wc26")
