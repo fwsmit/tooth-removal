@@ -153,9 +153,9 @@ def analyze_file(filename, dataDir):
     dic = parse_json(filename, dataDir)
     forces = get_forces(dic)
     torques = get_torques(dic)
-    if len(forces) == 0:
+    if len(forces) == 0 or len(forces[0]) == 0:
         print("Empty file, skipping", filename)
-        return {}
+        return None
     forces, torques = lowpass_filter_all(forces, torques)
     dic.update(get_parameters(forces, torques))
     return dic
@@ -164,6 +164,7 @@ def complete_analysis(files, dataDir):
     analysis = []
     for f in files:
         dic = analyze_file(f, dataDir)
-        analysis.append(dic)
+        if dic:
+            analysis.append(dic)
     analysis = filter_complications(analysis)
     return analysis
