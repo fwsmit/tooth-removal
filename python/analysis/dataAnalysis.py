@@ -1,6 +1,7 @@
 import os
 import argparse
 import platform
+import glob
 
 from xdg_base_dirs import xdg_data_home
 
@@ -27,13 +28,23 @@ parser.add_argument('--fix_data', required=False, action='store_true')
 parser.add_argument('--graph_frequencies', required=False, action='store_true')
 parser.add_argument('--graph_force_torque', required=False, action='store_true')
 parser.add_argument('--complete_analysis', required=False, action='store_true')
+parser.add_argument('--dir', required=False, action='store')
 
 args = parser.parse_args()
 
 possible_files = []
-for filename in os.listdir(dataDir):
-    if filename.startswith("extraction_data"):
-        possible_files.append(filename)
+
+if args.complete_analysis:
+    p = os.path.join(dataDir, "Analysis_data")
+    possible_files = glob.glob(p + '/**/extraction_data*.json', recursive=True)
+else:
+    for filename in os.listdir(dataDir):
+        if filename.startswith("extraction_data"):
+            possible_files.append(filename)
+
+if len(possible_files) == 0:
+    warning("No files found. Aborting")
+    exit(1)
 
 if args.update_index:
     print("Updating index")
