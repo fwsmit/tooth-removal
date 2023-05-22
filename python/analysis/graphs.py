@@ -119,7 +119,7 @@ def graph_ft(filename, dataDir):
 def plot_bar_from_data(data, key, ax, label):
     upper_lower = [False, True]
     teeth = range(1,9)
-    force_auc = []
+    vals = []
     labels = []
     errors = []
     for ul in upper_lower:
@@ -128,7 +128,7 @@ def plot_bar_from_data(data, key, ax, label):
             t_range = reversed(t_range)
         for t in t_range:
             matching_extractions = filter_extraction(data, ul, t)
-            force_auc.append(get_avg_val(matching_extractions, key))
+            vals.append(get_avg_val(matching_extractions, key))
             errors.append(get_std_val(matching_extractions, key))
             l = ""
             if ul:
@@ -139,7 +139,7 @@ def plot_bar_from_data(data, key, ax, label):
             l += " (n = {})".format(len(matching_extractions))
             labels.append(l)
 
-    ax.barh(labels, force_auc, xerr=errors)
+    ax.barh(labels, vals, xerr=errors)
     ax.set_xlabel(label)
 
 def plot_analysis(analysis):
