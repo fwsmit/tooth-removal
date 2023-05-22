@@ -4,6 +4,7 @@ import platform
 import glob
 
 from xdg_base_dirs import xdg_data_home
+from logging import warning
 
 from fix_data import fix_data_cutoff
 from index import update_index
@@ -35,7 +36,11 @@ args = parser.parse_args()
 possible_files = []
 
 if args.complete_analysis:
-    p = os.path.join(dataDir, "Analysis_data")
+    if args.dir:
+        dir = args.dir
+    else:
+        dir = "Analysis_data"
+    p = os.path.join(dataDir, dir)
     possible_files = glob.glob(p + '/**/extraction_data*.json', recursive=True)
 else:
     for filename in os.listdir(dataDir):
