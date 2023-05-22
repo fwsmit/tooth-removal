@@ -1,41 +1,47 @@
-[gd_scene load_steps=4 format=3 uid="uid://bg7upen5pbtkp"]
+[gd_scene load_steps=5 format=3 uid="uid://bg7upen5pbtkp"]
 
 [ext_resource type="Script" path="res://scripts/Pre-extraction/SelectedTooth.gd" id="1_tjn70"]
+[ext_resource type="Theme" uid="uid://pvun8g0tgka8" path="res://assets/theme.tres" id="2_5gwdb"]
 [ext_resource type="Script" path="res://scripts/Pre-extraction/Pre-extraction-continue.gd" id="2_hqstp"]
 [ext_resource type="Script" path="res://scripts/Pre-extraction/Terug.gd" id="3_gbpns"]
 
-[node name="Control" type="Control"]
+[node name="Control2" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_right = 768.0
+offset_bottom = 432.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("2_5gwdb")
 
 [node name="JawSelection" type="MarginContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_top = -1.0
+offset_right = -762.0
+offset_bottom = -211.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 120
-theme_override_constants/margin_top = 80
-theme_override_constants/margin_right = 120
-theme_override_constants/margin_bottom = 80
+theme = ExtResource("2_5gwdb")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="JawSelection"]
 layout_mode = 2
+theme = ExtResource("2_5gwdb")
 theme_override_constants/separation = 10
 
 [node name="Quadrant" type="RichTextLabel" parent="JawSelection/VBoxContainer"]
 layout_mode = 2
+theme = ExtResource("2_5gwdb")
 text = "Quadrant"
 fit_content = true
 
 [node name="QuadrantList" type="ItemList" parent="JawSelection/VBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 5
+theme = ExtResource("2_5gwdb")
 auto_height = true
 item_count = 4
 max_columns = 2
@@ -47,12 +53,14 @@ item_3/text = "Quadrant 4"
 
 [node name="Tooth" type="RichTextLabel" parent="JawSelection/VBoxContainer"]
 layout_mode = 2
+theme = ExtResource("2_5gwdb")
 text = "Tooth"
 fit_content = true
 
 [node name="ToothList" type="ItemList" parent="JawSelection/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 5
+theme = ExtResource("2_5gwdb")
 auto_height = true
 item_count = 8
 max_columns = 2
@@ -68,12 +76,14 @@ item_7/text = "8 (molaar)"
 
 [node name="Type" type="RichTextLabel" parent="JawSelection/VBoxContainer"]
 layout_mode = 2
+theme = ExtResource("2_5gwdb")
 text = "Type"
 fit_content = true
 
 [node name="TypeList" type="ItemList" parent="JawSelection/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 5
+theme = ExtResource("2_5gwdb")
 auto_height = true
 item_count = 2
 max_columns = 2
@@ -83,6 +93,7 @@ item_1/text = "Cadaver"
 
 [node name="SelectedTooth" type="RichTextLabel" parent="JawSelection/VBoxContainer" node_paths=PackedStringArray("typeList")]
 layout_mode = 2
+theme = ExtResource("2_5gwdb")
 text = "Selected tooth:"
 fit_content = true
 script = ExtResource("1_tjn70")
@@ -90,6 +101,7 @@ typeList = NodePath("../TypeList")
 
 [node name="Continue" type="Button" parent="JawSelection/VBoxContainer"]
 layout_mode = 2
+theme = ExtResource("2_5gwdb")
 text = "Continue"
 script = ExtResource("2_hqstp")
 
@@ -99,7 +111,8 @@ offset_left = 41.0
 offset_top = 23.0
 offset_right = 94.0
 offset_bottom = 54.0
-text = "Back"
+theme = ExtResource("2_5gwdb")
+text = "Back to dashboard"
 script = ExtResource("3_gbpns")
 
 [connection signal="item_selected" from="JawSelection/VBoxContainer/QuadrantList" to="JawSelection/VBoxContainer/SelectedTooth" method="quadrantChanged"]

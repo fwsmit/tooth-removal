@@ -1,0 +1,48 @@
+[gd_scene load_steps=7 format=3 uid="uid://df2gibwi4thp2"]
+
+[ext_resource type="Script" path="res://scripts/Extraction/tooth_location_visual.gd" id="1_kl3sg"]
+[ext_resource type="Script" path="res://scenes/movement.gd" id="2_py0q6"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_k4ex6"]
+radius = 0.1
+height = 0.3
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_8hurp"]
+points = PackedVector3Array(0.0970351, 0.06766, 0.0157673, -0.097027, -0.0676827, -0.0157849, -0.0923371, -0.067559, -0.0337685, -0.0613074, 0.127195, -0.015891, -0.0158036, -0.067681, 0.0970247, 0.0426701, -0.0853164, -0.0830904, 0.011263, 0.0857118, -0.0924972, 0.0432605, -0.136592, 0.0250324, -0.0380988, 0.0896942, 0.0829754, 0.0386853, 0.141108, 0.0113623, 0.055786, 0.0535544, 0.0825798, 0.0923431, -0.0675352, 0.0337707, -0.0386685, -0.141116, -0.0113629, -0.0470469, -0.0582825, -0.0874132, 0.0826391, 0.0714478, -0.0513509, -0.0920823, 0.0538924, 0.0381754, -0.0826329, 0.0714704, -0.0513659, -0.0647258, -0.0892871, 0.0647258, 0.0923434, -0.0675353, -0.0337708, 0.0468587, -0.0803137, 0.0825758, 0.0248693, -0.131195, -0.0520237, -0.0159083, -0.127181, 0.0613198, 0.0250324, 0.136592, -0.0432605, 0.0158895, 0.127184, 0.0613209, -0.0381004, 0.0896981, -0.0829789, 0.0157849, 0.0676827, 0.097027, -0.0338067, -0.112726, -0.0698913, -0.0432441, 0.136601, 0.0250341, -0.0158035, -0.0676806, -0.0970241, 0.074631, 0.113091, 0.0203383, -0.055786, 0.0535544, 0.0825798, 0.0381754, 0.0538924, -0.0920822)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_g8fdi"]
+size = Vector2(5, 5)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_gyexp"]
+data = PackedVector3Array(2.5, 0, 2.5, -2.5, 0, 2.5, 2.5, 0, -2.5, -2.5, 0, 2.5, -2.5, 0, -2.5, 2.5, 0, -2.5)
+
+[node name="visualisation_teeth" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.11656)
+script = ExtResource("1_kl3sg")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.0280933, -0.68677, 0.726331, -0.0265433, 0.726874, 0.686257, -0.999253, 1.86125e-09, -0.0386495, 45.1011, 27.7391, 0)
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="."]
+script = ExtResource("2_py0q6")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.986778, 1.83037, -0.0999671)
+mesh = SubResource("CapsuleMesh_k4ex6")
+
+[node name="Camera3D" type="Camera3D" parent="CharacterBody3D/MeshInstance3D"]
+transform = Transform3D(-0.0301889, -0.882191, 0.469923, -0.0841317, 0.470712, 0.878267, -0.995997, -0.0130216, -0.0884305, -0.0123429, -0.0501887, 0.0520296)
+fov = 23.9748
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.231453, 1.31936)
+shape = SubResource("ConvexPolygonShape3D_8hurp")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.0918459)
+mesh = SubResource("PlaneMesh_g8fdi")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_gyexp")

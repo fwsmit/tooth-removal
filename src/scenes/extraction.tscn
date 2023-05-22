@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://c4vbxhjh7m7h6"]
+[gd_scene load_steps=25 format=3 uid="uid://c4vbxhjh7m7h6"]
 
 [ext_resource type="Script" path="res://scripts/Extraction/Sensor/data_user.gd" id="1_vu16l"]
 [ext_resource type="Script" path="res://scripts/Common/showLoggedInAs.gd" id="4_1kkys"]
@@ -20,6 +20,7 @@
 [ext_resource type="Texture2D" uid="uid://jn2edbaf0g6y" path="res://assets/Figures/connected.svg" id="12_rh6w6"]
 [ext_resource type="Texture2D" uid="uid://bxtjqe348c13g" path="res://assets/Figures/disconnected.svg" id="13_t2tbb"]
 [ext_resource type="Script" path="res://scripts/Extraction/Extraction_finished.gd" id="14_i783s"]
+[ext_resource type="Theme" uid="uid://pvun8g0tgka8" path="res://assets/theme.tres" id="17_elugr"]
 [ext_resource type="Script" path="res://scripts/Extraction/Terug.gd" id="23_5e3ct"]
 
 [node name="Node3D2" type="Control"]
@@ -42,10 +43,12 @@ grow_vertical = 2
 [node name="Top" type="VBoxContainer" parent="VBoxContainer"]
 custom_minimum_size = Vector2(0, 56)
 layout_mode = 2
+theme = ExtResource("17_elugr")
 
 [node name="Topbar" type="ColorRect" parent="VBoxContainer/Top"]
 layout_mode = 2
 size_flags_vertical = 3
+theme = ExtResource("17_elugr")
 color = Color(0.172549, 0.643137, 0.980392, 1)
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Top/Topbar"]
@@ -60,9 +63,23 @@ offset_right = -12.0
 offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("17_elugr")
+
+[node name="Logo container" type="HBoxContainer" parent="VBoxContainer/Top/Topbar/HBoxContainer"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+theme = ExtResource("17_elugr")
+
+[node name="Panel" parent="VBoxContainer/Top/Topbar/HBoxContainer/Logo container" node_paths=PackedStringArray("sidebar") instance=ExtResource("2_llarb")]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme = ExtResource("17_elugr")
+script = ExtResource("3_g0m3n")
+sidebar = NodePath("../../../../../Body/Sidebar")
 
 [node name="Button" type="Button" parent="VBoxContainer/Top/Topbar/HBoxContainer"]
 layout_mode = 2
+theme = ExtResource("17_elugr")
 text = "Back"
 script = ExtResource("23_5e3ct")
 
@@ -70,10 +87,12 @@ script = ExtResource("23_5e3ct")
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 size_flags_horizontal = 6
+theme = ExtResource("17_elugr")
 
 [node name="RichTextLabel2" type="RichTextLabel" parent="VBoxContainer/Top/Topbar/HBoxContainer/Logedin container"]
 layout_mode = 2
 size_flags_horizontal = 10
+theme = ExtResource("17_elugr")
 theme_override_colors/default_color = Color(1, 1, 1, 1)
 text = "Logged in as: "
 fit_content = true
@@ -81,20 +100,24 @@ autowrap_mode = 0
 script = ExtResource("4_1kkys")
 
 [node name="SelectedTooth container" type="HBoxContainer" parent="VBoxContainer/Top/Topbar/HBoxContainer"]
+custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
+theme = ExtResource("17_elugr")
 
 [node name="RichTextLabel3" type="RichTextLabel" parent="VBoxContainer/Top/Topbar/HBoxContainer/SelectedTooth container"]
-custom_minimum_size = Vector2(30, 0)
+custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
 size_flags_horizontal = 10
+theme = ExtResource("17_elugr")
 theme_override_colors/default_color = Color(1, 1, 1, 1)
 text = "Q:"
 script = ExtResource("4_dxsou")
 
 [node name="RichTextLabel4" type="RichTextLabel" parent="VBoxContainer/Top/Topbar/HBoxContainer/SelectedTooth container"]
-custom_minimum_size = Vector2(30, 0)
+custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
 size_flags_horizontal = 10
+theme = ExtResource("17_elugr")
 theme_override_colors/default_color = Color(1, 1, 1, 1)
 text = "T: "
 script = ExtResource("5_3pg21")
@@ -304,22 +327,24 @@ fit_content = true
 scroll_active = false
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Body/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
+theme = ExtResource("17_elugr")
 
 [node name="DebugButton" type="Button" parent="VBoxContainer/Body/VBoxContainer/HBoxContainer" node_paths=PackedStringArray("debugText")]
 layout_mode = 2
-size_flags_vertical = 10
+theme = ExtResource("17_elugr")
 toggle_mode = true
 text = "Debug ▶"
 script = ExtResource("8_dqdr0")
 debugText = NodePath("DebugInfo")
 
 [node name="DebugInfo" type="RichTextLabel" parent="VBoxContainer/Body/VBoxContainer/HBoxContainer/DebugButton"]
-visible = false
 layout_mode = 0
-offset_top = -77.0
+offset_top = -330.0
 offset_right = 439.0
-offset_bottom = -4.0
+offset_bottom = -1.0
+theme = ExtResource("17_elugr")
 theme_override_fonts/normal_font = ExtResource("9_ickr0")
 text = "Debug info
 a
@@ -327,21 +352,21 @@ a"
 fit_content = true
 script = ExtResource("10_tfsdg")
 
-[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/Body/VBoxContainer/HBoxContainer" node_paths=PackedStringArray("connectedSprite", "disconnectedSprite")]
+[node name="MarginContainer" type="Container" parent="VBoxContainer/Body/VBoxContainer/HBoxContainer" node_paths=PackedStringArray("connectedSprite", "disconnectedSprite")]
 layout_mode = 2
 size_flags_vertical = 0
+theme = ExtResource("17_elugr")
 script = ExtResource("11_8fuch")
 connectedSprite = NodePath("Connected")
 disconnectedSprite = NodePath("Disconnected")
 
 [node name="Connected" type="Sprite2D" parent="VBoxContainer/Body/VBoxContainer/HBoxContainer/MarginContainer"]
-visible = false
-position = Vector2(17, 16)
+position = Vector2(18, 24.5)
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("12_rh6w6")
 
 [node name="Disconnected" type="Sprite2D" parent="VBoxContainer/Body/VBoxContainer/HBoxContainer/MarginContainer"]
-position = Vector2(17, 16)
+position = Vector2(18, 24.5)
 scale = Vector2(0.0497904, 0.0497903)
 texture = ExtResource("13_t2tbb")
 
@@ -356,6 +381,7 @@ offset_top = -320.344
 offset_right = 586.022
 offset_bottom = -289.344
 scale = Vector2(20, 20)
+theme = ExtResource("17_elugr")
 theme_override_font_sizes/normal_font_size = 20
 text = "Sensor disconnected"
 fit_content = true
@@ -364,10 +390,19 @@ metadata/_edit_use_anchors_ = true
 [node name="Button" type="Button" parent="VBoxContainer/Body/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 10
-size_flags_vertical = 8
+theme = ExtResource("17_elugr")
 text = "Finished extraction"
 script = ExtResource("14_i783s")
 
+
+[node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer/Body/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
+
+[connection signal="gui_input" from="VBoxContainer/Top/Topbar/HBoxContainer/Logo container/Panel" to="VBoxContainer/Top/Topbar/HBoxContainer/Logo container/Panel" method="_on_gui_input"]
 [connection signal="connected" from="VBoxContainer/Body/VBoxContainer/PanelContainer/GridContainer/3D box container/Node3D/CSGBox3D2" to="VBoxContainer/Body/VBoxContainer/HBoxContainer/DebugButton/DebugInfo" method="on_sensor_connected"]
 [connection signal="connected" from="VBoxContainer/Body/VBoxContainer/PanelContainer/GridContainer/3D box container/Node3D/CSGBox3D2" to="VBoxContainer/Body/VBoxContainer/HBoxContainer/MarginContainer" method="showConnected"]
 [connection signal="data" from="VBoxContainer/Body/VBoxContainer/PanelContainer/GridContainer/3D box container/Node3D/CSGBox3D2" to="VBoxContainer/Body/VBoxContainer/HBoxContainer/DebugButton/DebugInfo" method="receiveData"]

@@ -2,11 +2,25 @@ extends Node
 
 var current_scene = null
 
+enum MODE{
+	nochange,
+	extractionTrainer,
+	extractionList,
+	automaticExtraction,
+	nomode,
+}
+
+var mode = MODE.nomode
+
 # Data requested before extraction
 var loggedInAs = "Unknown"
 var selectedQuadrant = 1
 var selectedTooth = 1
 var selectedType = null
+
+# Used in automatic selection
+var selectedJaw = null
+var automaticModeStarted = false # True if first tooth is already selected
 
 # Data stored during extraction
 var raw_forces = []
@@ -72,9 +86,13 @@ func reset_extraction_data():
 	{'mesial/distal angulation': [], 'bucco/linguoversion': [], 'mesiobuccal/lingual': []}]
 	startTimestamp = -1 # start of extraction
 	endTimestamp = -1 # end of extraction
-	selectedQuadrant = null
-	selectedTooth = null
-	selectedType = null
+	
+	# Don't reset the selected tooth in automatic extraction mode
+	if mode != MODE.automaticExtraction:
+		selectedQuadrant = null
+		selectedTooth = null
+		selectedType = null
+		
 	forceps_slipped = null
 	element_fractured = null
 	epoxy_failed = null
@@ -84,6 +102,10 @@ func reset_extraction_data():
 func is_pre_extraction_data_valid():
 	return selectedQuadrant != null and \
 		selectedTooth != null and \
+		selectedType != null
+
+func is_pre_automatic_extraction_data_valid():
+	return selectedJaw != null and \
 		selectedType != null
 
 func get_avg_vector(n, vecs):
@@ -108,6 +130,8 @@ func python_run(args):
 	if exit_code != 0:
 		printerr("Python command has failed")
 		printerr(output[0])
+	else:
+		print(output[0])
 
 func update_index():
 	python_run(["../python/analysis/dataAnalysis.py", "--update_index"])

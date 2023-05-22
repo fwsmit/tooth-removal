@@ -1,7 +1,7 @@
 extends Node3D
 
-const HOST: String = "127.0.0.1"
-#const HOST: String = "192.168.0.100"
+#const HOST: String = "127.0.0.1"
+const HOST: String = "192.168.0.100"
 const PORT: int = 2001
 const RECONNECT_TIMEOUT: float = 3.0
 
@@ -65,7 +65,7 @@ func tand_locatie(kwadrant, tand):
 		locatie = tandvectors[0][1] + tandvectors[kwadrant][tand - 1] + Vector3(0, -0.002, 0)
 	return locatie
 
-var angles = [[0., -19.4, -53., -57.5, -66.3, -79.7, -79.7, 95.6], [0., 19.4, 53., 57.5, 66.3, 79.7, 79.7, 95.6],[0 , -19.7, -39.2, -67., -78., -78., -78., -90.],[0 , 19.7, 39.15, 67., 78., 78., 78., 90.]]
+var angles = [[0., -19.4, -53., -57.5, -66.3, -79.7, -79.7, -95.6], [0., 19.4, 53., 57.5, 66.3, 79.7, 79.7, 95.6],[0 , -19.7, -39.2, -67., -78., -78., -78., -90.],[0 , 19.7, 39.15, 67., 78., 78., 78., 90.]]
 
 func vector_tand_frame(kwadrant, tand, vector):
 	var angle = deg_to_rad(angles[kwadrant - 1][tand - 1])
@@ -75,6 +75,13 @@ func vector_tand_frame(kwadrant, tand, vector):
 		vector = Vector3(cos(angle)*vector.x + sin(angle)*vector.z,vector.y, -sin(angle)*vector.x + cos(angle)*vector.z)
 	return vector
 
+func vector_godot_frame(kwadrant, tand, vector):
+	var angle = deg_to_rad(-1*angles[kwadrant - 1][tand - 1])
+	if kwadrant == 1 or kwadrant == 2:
+		vector = Vector3(vector.x, cos(angle)*vector.y - sin(angle)*vector.z, sin(angle)*vector.y + cos(angle)*vector.z)
+	if kwadrant == 3 or kwadrant == 4:
+		vector = Vector3(cos(angle)*vector.x + sin(angle)*vector.z,vector.y, -sin(angle)*vector.x + cos(angle)*vector.z)
+	return vector
 # deze functie ordent de kracht en momentvectoren in de richtingen gedefinieerd in tandheelkunde. 
 # De eerstegnoemde is altijd positief, dus bij buccal lingual, geldt dat een positieve waarde in de buccale richting is
 func type_force_torque(kwadrant, _tand, force, torque):
@@ -121,15 +128,13 @@ func _handle_client_data(force, torque) -> void:
 
 	# Order forces and torques in various directions
 	var dir = type_force_torque(Global.selectedQuadrant, Global.selectedTooth, force, torque)
-	emit_signal("directions", dir)
 	
 	for key in dir[0].keys():
 		Global.clinical_directions[0][key].append(dir[0][key])
 	
 	for key in dir[1].keys():
 		Global.clinical_directions[1][key].append(dir[1][key])
-	
-
+		
 	# Remove noise by using average
 	var n = 100
 	var avg_force = Global.get_avg_force(n)
