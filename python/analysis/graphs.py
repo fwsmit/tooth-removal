@@ -143,8 +143,10 @@ def plot_bar_from_data(data, key, ax, label):
     ax.set_xlabel(label)
 
 def plot_analysis(analysis):
-    fig, ax = plt.subplots(1, 2)
-    plot_bar_from_data(analysis, "fmag_auc", ax[0], "Force auc [Ns]")
-    plot_bar_from_data(analysis, "tmag_auc", ax[1], "Torque auc [Nms]")
+    fig, ax = plt.subplots(2, 2)
+    plot_bar_from_data(analysis, "fmag_auc", ax[0][0], "Force auc [Ns]")
+    plot_bar_from_data(analysis, "tmag_auc", ax[0][1], "Torque auc [Nms]")
+    plot_bar_from_data(analysis, "fmag_max", ax[1][0], "Force max [N]")
+    plot_bar_from_data(analysis, "fmag_max", ax[1][1], "Torque max [Nms]")
     show_plots(fig)
 
