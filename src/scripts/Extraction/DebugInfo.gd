@@ -1,11 +1,16 @@
 extends RichTextLabel
 
+@onready var data_user = $"../../../PanelContainer/GridContainer/3D box container/Node3D/CSGBox3D2"
+
 var force = null
 var torque = null
 var connected = false
 
 var timerStarted = false
 var updateDelaySeconds = 0.5
+
+func _ready():
+	data_user.tand_locatie(1,1)
 
 func receiveData(_force, _torque):
 	force = _force
@@ -43,6 +48,7 @@ func updateText():
 	text = ""
 	text += "Raw force: " + vec_to_string(force) + "\n"
 	text += "Raw torque: " + vec_to_string(torque) + "\n"
+	text += "Tand locatie: " + vec_to_string(data_user.tand_locatie(Global.selectedQuadrant, Global.selectedTooth)) + "\n"
 	text += "Connected: " + str(connected) + "\n"
 	if Global.clinical_directions[0]['buccal/lingual'].size() > 0:
 		text += "buccal/lingual: " + num_to_string_padded(Global.clinical_directions[0]['buccal/lingual'][-1])  + "\n"
