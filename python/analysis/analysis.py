@@ -126,7 +126,7 @@ def get_direction_changes(v, peaks):
     return count
 
 def find_start_end_from_vec(vec, threshold):
-    abs_vec = vectors_mag(vec) 
+    abs_vec = vectors_mag(vec)
 
     # Find moving average
     filter_size = 1
@@ -153,17 +153,23 @@ def analyze_file(filename, dataDir):
     dic = parse_json(filename, dataDir)
     forces = get_forces(dic)
     torques = get_torques(dic)
-    if len(forces) == 0:
+    if len(forces) == 0 or len(forces[0]) == 0:
         print("Empty file, skipping", filename)
-        return {}
+        return None
     forces, torques = lowpass_filter_all(forces, torques)
     dic.update(get_parameters(forces, torques))
+
+    main_axis = torques[1]
+    torque_mag = norm_vectors(torques)
+    peaks = analyze_peaks(np.abs(main_axis))
+    dic["direction_changes"] = get_direction_changes(main_axis, peaks)
     return dic
 
 def complete_analysis(files, dataDir):
     analysis = []
     for f in files:
         dic = analyze_file(f, dataDir)
-        analysis.append(dic)
+        if dic:
+            analysis.append(dic)
     analysis = filter_complications(analysis)
     return analysis
