@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://cos6revlxl42h"]
+[gd_scene load_steps=6 format=3 uid="uid://cos6revlxl42h"]
 
 [ext_resource type="PackedScene" uid="uid://cto4jgqgmwgrd" path="res://scenes/Togglebutton.tscn" id="1_u3com"]
 [ext_resource type="Script" path="res://scripts/Common/showLoggedInAs.gd" id="2_6ey11"]
 [ext_resource type="Script" path="res://scripts/Dashboard/Togglebutton.gd" id="2_l0wmj"]
 [ext_resource type="Script" path="res://scripts/Common/SceneLoader.gd" id="2_tqfgs"]
+[ext_resource type="Theme" uid="uid://x4pg02i0bh2u" path="res://assets/theme.tres" id="3_qsl57"]
 
 [node name="Main" type="Control"]
 layout_mode = 3
@@ -61,6 +62,13 @@ layout_mode = 2
 mouse_default_cursor_shape = 2
 script = ExtResource("2_l0wmj")
 sidebar = NodePath("../../../../../Body/Sidebar")
+
+[node name="Button" type="Button" parent="Full screen/Top bar/Topbar/HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("3_qsl57")
+text = "Log out"
+script = ExtResource("2_tqfgs")
+sceneName = "Startscherm.tscn"
 
 [node name="Logedin container" type="HBoxContainer" parent="Full screen/Top bar/Topbar/HBoxContainer"]
 custom_minimum_size = Vector2(200, 0)

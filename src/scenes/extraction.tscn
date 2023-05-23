@@ -22,7 +22,7 @@
 [ext_resource type="Texture2D" uid="uid://jn2edbaf0g6y" path="res://assets/Figures/connected.svg" id="12_rh6w6"]
 [ext_resource type="Texture2D" uid="uid://bxtjqe348c13g" path="res://assets/Figures/disconnected.svg" id="13_t2tbb"]
 [ext_resource type="Script" path="res://scripts/Extraction/Extraction_finished.gd" id="14_i783s"]
-[ext_resource type="Theme" uid="uid://pvun8g0tgka8" path="res://assets/theme.tres" id="17_elugr"]
+[ext_resource type="Theme" uid="uid://x4pg02i0bh2u" path="res://assets/theme.tres" id="17_elugr"]
 [ext_resource type="Script" path="res://scripts/Extraction/Terug.gd" id="23_5e3ct"]
 
 [node name="Node3D2" type="Control"]
