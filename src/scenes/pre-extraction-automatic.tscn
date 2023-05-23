@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://ck5bkddnojobf"]
 
 [ext_resource type="Script" path="res://scripts/Automatic mode/Pre-extraction/continue.gd" id="1_0v2rv"]
-[ext_resource type="Theme" uid="uid://pvun8g0tgka8" path="res://assets/theme.tres" id="1_edl4w"]
+[ext_resource type="Theme" uid="uid://x4pg02i0bh2u" path="res://assets/theme.tres" id="1_edl4w"]
 [ext_resource type="Script" path="res://scripts/Pre-extraction/Terug.gd" id="3_3wc26"]
 
 [node name="Control" type="Control"]

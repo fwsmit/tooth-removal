@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://ddikhupdravh"]
 
 [ext_resource type="Script" path="res://scripts/Automatic mode/ToothLabel.gd" id="1_heprr"]
-[ext_resource type="Theme" uid="uid://pvun8g0tgka8" path="res://assets/theme.tres" id="1_hfbqy"]
+[ext_resource type="Theme" uid="uid://x4pg02i0bh2u" path="res://assets/theme.tres" id="1_hfbqy"]
 [ext_resource type="Script" path="res://scripts/Pre-extraction/Terug.gd" id="2_suh5f"]
 
 [node name="Control" type="Control"]
