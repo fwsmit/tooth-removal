@@ -1,8 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://bg7upen5pbtkp"]
+[gd_scene load_steps=7 format=3 uid="uid://mmv6hywavm50"]
 
 [ext_resource type="Script" path="res://scripts/Pre-extraction/SelectedTooth.gd" id="1_tjn70"]
-[ext_resource type="Theme" uid="uid://x4pg02i0bh2u" path="res://assets/theme.tres" id="2_5gwdb"]
+[ext_resource type="Script" path="res://scripts/Pre-extraction/TypeList.gd" id="2_1glcj"]
+[ext_resource type="Theme" path="res://assets/theme.tres" id="2_5gwdb"]
 [ext_resource type="Script" path="res://scripts/Pre-extraction/Pre-extraction-continue.gd" id="2_hqstp"]
+[ext_resource type="Script" path="res://scripts/Pre-extraction/QuadrantList.gd" id="2_uttav"]
 [ext_resource type="Script" path="res://scripts/Pre-extraction/Terug.gd" id="3_gbpns"]
 
 [node name="Control3" type="Control"]
@@ -50,6 +52,7 @@ item_0/text = "Quadrant 1"
 item_1/text = "Quadrant 2"
 item_2/text = "Quadrant 3"
 item_3/text = "Quadrant 4"
+script = ExtResource("2_uttav")
 
 [node name="Tooth" type="RichTextLabel" parent="JawSelection/VBoxContainer"]
 layout_mode = 2
@@ -90,6 +93,7 @@ max_columns = 2
 fixed_column_width = 400
 item_0/text = "Plastic"
 item_1/text = "Cadaver"
+script = ExtResource("2_1glcj")
 
 [node name="SelectedTooth" type="RichTextLabel" parent="JawSelection/VBoxContainer" node_paths=PackedStringArray("typeList")]
 layout_mode = 2
@@ -116,5 +120,7 @@ text = "Back to dashboard"
 script = ExtResource("3_gbpns")
 
 [connection signal="item_selected" from="JawSelection/VBoxContainer/QuadrantList" to="JawSelection/VBoxContainer/SelectedTooth" method="quadrantChanged"]
+[connection signal="ready" from="JawSelection/VBoxContainer/QuadrantList" to="JawSelection/VBoxContainer/QuadrantList" method="_on_ready"]
 [connection signal="item_selected" from="JawSelection/VBoxContainer/ToothList" to="JawSelection/VBoxContainer/SelectedTooth" method="toothChanged"]
 [connection signal="item_selected" from="JawSelection/VBoxContainer/TypeList" to="JawSelection/VBoxContainer/SelectedTooth" method="typeChanged"]
+[connection signal="ready" from="JawSelection/VBoxContainer/TypeList" to="JawSelection/VBoxContainer/TypeList" method="_on_ready"]
