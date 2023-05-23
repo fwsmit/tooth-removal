@@ -41,8 +41,8 @@ func vec_to_string(vec):
 
 func updateText():
 	text = ""
-	text += "Force: " + vec_to_string(force) + "\n"
-	text += "Torque: " + vec_to_string(torque) + "\n"
+	text += "Raw force: " + vec_to_string(force) + "\n"
+	text += "Raw torque: " + vec_to_string(torque) + "\n"
 	text += "Connected: " + str(connected) + "\n"
 	if Global.clinical_directions[0]['buccal/lingual'].size() > 0:
 		text += "buccal/lingual: " + num_to_string_padded(Global.clinical_directions[0]['buccal/lingual'][-1])  + "\n"
