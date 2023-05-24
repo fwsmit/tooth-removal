@@ -17,7 +17,7 @@ func _ready():
 	var torque = Vector3.ZERO
 	torque = data_user.convert_torque(torque, force, loc)
 	print("Torque: ", torque)
-	var zeroloc = zero_torque_location(force, torque)
+	var zeroloc = zero_torque_location(force, torque, loc)
 	print("Zeroloc: ", zeroloc)
 	var samet = data_user.convert_torque(Vector3.ZERO, force, zeroloc)
 	print("Same torque: ", samet)
@@ -53,19 +53,27 @@ func vec_to_string(vec):
 			+ num_to_string_padded(vec.y) + ", "\
 			+ num_to_string_padded(vec.z) + ")"
 
-func zero_torque_location(f, t):
+func closest_point_on_line(linePnt, lineDir, pnt):
+	lineDir = lineDir.normalized();
+	var v = pnt - linePnt;
+	var d = v.dot(lineDir);
+	return linePnt + lineDir * d;
+
+func zero_torque_location(f, t, realloc):
 	if f == null or t == null:
 		return Vector3.ZERO
-	var location = Vector3.ZERO
-	
-	return t.cross(f) / f.dot(f)
+	var location = t.cross(f) / f.dot(f)
+	var direction = f
+	return closest_point_on_line(location, direction, realloc)
 
 func updateText():
 	text = ""
 	text += "Raw force: " + vec_to_string(force) + "\n"
 	text += "Raw torque: " + vec_to_string(torque) + "\n"
-	text += "Tand locatie: " + str(data_user.tand_locatie(Global.selectedQuadrant, Global.selectedTooth)) + "\n"
-	text += "Zero torque locatie: " + str(zero_torque_location(force, torque)) + "\n"
+
+	var location = data_user.tand_locatie(Global.selectedQuadrant, Global.selectedTooth)
+	text += "Tand locatie: " + str(location) + "\n"
+	text += "Zero torque locatie: " + str(zero_torque_location(force, torque, location)) + "\n"
 	text += "Connected: " + str(connected) + "\n"
 	if Global.clinical_directions[0]['buccal/lingual'].size() > 0:
 		text += "buccal/lingual: " + num_to_string_padded(Global.clinical_directions[0]['buccal/lingual'][-1])  + "\n"
