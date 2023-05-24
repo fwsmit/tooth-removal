@@ -1,0 +1,204 @@
+[gd_scene load_steps=7 format=3 uid="uid://cx354t6kij34q"]
+
+[ext_resource type="PackedScene" uid="uid://cto4jgqgmwgrd" path="res://scenes/Togglebutton.tscn" id="1_8rexb"]
+[ext_resource type="Script" path="res://scripts/Dashboard/Togglebutton.gd" id="2_iuc1e"]
+[ext_resource type="Script" path="res://scripts/Common/showLoggedInAs.gd" id="3_5a43f"]
+[ext_resource type="Script" path="res://scripts/Pre-extraction/Terug.gd" id="4_eqfow"]
+[ext_resource type="Script" path="res://scripts/Pre-extraction/SelectedTooth.gd" id="5_w1ubi"]
+[ext_resource type="Script" path="res://scripts/Pre-extraction/Pre-extraction-continue.gd" id="6_wle3b"]
+
+[node name="Main" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+
+[node name="Topbar" type="ColorRect" parent="VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+color = Color(0.172549, 0.643137, 0.980392, 1)
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/VBoxContainer/Topbar"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 12.0
+offset_top = -20.0
+offset_right = -12.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Logo container" type="HBoxContainer" parent="VBoxContainer/VBoxContainer/Topbar/HBoxContainer"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+
+[node name="Panel" parent="VBoxContainer/VBoxContainer/Topbar/HBoxContainer/Logo container" node_paths=PackedStringArray("sidebar") instance=ExtResource("1_8rexb")]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+script = ExtResource("2_iuc1e")
+sidebar = NodePath("../../../../../HBoxContainer/Sidebar")
+
+[node name="Logedin container" type="HBoxContainer" parent="VBoxContainer/VBoxContainer/Topbar/HBoxContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="VBoxContainer/VBoxContainer/Topbar/HBoxContainer/Logedin container"]
+layout_mode = 2
+size_flags_horizontal = 10
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+text = "Logged in as: "
+fit_content = true
+autowrap_mode = 0
+script = ExtResource("3_5a43f")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Sidebar" type="HBoxContainer" parent="VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(56, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 3
+
+[node name="sidebar" type="ColorRect" parent="VBoxContainer/HBoxContainer/Sidebar"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0.85098, 0.85098, 0.85098, 1)
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/HBoxContainer/Sidebar/sidebar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/Sidebar/sidebar/ScrollContainer"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Main screen" type="VBoxContainer" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/HBoxContainer/Main screen"]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 0
+
+[node name="Terug" type="Button" parent="VBoxContainer/HBoxContainer/Main screen/PanelContainer"]
+layout_mode = 2
+text = "Back"
+script = ExtResource("4_eqfow")
+
+[node name="JawSelection" type="MarginContainer" parent="VBoxContainer/HBoxContainer/Main screen"]
+layout_mode = 2
+theme_override_constants/margin_left = 120
+theme_override_constants/margin_top = 80
+theme_override_constants/margin_right = 120
+theme_override_constants/margin_bottom = 80
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/Main screen/JawSelection"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Quadrant" type="RichTextLabel" parent="VBoxContainer/HBoxContainer/Main screen/JawSelection/VBoxContainer"]
+layout_mode = 2
+text = "Quadrant"
+fit_content = true
+
+[node name="QuadrantList" type="ItemList" parent="VBoxContainer/HBoxContainer/Main screen/JawSelection/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 5
+auto_height = true
+item_count = 4
+max_columns = 2
+fixed_column_width = 400
+item_0/text = "Quadrant 1"
+item_1/text = "Quadrant 2"
+item_2/text = "Quadrant 3"
+item_3/text = "Quadrant 4"
+
+[node name="Tooth" type="RichTextLabel" parent="VBoxContainer/HBoxContainer/Main screen/JawSelection/VBoxContainer"]
+layout_mode = 2
+text = "Tooth"
+fit_content = true
+
+[node name="ToothList" type="ItemList" parent="VBoxContainer/HBoxContainer/Main screen/JawSelection/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 5
+auto_height = true
+item_count = 8
+max_columns = 2
+fixed_column_width = 400
+item_0/text = "1 (incisief)"
+item_1/text = "2 (incisief)"
+item_2/text = "3 (cuspidaat)"
+item_3/text = "4 (premolaar)"
+item_4/text = "5 (premolaar)"
+item_5/text = "6 (molaar)"
+item_6/text = "7 (molaar)"
+item_7/text = "8 (molaar)"
+
+[node name="Type" type="RichTextLabel" parent="VBoxContainer/HBoxContainer/Main screen/JawSelection/VBoxContainer"]
+layout_mode = 2
+text = "Tooth"
+fit_content = true
+
+[node name="TypeList" type="ItemList" parent="VBoxContainer/HBoxContainer/Main screen/JawSelection/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 5
+auto_height = true
+item_count = 2
+max_columns = 2
+fixed_column_width = 400
+item_0/text = "Plastic"
+item_1/text = "Cadaver"
+
+[node name="SelectedTooth" type="RichTextLabel" parent="VBoxContainer/HBoxContainer/Main screen/JawSelection/VBoxContainer" node_paths=PackedStringArray("typeList")]
+layout_mode = 2
+text = "Selected tooth:"
+fit_content = true
+script = ExtResource("5_w1ubi")
+typeList = NodePath("../TypeList")
+
+[node name="Continue" type="Button" parent="VBoxContainer/HBoxContainer/Main screen/JawSelection/VBoxContainer"]
+layout_mode = 2
+text = "Continue"
+script = ExtResource("6_wle3b")
+
+[connection signal="gui_input" from="VBoxContainer/VBoxContainer/Topbar/HBoxContainer/Logo container/Panel" to="VBoxContainer/VBoxContainer/Topbar/HBoxContainer/Logo container/Panel" method="_on_gui_input"]
+[connection signal="item_selected" from="VBoxContainer/HBoxContainer/Main screen/JawSelection/VBoxContainer/QuadrantList" to="VBoxContainer/HBoxContainer/Main screen/JawSelection/VBoxContainer/SelectedTooth" method="quadrantChanged"]
+[connection signal="item_selected" from="VBoxContainer/HBoxContainer/Main screen/JawSelection/VBoxContainer/ToothList" to="VBoxContainer/HBoxContainer/Main screen/JawSelection/VBoxContainer/SelectedTooth" method="toothChanged"]
+[connection signal="item_selected" from="VBoxContainer/HBoxContainer/Main screen/JawSelection/VBoxContainer/TypeList" to="VBoxContainer/HBoxContainer/Main screen/JawSelection/VBoxContainer/SelectedTooth" method="typeChanged"]

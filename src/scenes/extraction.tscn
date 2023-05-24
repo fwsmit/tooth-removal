@@ -1,8 +1,6 @@
 [gd_scene load_steps=25 format=3 uid="uid://c4vbxhjh7m7h6"]
 
 [ext_resource type="Script" path="res://scripts/Extraction/Sensor/data_user.gd" id="1_vu16l"]
-[ext_resource type="PackedScene" uid="uid://cto4jgqgmwgrd" path="res://scenes/Togglebutton.tscn" id="2_llarb"]
-[ext_resource type="Script" path="res://scripts/Dashboard/Togglebutton.gd" id="3_g0m3n"]
 [ext_resource type="Script" path="res://scripts/Common/showLoggedInAs.gd" id="4_1kkys"]
 [ext_resource type="Script" path="res://scripts/Extraction/Cluster.gd" id="4_dhmkb"]
 [ext_resource type="Script" path="res://scripts/Extraction/selectedquadrant.gd" id="4_dxsou"]
@@ -128,32 +126,6 @@ script = ExtResource("5_3pg21")
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Sidebar" type="HBoxContainer" parent="VBoxContainer/Body"]
-custom_minimum_size = Vector2(56, 0)
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 3
-
-[node name="sidebar" type="ColorRect" parent="VBoxContainer/Body/Sidebar"]
-layout_mode = 2
-size_flags_horizontal = 3
-color = Color(0.85098, 0.85098, 0.85098, 1)
-
-[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/Body/Sidebar/sidebar"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 3
-
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Body/Sidebar/sidebar/ScrollContainer"]
-visible = false
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Body"]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -164,23 +136,27 @@ size_flags_vertical = 3
 
 [node name="GridContainer" type="GridContainer" parent="VBoxContainer/Body/VBoxContainer/PanelContainer"]
 layout_mode = 2
+columns = 2
 script = ExtResource("4_dhmkb")
 
 [node name="3D box container" type="MarginContainer" parent="VBoxContainer/Body/VBoxContainer/PanelContainer/GridContainer"]
 layout_mode = 2
-size_flags_horizontal = 2
+size_flags_horizontal = 3
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
 [node name="Node3D" type="Node3D" parent="VBoxContainer/Body/VBoxContainer/PanelContainer/GridContainer/3D box container"]
+visible = false
 
 [node name="Camera3D2" type="Camera3D" parent="VBoxContainer/Body/VBoxContainer/PanelContainer/GridContainer/3D box container/Node3D"]
 transform = Transform3D(-4.37114e-08, -0.603208, 0.797584, 0, 0.797584, 0.603208, -1, 2.63671e-08, -3.48635e-08, 4.979, 3.748, 0)
+visible = false
 current = true
 
 [node name="CSGBox3D2" type="Node3D" parent="VBoxContainer/Body/VBoxContainer/PanelContainer/GridContainer/3D box container/Node3D" node_paths=PackedStringArray("molar_3d", "incisor_3d", "canine_3d", "premolar_3d")]
+visible = false
 script = ExtResource("1_vu16l")
 molar_3d = NodePath("molar")
 incisor_3d = NodePath("incisor")
@@ -189,6 +165,7 @@ premolar_3d = NodePath("premolar")
 
 [node name="molar" type="MeshInstance3D" parent="VBoxContainer/Body/VBoxContainer/PanelContainer/GridContainer/3D box container/Node3D/CSGBox3D2"]
 transform = Transform3D(-4.37114e-08, -1, -4.37114e-08, 0, -4.37114e-08, 1, -1, 4.37114e-08, 1.91069e-15, 0.214994, -0.363556, 0.0715685)
+visible = false
 mesh = ExtResource("8_yf5s0")
 skeleton = NodePath("../..")
 
@@ -212,12 +189,12 @@ skeleton = NodePath("../..")
 
 [node name="DirectionalLight3D2" type="DirectionalLight3D" parent="VBoxContainer/Body/VBoxContainer/PanelContainer/GridContainer/3D box container/Node3D"]
 transform = Transform3D(-0.022199, -0.788643, 0.61445, -9.77091e-09, 0.614602, 0.788838, -0.999754, 0.0175114, -0.0136435, -7.39606, 5.13621, 2.08942)
+visible = false
 light_energy = 1.914
 
 [node name="Axis 1" type="MarginContainer" parent="VBoxContainer/Body/VBoxContainer/PanelContainer/GridContainer"]
-custom_minimum_size = Vector2(0, 180)
 layout_mode = 2
-size_flags_horizontal = 10
+size_flags_horizontal = 8
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
@@ -235,7 +212,7 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 texture = ExtResource("5_6wcuc")
-stretch_mode = 4
+stretch_mode = 3
 
 [node name="Needle_1" type="Sprite2D" parent="VBoxContainer/Body/VBoxContainer/PanelContainer/GridContainer/Axis 1/VBoxContainer/PanelContainer"]
 position = Vector2(179, 175.5)
@@ -260,7 +237,6 @@ fit_content = true
 scroll_active = false
 
 [node name="Axis 2" type="MarginContainer" parent="VBoxContainer/Body/VBoxContainer/PanelContainer/GridContainer"]
-custom_minimum_size = Vector2(0, 180)
 layout_mode = 2
 size_flags_horizontal = 10
 size_flags_vertical = 10
@@ -306,7 +282,6 @@ fit_content = true
 scroll_active = false
 
 [node name="Axis 3" type="MarginContainer" parent="VBoxContainer/Body/VBoxContainer/PanelContainer/GridContainer"]
-custom_minimum_size = Vector2(0, 180)
 layout_mode = 2
 size_flags_horizontal = 10
 size_flags_vertical = 10
@@ -418,6 +393,7 @@ size_flags_horizontal = 10
 theme = ExtResource("17_elugr")
 text = "Finished extraction"
 script = ExtResource("14_i783s")
+
 
 [node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer/Body/VBoxContainer/HBoxContainer"]
 layout_mode = 2
