@@ -44,11 +44,24 @@ func vec_to_string(vec):
 			+ num_to_string_padded(vec.y) + ", "\
 			+ num_to_string_padded(vec.z) + ")"
 
+func zero_torque_location(f, t):
+	if f == null or t == null:
+		return Vector3.ZERO
+	var location = Vector3.ZERO
+	
+	var l2_top = t.x * f.x + t.y * f.y + t.z * f.x
+	var l2_bottom = f.z * f.x - f.x ** 2
+	location.y = l2_top / l2_bottom
+	location.x = (t.z + location.y * f.x) / f.y
+	location.z = (t.y + location.x * f.x) / f.x
+	return location
+
 func updateText():
 	text = ""
 	text += "Raw force: " + vec_to_string(force) + "\n"
 	text += "Raw torque: " + vec_to_string(torque) + "\n"
-	text += "Tand locatie: " + vec_to_string(data_user.tand_locatie(Global.selectedQuadrant, Global.selectedTooth)) + "\n"
+	text += "Tand locatie: " + str(data_user.tand_locatie(Global.selectedQuadrant, Global.selectedTooth)) + "\n"
+	text += "Zero torque locatie: " + str(zero_torque_location(force, torque)) + "\n"
 	text += "Connected: " + str(connected) + "\n"
 	if Global.clinical_directions[0]['buccal/lingual'].size() > 0:
 		text += "buccal/lingual: " + num_to_string_padded(Global.clinical_directions[0]['buccal/lingual'][-1])  + "\n"
