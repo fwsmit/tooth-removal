@@ -62,6 +62,9 @@ func closest_point_on_line(linePnt, lineDir, pnt):
 func zero_torque_location(f, t, realloc):
 	if f == null or t == null:
 		return Vector3.ZERO
+	
+	# Solve for loc x f = -t
+	t = -t
 	var location = t.cross(f) / f.dot(f)
 	var direction = f
 	return closest_point_on_line(location, direction, realloc)
