@@ -38,20 +38,20 @@ func round_vector_to_decimal(vec, num):
 	vec = vec * pow(10,-num)
 	return vec
 
-func num_to_string_padded(num):
+func num_to_string_padded(num, n_dec=1):
 	var num_str = str(num)
-	num_str = num_str.pad_decimals(1)
+	num_str = num_str.pad_decimals(n_dec)
 	if num >= 0:
 		num_str = " " + num_str
 	return num_str
 
-func vec_to_string(vec):
+func vec_to_string(vec, n_dec=1):
 	if vec == null:
 		return "<null>"
 	else:
-		return "(" + num_to_string_padded(vec.x) + ", "\
-			+ num_to_string_padded(vec.y) + ", "\
-			+ num_to_string_padded(vec.z) + ")"
+		return "(" + num_to_string_padded(vec.x, n_dec) + ", "\
+			+ num_to_string_padded(vec.y, n_dec) + ", "\
+			+ num_to_string_padded(vec.z, n_dec) + ")"
 
 func closest_point_on_line(linePnt, lineDir, pnt):
 	lineDir = lineDir.normalized();
@@ -68,8 +68,8 @@ func zero_torque_location(f, t, realloc):
 
 func updateText():
 	text = ""
-	text += "Raw force: " + vec_to_string(force) + "\n"
-	text += "Raw torque: " + vec_to_string(torque) + "\n"
+	text += "Raw force: " + vec_to_string(force, 3) + "\n"
+	text += "Raw torque: " + vec_to_string(torque, 3) + "\n"
 
 	var location = data_user.tand_locatie(Global.selectedQuadrant, Global.selectedTooth)
 	var zero_torque_l = zero_torque_location(force, torque, location)
