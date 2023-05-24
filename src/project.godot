@@ -19,6 +19,10 @@ config/icon="res://icon.svg"
 
 Global="*res://scripts/Common/global.gd"
 
+[display]
+
+window/size/mode=2
+
 [editor]
 
 version_control/plugin_name="GitPlugin"
