@@ -49,6 +49,8 @@ func zero_torque_location(f, t):
 		return Vector3.ZERO
 	var location = Vector3.ZERO
 	
+	# Fix algebra mistake
+	t = -t
 	var l2_top = t.x * f.x + t.y * f.y + t.z * f.x
 	var l2_bottom = f.z * f.x - f.x ** 2
 	location.y = l2_top / l2_bottom
