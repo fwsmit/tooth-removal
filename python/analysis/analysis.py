@@ -126,7 +126,7 @@ def get_direction_changes(v, peaks):
     return count
 
 def find_start_end_from_vec(vec, threshold):
-    abs_vec = vectors_mag(vec)
+    abs_vec = norm_vectors(vec)
 
     # Find moving average
     filter_size = 1
