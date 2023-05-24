@@ -68,8 +68,8 @@ func zero_torque_location(f, t, realloc):
 
 func updateText():
 	text = ""
-	text += "Raw force: " + vec_to_string(force, 3) + "\n"
-	text += "Raw torque: " + vec_to_string(torque, 3) + "\n"
+	text += "Raw force: " + vec_to_string(Global.get_avg_force(500), 3) + "\n"
+	text += "Raw torque: " + vec_to_string(Global.get_avg_torque(500), 3) + "\n"
 
 	var location = data_user.tand_locatie(Global.selectedQuadrant, Global.selectedTooth)
 	var zero_torque_l = zero_torque_location(force, torque, location)
