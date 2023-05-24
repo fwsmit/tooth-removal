@@ -72,8 +72,10 @@ func updateText():
 	text += "Raw torque: " + vec_to_string(torque) + "\n"
 
 	var location = data_user.tand_locatie(Global.selectedQuadrant, Global.selectedTooth)
+	var zero_torque_l = zero_torque_location(force, torque, location)
 	text += "Tand locatie: " + str(location) + "\n"
-	text += "Zero torque locatie: " + str(zero_torque_location(force, torque, location)) + "\n"
+	text += "Zero torque locatie(m): " + str(zero_torque_l) + "\n"
+	text += "Zero torque distance(cm): " + num_to_string_padded((location-zero_torque_l).length()*100) + "\n"
 	text += "Connected: " + str(connected) + "\n"
 	if Global.clinical_directions[0]['buccal/lingual'].size() > 0:
 		text += "buccal/lingual: " + num_to_string_padded(Global.clinical_directions[0]['buccal/lingual'][-1])  + "\n"
