@@ -63,6 +63,9 @@ func tand_locatie(kwadrant, tand):
 		locatie = tandvectors[0][0] + tandvectors[kwadrant][tand - 1] + Vector3(-0.002, 0, 0)
 	if kwadrant == 3 or kwadrant == 4:
 		locatie = tandvectors[0][1] + tandvectors[kwadrant][tand - 1] + Vector3(0, -0.002, 0)
+
+	# Corrigeer voor sensor center of gravity
+	locatie = locatie + Vector3(0, 18./1000., 0)
 	return locatie
 
 var angles = [[0., -19.4, -53., -57.5, -66.3, -79.7, -79.7, -95.6], [0., 19.4, 53., 57.5, 66.3, 79.7, 79.7, 95.6],[0 , -19.7, -39.2, -67., -78., -78., -78., -90.],[0 , 19.7, 39.15, 67., 78., 78., 78., 90.]]
