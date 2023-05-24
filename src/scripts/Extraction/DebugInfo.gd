@@ -10,12 +10,21 @@ var timerStarted = false
 var updateDelaySeconds = 0.5
 
 func _ready():
-	data_user.tand_locatie(1,1)
+	var loc = Vector3(0,9,-80)
+	print("Location: ", loc)
+	var force = Vector3(1, 1, 100)
+	print("Force: ", force)
+	var torque = Vector3.ZERO
+	torque = data_user.convert_torque(torque, force, loc)
+	print("Torque: ", torque)
+	var zeroloc = zero_torque_location(force, torque)
+	print("Zeroloc: ", zeroloc)
+	var samet = data_user.convert_torque(Vector3.ZERO, force, zeroloc)
+	print("Same torque: ", samet)
 
 func receiveData(_force, _torque):
 	force = _force
 	torque = _torque
-
 
 func on_sensor_connected():	
 	connected = true
