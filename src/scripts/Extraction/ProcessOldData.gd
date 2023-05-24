@@ -5,18 +5,20 @@ const Post_extraction_continue = preload("res://scripts/Post-extraction/Post-ext
 
 var filing = Post_extraction_continue.new()
 var frame = data_user.new()
-var directory_path = "C:/Users/valen/OneDrive/Documenten/Werktuigbouwkunde/BEP/26 april 2023 - Field trip Amsterdam (corrected)/26 april 2023 - Field trip Amsterdam (corrected)"
+var directory_path = "E:/Extraction data/kaakchirurgen 17-5/Kaakchirurg 4"
 var files = get_files_at(directory_path)
 # Called when the node enters the scene tree for the first time.
 
 
 
 func _ready():
+	var i = 0
 	for file_name in files:
 		process_data(directory_path+'/'+file_name)
 		filing.save_extraction_to_file()
 		Global.reset_extraction_data()
-
+		i += 1
+		print(i, directory_path+'/'+file_name)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

@@ -15,6 +15,15 @@ func generate_filename():
 		i += 1
 	return filename
 
+func generate_filename2(timestamp: int):
+	var filename = Time.get_datetime_string_from_unix_time(timestamp)
+	var i = 0
+	for c in filename:
+		if c == ':':
+			filename[i] = ';'
+		i += 1
+	return filename
+
 func flatten_vector(vecs):
 	var xs = []
 	var ys = []
@@ -28,7 +37,7 @@ func flatten_vector(vecs):
 	return [xs, ys, zs]
 
 func save_extraction_to_file():
-	var filename = generate_filename()
+	var filename = generate_filename2(Global.startTimestamp)
 	var fl_raw_forces = flatten_vector(Global.raw_forces)
 	var fl_raw_torques = flatten_vector(Global.raw_torques)
 	var extraction_data = {
@@ -70,6 +79,7 @@ func save_extraction_to_file():
 	# Stores file in user data directory 
 	# see https://docs.godotengine.org/en/latest/tutorials/io/data_paths.html#doc-data-paths
 	var filepath = "user://extraction_data_"+filename+".json"
+	print(filepath)
 	var save_file = FileAccess.open(filepath, FileAccess.WRITE)
 	save_file.store_line(json_data)
 	return "extraction_data_"+filename+".json"

@@ -60,9 +60,9 @@ func tand_locatie(kwadrant, tand):
 	[Vector3(-0.0131, 0.0261, 0.00207),Vector3(-0.0136, 0.0263, 0.00779),Vector3(-0.0164, 0.0264, 0.0135),Vector3(-0.0225, 0.0225, 0.0155),Vector3(-0.0291, 0.0237, 0.0189),Vector3(-0.0383, 0.0226, 0.0214),Vector3(-0.0494, 0.0225, 0.0211),Vector3(-0.0602, 0.0229, 0.0228)]]
 	var locatie = []
 	if kwadrant == 1 or kwadrant == 2:
-		locatie = tandvectors[0][0] + tandvectors[kwadrant][tand - 1] + Vector3(-0.002, 0, 0)
+		locatie = tandvectors[0][0] + tandvectors[kwadrant][tand - 1] + Vector3(-0.002, -0.0025, 0)
 	if kwadrant == 3 or kwadrant == 4:
-		locatie = tandvectors[0][1] + tandvectors[kwadrant][tand - 1] + Vector3(0, -0.002, 0)
+		locatie = tandvectors[0][1] + tandvectors[kwadrant][tand - 1] + Vector3(-0.005, -0.002, 0)
 	return locatie
 
 var angles = [[0., -19.4, -53., -57.5, -66.3, -79.7, -79.7, 95.6], [0., 19.4, 53., 57.5, 66.3, 79.7, 79.7, 95.6],[0 , -19.7, -39.2, -67., -78., -78., -78., -90.],[0 , 19.7, 39.15, 67., 78., 78., 78., 90.]]
