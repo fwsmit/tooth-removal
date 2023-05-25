@@ -20,21 +20,27 @@ static func tand_locatie(kwadrant, tand):
 
 const angles = [[0., -19.4, -53., -57.5, -66.3, -79.7, -79.7, -95.6], [0., 19.4, 53., 57.5, 66.3, 79.7, 79.7, 95.6],[0 , -19.7, -39.2, -67., -78., -78., -78., -90.],[0 , 19.7, 39.15, 67., 78., 78., 78., 90.]]
 
-static func vector_tand_frame(kwadrant, tand, vector):
-	var angle = deg_to_rad(angles[kwadrant - 1][tand - 1])
+static func rotate_frame_lower(vector:Vector3, angle):
+	angle = deg_to_rad(angle)
+	return Vector3(cos(angle)*vector.x + sin(angle)*vector.z,vector.y, -sin(angle)*vector.x + cos(angle)*vector.z)
+
+static func rotate_frame_upper(vector:Vector3, angle):
+	angle = deg_to_rad(angle)
+	return Vector3(vector.x, cos(angle)*vector.y - sin(angle)*vector.z, sin(angle)*vector.y + cos(angle)*vector.z)
+
+static func rotate_frame(vector, angle, kwadrant):
 	if kwadrant == 1 or kwadrant == 2:
-		vector = Vector3(vector.x, cos(angle)*vector.y - sin(angle)*vector.z, sin(angle)*vector.y + cos(angle)*vector.z)
+		return rotate_frame_upper(vector, angle)
 	if kwadrant == 3 or kwadrant == 4:
-		vector = Vector3(cos(angle)*vector.x + sin(angle)*vector.z,vector.y, -sin(angle)*vector.x + cos(angle)*vector.z)
-	return vector
+		return rotate_frame_lower(vector, angle)
+
+static func vector_tand_frame(kwadrant, tand, vector):
+	var angle = angles[kwadrant - 1][tand - 1]
+	return rotate_frame(vector, angle, kwadrant)
 
 static func vector_godot_frame(kwadrant, tand, vector):
-	var angle = deg_to_rad(-1*angles[kwadrant - 1][tand - 1])
-	if kwadrant == 1 or kwadrant == 2:
-		vector = Vector3(vector.x, cos(angle)*vector.y - sin(angle)*vector.z, sin(angle)*vector.y + cos(angle)*vector.z)
-	if kwadrant == 3 or kwadrant == 4:
-		vector = Vector3(cos(angle)*vector.x + sin(angle)*vector.z,vector.y, -sin(angle)*vector.x + cos(angle)*vector.z)
-	return vector
+	var angle = angles[kwadrant - 1][tand - 1]
+	return rotate_frame(vector, -angle, kwadrant)
 
 # deze functie ordent de kracht en momentvectoren in de richtingen gedefinieerd in tandheelkunde. 
 # De eerstegnoemde is altijd positief, dus bij buccal lingual, geldt dat een positieve waarde in de buccale richting is
