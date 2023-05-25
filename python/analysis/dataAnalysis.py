@@ -30,9 +30,18 @@ parser.add_argument('--graph_frequencies', required=False, action='store_true')
 parser.add_argument('--graph_force_torque', required=False, action='store_true')
 parser.add_argument('--complete_analysis', required=False, action='store_true')
 parser.add_argument('--dir', required=False, action='store')
-
+parser.add_argument('--per_teeth', required=False, action = 'store_true')
+parser.add_argument('--tooth', required=False, action = 'store')
+parser.add_argument('--jaw', required=False, action = 'store')
 args = parser.parse_args()
 
+
+if args.jaw == 'upper':
+    upper_lower = True
+    
+if args.jaw == 'lower':
+    upper_lower = False
+    
 possible_files = []
 
 if args.complete_analysis:
@@ -62,7 +71,11 @@ if args.fix_data:
 
 if args.complete_analysis:
     analysis = complete_analysis(possible_files, dataDir)
-    plot_analysis(analysis)
+    if args.per_teeth:
+        plot_analysis(analysis, True, None, None)
+    else:
+        tooth = int(args.tooth)
+        plot_analysis(analysis, False, tooth, upper_lower)
 
 fileIndex = 0
 chosenFile = possible_files[fileIndex]
