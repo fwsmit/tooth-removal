@@ -8,7 +8,8 @@ then
         exit $retval
 fi
 
-godot --no-window -s src/scripts/tests/test.gd
+cd src/
+godot --no-window -s scripts/tests/test.gd
 
 retval=$?
 if [ $retval -ne 0 ]
