@@ -1,10 +1,9 @@
 extends Node
 
-const data_user = preload("res://scripts/Extraction/Sensor/data_user.gd")
 const Post_extraction_continue = preload("res://scripts/Post-extraction/Post-extraction-continue.gd")
 
 var filing = Post_extraction_continue.new()
-var frame = data_user.new()
+var frame = preload("res://scripts/Extraction/Sensor/ft_translation.gd")
 var directory_path = "C:/Users/valen/OneDrive/Documenten/Werktuigbouwkunde/BEP/26 april 2023 - Field trip Amsterdam (corrected)/26 april 2023 - Field trip Amsterdam (corrected)"
 var files = get_files_at(directory_path)
 # Called when the node enters the scene tree for the first time.
