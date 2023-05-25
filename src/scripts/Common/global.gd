@@ -14,8 +14,8 @@ var mode = MODE.nomode
 
 # Data requested before extraction
 var loggedInAs = "Unknown"
-var selectedQuadrant = 1
-var selectedTooth = 1
+var selectedQuadrant = null
+var selectedTooth = null
 var selectedType = null
 
 # Used in automatic selection
@@ -89,9 +89,7 @@ func reset_extraction_data():
 	
 	# Don't reset the selected tooth in automatic extraction mode
 	if mode != MODE.automaticExtraction:
-		selectedQuadrant = null
 		selectedTooth = null
-		selectedType = null
 		
 	forceps_slipped = null
 	element_fractured = null
