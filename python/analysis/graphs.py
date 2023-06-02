@@ -68,6 +68,7 @@ def store_plot(fig, filename, dataDir):
     plot_filepath = os.path.join(dataDir, "ft-plots", plot_filename)
     fig.set_size_inches(10, 6) # Make sure labels don't overlap
     fig.savefig(plot_filepath)
+    plt.close(fig)
 
 def graph_ft(filename, dataDir, interactive=True):
     propDic = parse_json(filename, dataDir)
