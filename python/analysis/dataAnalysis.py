@@ -8,7 +8,7 @@ from logging import warning
 
 from fix_data import fix_data_cutoff
 from index import update_index
-from graphs import graph_ft, graph_freqencies, plot_analysis
+from graphs import graph_ft, graph_freqencies, plot_analysis, generate_ft_plots
 from analysis import complete_analysis
 
 def get_data_dir():
@@ -29,13 +29,14 @@ parser.add_argument('--fix_data', required=False, action='store_true')
 parser.add_argument('--graph_frequencies', required=False, action='store_true')
 parser.add_argument('--graph_force_torque', required=False, action='store_true')
 parser.add_argument('--complete_analysis', required=False, action='store_true')
+parser.add_argument('--generate_ft_plots', required=False, action='store_true')
 parser.add_argument('--dir', required=False, action='store')
 
 args = parser.parse_args()
 
 possible_files = []
 
-if args.complete_analysis:
+if args.complete_analysis or args.generate_ft_plots:
     if args.dir:
         dir = args.dir
     else:
@@ -63,6 +64,9 @@ if args.fix_data:
 if args.complete_analysis:
     analysis = complete_analysis(possible_files, dataDir)
     plot_analysis(analysis)
+
+if args.generate_ft_plots:
+    generate_ft_plots(possible_files, dataDir)
 
 fileIndex = 0
 chosenFile = possible_files[fileIndex]
