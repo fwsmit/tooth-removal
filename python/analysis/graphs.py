@@ -8,6 +8,17 @@ from data_util import *
 
 fig = None
 
+t_range = range(1,9)
+
+directions = [{'Buccal':['fx_', '_pos'], 'Lingual':['fx_', '_neg'],
+                  'Mesial':['fy_', '_pos'], 'Distal':['fy_', '_neg'],
+                  'Extrusion':['fz_', '_pos'], 'Intrusion':['fz_', '_neg']},
+                  {'Mesial angulation':['tx_', '_pos'], 'Distal angulation':['tx_', '_neg'],
+                  'Buccoversion':['ty_', '_pos'], 'Linguoversion':['ty_', '_neg'],
+                  'Mesiobuccal angulation':['tz_', '_pos'], 'Mesiolingual angulation':['tz_', '_neg']}]
+
+groups = {'incisors': [1, 2], 'canines': [3], 'premolars': [4,5], 'molars': [6, 7, 8]}
+
 def show_plots(fig):
     fig.tight_layout()
     plt.show()
@@ -116,14 +127,18 @@ def graph_ft(filename, dataDir):
         a[0].title.set_text(a[2])
     show_plots(fig)
 
-def plot_bar_from_data(data, key, ax, label):
-    upper_lower = [False, True]
-    teeth = range(1,9)
+def plot_bar_per_teeth(data, main_key):
     vals = []
     labels = []
     errors = []
+    
+    if main_key == "direction_changes":
+            key = main_key
+    else:
+        key = 'fmag_' + main_key
+    
+    upper_lower = [False, True]
     for ul in upper_lower:
-        t_range = teeth
         if ul:
             t_range = reversed(t_range)
         for t in t_range:
@@ -138,16 +153,109 @@ def plot_bar_from_data(data, key, ax, label):
             l += str(t)
             l += " (n = {})".format(len(matching_extractions))
             labels.append(l)
+    return vals, labels, errors
 
+
+
+def plot_bar_per_direction(data, matching_extractions, main_key, label, teeth, upper_lower):   
+    vals = []
+    labels = []
+    errors = []
+    
+    matching_extractions = filter_extraction(data, upper_lower, teeth)
+    
+    if label == "Force auc [Ns]":
+        for direction in directions[0]:
+            key = directions[0][direction][0] + main_key + directions[0][direction][-1]
+            if get_avg_val(matching_extractions, key) >= 0:
+                vals.append(get_avg_val(matching_extractions, key))
+            else:
+                vals.append(-get_avg_val(matching_extractions, key))
+            errors.append(get_std_val(matching_extractions, key))
+            labels.append(direction)
+    
+    if label == "Torque auc [Nms]": 
+        for direction in directions[1]:
+            key = directions[1][direction][0] + main_key + directions[1][direction][-1]
+            if get_avg_val(matching_extractions, key) >= 0:
+                vals.append(get_avg_val(matching_extractions, key))
+            else:
+                vals.append(-get_avg_val(matching_extractions, key))
+            errors.append(get_std_val(matching_extractions, key))
+            labels.append(direction)
+    
+    return vals, labels, errors
+
+
+    
+def plot_bar_from_data(data, key, ax, label, per_teeth, grouped, teeth, upper_lower):
+    main_key = key
+    
+    if per_teeth:
+        vals, labels, errors = plot_bar_per_teeth(data, main_key)
+   
+    if not per_teeth:
+        if grouped:
+            matching_extractions = []
+            for tooth in teeth:
+                matching_extractions.append(filter_extraction(data, upper_lower, tooth))
+        else:
+            tooth = teeth
+            matching_extractions = filter_extraction(data, upper_lower, tooth)
+        
+        vals, labels, errors = plot_bar_per_direction(data, matching_extractions, main_key, label, tooth, upper_lower)
+        
     ax.barh(labels, vals, xerr=errors)
     ax.set_xlabel(label)
 
-def plot_analysis(analysis):
-    fig, ax = plt.subplots(2, 3)
-    plot_bar_from_data(analysis, "fmag_auc", ax[0][0], "Force auc [Ns]")
-    plot_bar_from_data(analysis, "tmag_auc", ax[0][1], "Torque auc [Nms]")
-    plot_bar_from_data(analysis, "fmag_max", ax[1][0], "Force max [N]")
-    plot_bar_from_data(analysis, "fmag_max", ax[1][1], "Torque max [Nms]")
-    plot_bar_from_data(analysis, "direction_changes", ax[0][2], "Direction changes")
+
+def plot_analysis(analysis, per_teeth, grouped, teeth, upper):
+    if per_teeth:
+        fig, ax = plt.subplots(2, 3)
+        plot_bar_from_data(analysis, "auc", ax[0][0], "Force auc [Ns]", per_teeth, grouped,  teeth, upper)
+        plot_bar_from_data(analysis, "auc", ax[0][1], "Torque auc [Nms]", per_teeth, grouped, teeth, upper)
+        plot_bar_from_data(analysis, "max", ax[1][0], "Force max [N]", per_teeth, teeth, grouped, upper)
+        plot_bar_from_data(analysis, "max", ax[1][1], "Torque max [Nms]", per_teeth, teeth, grouped, upper)
+        plot_bar_from_data(analysis, "direction_changes", ax[0][2], "Direction changes", per_teeth, grouped, teeth, upper)
+        fig.suptitle('Data per teeth', fontsize=30)
+        
+    else:
+        if grouped:
+            fig, ax = plt.subplots(4, 2)
+                   
+            plot_bar_from_data(analysis, "auc", ax[0][0], "Force auc [Ns]", per_teeth, grouped, groups['incisors'], upper)
+            plot_bar_from_data(analysis, "auc", ax[0][1], "Torque auc [Nms]", per_teeth, grouped, groups['incisors'], upper)            
+            ax[0, 0].set_title('incisors')
+            ax[0, 1].set_title('incisors')
+            
+            plot_bar_from_data(analysis, "auc", ax[1][0], "Force auc [Ns]", per_teeth, grouped, groups['molars'], upper)
+            plot_bar_from_data(analysis, "auc", ax[1][1], "Torque auc [Nms]", per_teeth, grouped, groups['molars'], upper)
+            ax[1, 0].set_title('molars')
+            ax[1, 1].set_title('molars')
+            
+            plot_bar_from_data(analysis, "auc", ax[2][0], "Force auc [Ns]", per_teeth, grouped, groups['canines'], upper)
+            plot_bar_from_data(analysis, "auc", ax[2][1], "Torque auc [Nms]", per_teeth, grouped, groups['canines'], upper)
+            ax[2, 0].set_title('canines')
+            ax[2, 1].set_title('canines')
+            
+            plot_bar_from_data(analysis, "auc", ax[3][0], "Force auc [Ns]", per_teeth, grouped, groups['premolars'], upper)
+            plot_bar_from_data(analysis, "auc", ax[3][1], "Torque auc [Nms]", per_teeth, grouped, groups['premolars'], upper)
+            ax[3, 0].set_title('premolars')
+            ax[3, 1].set_title('premolars')
+            
+            if upper:
+                fig.suptitle('Data per clinical direction for upper jaw teeth' , fontsize=12)
+            else:
+                fig.suptitle('Data per clinical direction for lower jaw teeth', fontsize=12)
+            
+        else:
+            matching_extractions = filter_extraction(analysis, upper, teeth)
+            fig, ax = plt.subplots(1, 2)
+            plot_bar_from_data(analysis, "auc", ax[0], "Force auc [Ns]", per_teeth, grouped, teeth, upper)
+            plot_bar_from_data(analysis, "auc", ax[1], "Torque auc [Nms]", per_teeth, grouped, teeth, upper)
+            if upper:
+                fig.suptitle('Data per clinical direction for upper jaw tooth: ' + str(teeth) + ', ' + " (n = {})".format(len(matching_extractions)), fontsize=20)
+            else:
+                fig.suptitle('Data per clinical direction for lower jaw tooth: ' + str(teeth) + ', ' + " (n = {})".format(len(matching_extractions)), fontsize=20)
     show_plots(fig)
 
