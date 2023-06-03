@@ -25,14 +25,6 @@ def norm_vectors(vectors):
 def merge_vectors(x, y, z):
     return np.column_stack([x,y,z])
 
-# Return length of all vectors in array
-def vectors_mag(vectors):
-    mags = []
-    for v in vectors:
-        mags.append(np.linalg.norm(v))
-
-    return mags
-
 def get_smoothened_line(vectors, n_points):
     x = range(len(vectors))
     x_smooth = np.linspace(0, len(vectors)-1, n_points)
