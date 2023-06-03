@@ -107,10 +107,9 @@ def get_file_processed(filename, dataDir):
     torques = get_torques(dic)
     if len(forces) == 0 or len(forces[0]) == 0:
         return None
-    start, end = find_starting_point(forces, torques)
-
-    cut_off_start_end_dic(start, end, dic)
     lowpass_filter_all_dic(dic)
+    start, end = find_starting_point(forces, torques)
+    cut_off_start_end_dic(start, end, dic)
 
     return dic
 
@@ -176,13 +175,9 @@ def analyze_peaks(vectors):
     return peaks
 
 def analyze_file(filename, dataDir):
-    dic = parse_json(filename, dataDir)
+    dic = get_file_processed(filename, dataDir)
     forces = get_forces(dic)
     torques = get_torques(dic)
-    if len(forces) == 0 or len(forces[0]) == 0:
-        print("Empty file, skipping", filename)
-        return None
-    forces, torques = lowpass_filter_all(forces, torques)
     dic.update(get_parameters(forces, torques))
 
     main_axis = torques[1]

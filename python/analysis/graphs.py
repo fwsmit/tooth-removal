@@ -46,13 +46,8 @@ def plot_vectors(axis, vectors, _title, duration, points=None):
             axis.plot(t, vectors[round(p)], marker="o")
 
 def graph_freqencies(filename, dataDir):
-    propDic = parse_json(filename, dataDir)
-
-    # Skip empty files
-    forces = get_forces(propDic)
-    torques = get_torques(propDic)
-    if len(forces) == 0 or len(forces[0]) == 0:
-        print("Empty file, skipping", filename)
+    propDic = get_file_processed(filename, dataDir)
+    if not propDic:
         return
 
     forces = get_forces(propDic)
@@ -80,13 +75,8 @@ def store_plot(fig, filename, dataDir):
     plt.close(fig)
 
 def graph_ft(filename, dataDir, interactive=True):
-    propDic = parse_json(filename, dataDir)
-
-    # Skip empty files
-    forces = get_forces(propDic)
-    torques = get_torques(propDic)
-    if len(forces) == 0 or len(forces[0]) == 0:
-        print("Empty file, skipping", filename)
+    propDic = get_file_processed(filename, dataDir)
+    if not propDic:
         return
 
     duration = propDic["end_timestamp"] - propDic["start_timestamp"]
@@ -98,8 +88,6 @@ def graph_ft(filename, dataDir, interactive=True):
     person_type = propDic["person_type"]
     tooth = propDic["tooth"]
     quadrant = propDic["quadrant"]
-
-    forces,torques = lowpass_filter_all(forces, torques)
 
     forces_norm = norm_vectors(forces)
     torques_norm = norm_vectors(torques)
@@ -121,8 +109,7 @@ def graph_ft(filename, dataDir, interactive=True):
     for a in ax[1]:
         a.set_xlabel("Time (s)")
 
-    start, end = find_starting_point(forces, torques)
-    points = [start, end]
+    points = []
     force_peaks = analyze_peaks(forces_norm)
     force_points = []
     force_points.extend(points)
