@@ -133,19 +133,15 @@ def get_direction_changes(v, peaks):
 def find_start_end_from_vec(vec, threshold):
     abs_vec = norm_vectors(vec)
 
-    # Find moving average
-    filter_size = 1
-    filtered = uniform_filter1d(abs_vec, filter_size)
-    
-    greater = np.argwhere(filtered > threshold)
+    greater = np.argwhere(abs_vec > threshold)
 
     return greater[0][0], greater[-1][0]
 
 def find_starting_point(force, torque):
     force_start, force_end = find_start_end_from_vec(force, 1)
     torque_start, torque_end = find_start_end_from_vec(torque, 0.2)
-    start = (force_start + torque_start)/2
-    end = (force_end + torque_end) / 2
+    start = min(force_start, torque_start)
+    end = max(force_end, torque_end)
     return start, end
 
 def analyze_peaks(vectors):
