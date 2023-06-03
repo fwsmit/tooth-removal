@@ -126,11 +126,11 @@ def graph_ft(filename, dataDir, interactive=True):
     force_peaks = analyze_peaks(forces_norm)
     force_points = []
     force_points.extend(points)
-    force_points.extend(force_peaks)
+    # force_points.extend(force_peaks)
     torque_peaks = analyze_peaks(torques_norm)
     torque_points = []
     torque_points.extend(points)
-    torque_points.extend(torque_peaks)
+    # torque_points.extend(torque_peaks)
 
     f_direction_changes = []
     t_direction_changes = []
