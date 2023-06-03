@@ -186,12 +186,16 @@ def analyze_file(filename, dataDir):
     dic["direction_changes"] = get_direction_changes(main_axis, peaks)
     return dic
 
-def complete_analysis(files, dataDir):
+def complete_analysis(files, dataDir, person_type):
     analysis = []
     for f in files:
         dic = analyze_file(f, dataDir)
         if dic:
             analysis.append(dic)
     analysis = filter_complications(analysis)
+    
+    if person_type:
+        person_type = person_type.split(",")
+        analysis = filter_people(analysis, person_type)
     return analysis
 

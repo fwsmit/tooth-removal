@@ -38,3 +38,10 @@ def filter_complications(data):
 
     return res
 
+def filter_people(data, person_type):
+    res = []
+    for extraction in data:
+        if extraction["person_type"] in person_type:
+            res.append(extraction)
+
+    return res

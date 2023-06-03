@@ -38,6 +38,7 @@ parser.add_argument('--per_teeth', required=False, action = 'store_true')
 parser.add_argument('--tooth', required=False, action = 'store')
 parser.add_argument('--jaw', required=False, action = 'store')
 parser.add_argument('--grouped', required=False, action = 'store_true')
+parser.add_argument('--person_type', required=False, action = 'store')
 args = parser.parse_args()
 
 possible_files = []
@@ -69,7 +70,7 @@ if args.fix_data:
 
 if args.complete_analysis:
     if args.per_teeth:
-        analysis = complete_analysis(possible_files, dataDir)
+        analysis = complete_analysis(possible_files, dataDir, args.person_type)
         plot_analysis(analysis, True, None, None, None)
     else:
         if args.jaw == 'upper':
@@ -80,7 +81,7 @@ if args.complete_analysis:
             print("Please specify which jaw with --jaw [upper/lower]")
             exit(1)
     
-        analysis = complete_analysis(possible_files, dataDir)
+        analysis = complete_analysis(possible_files, dataDir, args.person_type)
         if args.grouped:
             plot_analysis(analysis, False, True, None, upper_lower)
         else:    
