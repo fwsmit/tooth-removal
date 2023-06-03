@@ -31,3 +31,17 @@ def get_smoothened_line(vectors, n_points):
     cs = CubicSpline(x, vectors)
     return x_smooth, cs
 
+def cut_off_start_end_vec(start, end, vec):
+    return vec[start:end]
+
+def get_axis_names():
+    return ["buccal/lingual", "mesial/distal", "extrusion/intrusion", "mesial/distal angulation", "bucco/linguoversion", "mesiobuccal/lingual"]
+
+
+def cut_off_start_end_dic(start, end, dic):
+    axes = get_axis_names()
+    for a in axes:
+        dic[a] = cut_off_start_end_vec(start,end,dic[a])
+
+    return dic
+

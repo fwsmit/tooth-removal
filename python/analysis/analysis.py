@@ -100,6 +100,19 @@ def get_parameters(forces, torques):
 
 ## End of comparison parameters
 
+def get_file_processed(filename, dataDir):
+    dic = parse_json(filename, dataDir)
+
+    forces = get_forces(dic)
+    torques = get_torques(dic)
+    if len(forces) == 0 or len(forces[0]) == 0:
+        return None
+    start, end = find_starting_point(forces, torques)
+
+    cut_off_start_end_dic(start, end, dic)
+    lowpass_filter_all_dic(dic)
+
+    return dic
 
 def butter_lowpass(cutoff, fs, order=5):
     return butter(order, cutoff, fs=fs, btype='lowpass', analog=False)
@@ -108,6 +121,12 @@ def lowpass_filter(vec, cutoff, fs=1000, order=5):
     b, a = butter_lowpass(cutoff, fs, order=order)
     y = lfilter(b, a, vec)
     return y
+
+def lowpass_filter_all_dic(dic):
+    cutoff = 3
+    axes = get_axis_names()
+    for a in axes:
+        dic[a] = lowpass_filter(dic[a], cutoff)
 
 def lowpass_filter_all(forces, torques):
     cutoff = 3
