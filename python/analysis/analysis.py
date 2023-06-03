@@ -71,11 +71,12 @@ def get_axis_parameters(v, axisName, is_mag=False):
     dic = {}
     for p in params:
         funcname = "get_"+p
-        if is_mag and "neg" in funcname or "pos" in funcname:
+        if is_mag and "neg" in funcname or is_mag and "pos" in funcname:
             continue
         func = globals()[funcname]
         val = func(v)
         dic[axisName+"_"+p] = val
+        
     return dic
 
 def get_parameters(forces, torques):
@@ -173,3 +174,4 @@ def complete_analysis(files, dataDir):
             analysis.append(dic)
     analysis = filter_complications(analysis)
     return analysis
+
