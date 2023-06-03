@@ -79,15 +79,15 @@ def graph_ft(filename, dataDir, interactive=True):
     if not propDic:
         return
 
-    duration = propDic["end_timestamp"] - propDic["start_timestamp"]
-    print("Duration:", round(duration), "seconds")
-    print("Quadrant:", propDic["quadrant"])
-    print("Tooth:", propDic["tooth"])
     forces = get_forces(propDic)
     torques = get_torques(propDic)
+    duration = len(forces[0])/1000
     person_type = propDic["person_type"]
     tooth = propDic["tooth"]
     quadrant = propDic["quadrant"]
+    print("Duration:", round(duration), "seconds")
+    print("Quadrant:", quadrant)
+    print("Tooth:", tooth)
 
     forces_norm = norm_vectors(forces)
     torques_norm = norm_vectors(torques)
