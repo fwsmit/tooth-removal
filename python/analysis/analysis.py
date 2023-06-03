@@ -138,8 +138,8 @@ def find_start_end_from_vec(vec, threshold):
     return greater[0][0], greater[-1][0]
 
 def find_starting_point(force, torque):
-    force_start, force_end = find_start_end_from_vec(force, 1)
-    torque_start, torque_end = find_start_end_from_vec(torque, 0.2)
+    force_start, force_end = find_start_end_from_vec(force, 4)
+    torque_start, torque_end = find_start_end_from_vec(torque, 0.3)
     start = min(force_start, torque_start)
     end = max(force_end, torque_end)
     return start, end
