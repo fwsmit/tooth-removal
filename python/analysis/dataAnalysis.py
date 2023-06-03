@@ -40,14 +40,6 @@ parser.add_argument('--jaw', required=False, action = 'store')
 parser.add_argument('--grouped', required=False, action = 'store_true')
 args = parser.parse_args()
 
-
-
-if args.jaw == 'upper':
-    upper_lower = True
-    
-if args.jaw == 'lower':
-    upper_lower = False
-    
 possible_files = []
 
 if args.complete_analysis or args.generate_ft_plots:
@@ -76,10 +68,19 @@ if args.fix_data:
         fix_data_cutoff(f, dataDir)
 
 if args.complete_analysis:
-    analysis = complete_analysis(possible_files, dataDir)
     if args.per_teeth:
+        analysis = complete_analysis(possible_files, dataDir)
         plot_analysis(analysis, True, None, None, None)
     else:
+        if args.jaw == 'upper':
+            upper_lower = True
+        elif args.jaw == 'lower':
+            upper_lower = False
+        else:
+            print("Please specify which jaw with --jaw [upper/lower]")
+            exit(1)
+    
+        analysis = complete_analysis(possible_files, dataDir)
         if args.grouped:
             plot_analysis(analysis, False, True, None, upper_lower)
         else:    
