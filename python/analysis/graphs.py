@@ -143,17 +143,11 @@ def graph_ft(filename, dataDir, interactive=True):
     else:
         store_plot(fig, filename, dataDir)
 
-def plot_bar_per_teeth(data, main_key):
+def plot_bar_per_teeth(data, key):
     vals = []
     labels = []
     errors = []
     t_range = range(1,9)
-
-    
-    if main_key == "direction_changes":
-            key = main_key
-    else:
-        key = 'fmag_' + main_key
     
     upper_lower = [False, True]
     for ul in upper_lower:
@@ -230,36 +224,25 @@ def plot_bar_from_data(data, key, ax, label, per_teeth, grouped, teeth, upper_lo
 def plot_analysis(analysis, per_teeth, grouped, teeth, upper):
     if per_teeth:
         fig, ax = plt.subplots(2, 3)
-        plot_bar_from_data(analysis, "auc", ax[0][0], "Force auc [Ns]", per_teeth, grouped,  teeth, upper)
-        plot_bar_from_data(analysis, "auc", ax[0][1], "Torque auc [Nms]", per_teeth, grouped, teeth, upper)
-        plot_bar_from_data(analysis, "max", ax[1][0], "Force max [N]", per_teeth, teeth, grouped, upper)
-        plot_bar_from_data(analysis, "max", ax[1][1], "Torque max [Nms]", per_teeth, teeth, grouped, upper)
-        plot_bar_from_data(analysis, "direction_changes", ax[0][2], "Direction changes", per_teeth, grouped, teeth, upper)
+        args = [["fmag_auc", ax[0][0], "Force auc [Ns]"],
+                ["tmag_auc", ax[0][1], "Torque auc [Nms]"],
+                ["fmag_max", ax[1][0], "Force max [N]"],
+                ["tmag_max", ax[1][1], "Torque max [Nms]"],
+                ["direction_changes", ax[0][2], "Direction changes"]]
+        for a in args:
+            plot_bar_from_data(analysis, a[0], a[1], a[2], per_teeth, grouped,  teeth, upper)
         fig.suptitle('Data per teeth', fontsize=30)
         
     else:
         if grouped:
             fig, ax = plt.subplots(4, 2)
-                   
-            plot_bar_from_data(analysis, "auc", ax[0][0], "Force auc [Ns]", per_teeth, grouped, groups['incisors'], upper)
-            plot_bar_from_data(analysis, "auc", ax[0][1], "Torque auc [Nms]", per_teeth, grouped, groups['incisors'], upper)            
-            ax[0, 0].set_title('incisors')
-            ax[0, 1].set_title('incisors')
             
-            plot_bar_from_data(analysis, "auc", ax[1][0], "Force auc [Ns]", per_teeth, grouped, groups['molars'], upper)
-            plot_bar_from_data(analysis, "auc", ax[1][1], "Torque auc [Nms]", per_teeth, grouped, groups['molars'], upper)
-            ax[1, 0].set_title('molars')
-            ax[1, 1].set_title('molars')
-            
-            plot_bar_from_data(analysis, "auc", ax[2][0], "Force auc [Ns]", per_teeth, grouped, groups['canines'], upper)
-            plot_bar_from_data(analysis, "auc", ax[2][1], "Torque auc [Nms]", per_teeth, grouped, groups['canines'], upper)
-            ax[2, 0].set_title('canines')
-            ax[2, 1].set_title('canines')
-            
-            plot_bar_from_data(analysis, "auc", ax[3][0], "Force auc [Ns]", per_teeth, grouped, groups['premolars'], upper)
-            plot_bar_from_data(analysis, "auc", ax[3][1], "Torque auc [Nms]", per_teeth, grouped, groups['premolars'], upper)
-            ax[3, 0].set_title('premolars')
-            ax[3, 1].set_title('premolars')
+            g = list(groups)
+            for i in range(len(groups)):
+                plot_bar_from_data(analysis, "auc", ax[i][0], "Force auc [Ns]", per_teeth, grouped, groups[g[i]], upper)
+                plot_bar_from_data(analysis, "auc", ax[i][1], "Torque auc [Nms]", per_teeth, grouped, groups[g[i]], upper)            
+                ax[i, 0].set_title(g[i])
+                ax[i, 1].set_title(g[i])
             
             if upper:
                 fig.suptitle('Data per clinical direction for upper jaw teeth' , fontsize=12)
@@ -269,8 +252,8 @@ def plot_analysis(analysis, per_teeth, grouped, teeth, upper):
         else:
             matching_extractions = filter_extraction(analysis, upper, teeth)
             fig, ax = plt.subplots(1, 2)
-            plot_bar_from_data(analysis, "auc", ax[0], "Force auc [Ns]", per_teeth, grouped, teeth, upper)
-            plot_bar_from_data(analysis, "auc", ax[1], "Torque auc [Nms]", per_teeth, grouped, teeth, upper)
+            plot_bar_from_data(analysis, "fmag_auc", ax[0], "Force auc [Ns]", per_teeth, grouped, teeth, upper)
+            plot_bar_from_data(analysis, "tmag_auc", ax[1], "Torque auc [Nms]", per_teeth, grouped, teeth, upper)
             if upper:
                 fig.suptitle('Data per clinical direction for upper jaw tooth: ' + str(teeth) + ', ' + " (n = {})".format(len(matching_extractions)), fontsize=20)
             else:
