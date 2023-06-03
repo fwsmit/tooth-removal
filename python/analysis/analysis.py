@@ -50,6 +50,8 @@ def get_auc_pos(v):
 # auc_pos_sec = area under the curve, only positive values are included, divided by time in seconds
 def get_auc_pos_sec(v):
     sec = get_sec_pos(v)
+    if sec == 0:
+        return 0
     return get_auc_pos(v)/sec
 
 # auc_neg = area under the curve, only negative values are included
@@ -60,6 +62,8 @@ def get_auc_neg(v):
 # auc_neg_sec = area under the curve, only negative values are included, divided by time in seconds
 def get_auc_neg_sec(v):
     sec = get_sec_neg(v)
+    if sec == 0:
+        return 0
     return get_auc_neg(v)/sec
 
 # max = maximum value (N for force and Nm for torques)
