@@ -154,6 +154,9 @@ def find_start_end_from_vec(vec, threshold):
 
     greater = np.argwhere(abs_vec > threshold)
 
+    if len(greater) == 0:
+        return 0, len(abs_vec)-1
+
     return greater[0][0], greater[-1][0]
 
 def find_starting_point(force, torque):
