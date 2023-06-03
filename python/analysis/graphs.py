@@ -8,8 +8,6 @@ from data_util import *
 
 fig = None
 
-t_range = range(1,9)
-
 directions = [{'Buccal':['fx_', '_pos'], 'Lingual':['fx_', '_neg'],
                   'Mesial':['fy_', '_pos'], 'Distal':['fy_', '_neg'],
                   'Extrusion':['fz_', '_pos'], 'Intrusion':['fz_', '_neg']},
@@ -162,6 +160,8 @@ def plot_bar_per_teeth(data, main_key):
     vals = []
     labels = []
     errors = []
+    t_range = range(1,9)
+
     
     if main_key == "direction_changes":
             key = main_key
