@@ -49,6 +49,14 @@ def plot_vectors(axis, vectors, _title, duration, points=None):
 
 def graph_freqencies(filename, dataDir):
     propDic = parse_json(filename, dataDir)
+
+    # Skip empty files
+    forces = get_forces(propDic)
+    torques = get_torques(propDic)
+    if len(forces) == 0 or len(forces[0]) == 0:
+        print("Empty file, skipping", filename)
+        return
+
     forces = get_forces(propDic)
     torques = get_torques(propDic)
 
@@ -66,14 +74,31 @@ def graph_freqencies(filename, dataDir):
 
     show_plots(fig)
 
-def graph_ft(filename, dataDir):
+def store_plot(fig, filename, dataDir):
+    plot_filename = os.path.basename(filename).removesuffix(".json") + ".png"
+    plot_filepath = os.path.join(dataDir, "ft-plots", plot_filename)
+    fig.set_size_inches(10, 6) # Make sure labels don't overlap
+    fig.savefig(plot_filepath)
+
+def graph_ft(filename, dataDir, interactive=True):
     propDic = parse_json(filename, dataDir)
+
+    # Skip empty files
+    forces = get_forces(propDic)
+    torques = get_torques(propDic)
+    if len(forces) == 0 or len(forces[0]) == 0:
+        print("Empty file, skipping", filename)
+        return
+
     duration = propDic["end_timestamp"] - propDic["start_timestamp"]
     print("Duration:", round(duration), "seconds")
     print("Quadrant:", propDic["quadrant"])
     print("Tooth:", propDic["tooth"])
     forces = get_forces(propDic)
     torques = get_torques(propDic)
+    person_type = propDic["person_type"]
+    tooth = propDic["tooth"]
+    quadrant = propDic["quadrant"]
 
     forces,torques = lowpass_filter_all(forces, torques)
 
@@ -81,6 +106,7 @@ def graph_ft(filename, dataDir):
     torques_norm = norm_vectors(torques)
 
     fig, ax = plt.subplots(2,4, sharex='col', sharey='row')
+    fig.suptitle("Extraction of tooth " + str(quadrant) + str(tooth) + " (" + person_type.lower() + ")")
     arguments = [
             [ax[0][0], forces[0], "Buccal/lingual", True],
             [ax[0][1], forces[1], "Mesial/distal", True],
@@ -125,7 +151,11 @@ def graph_ft(filename, dataDir):
             p = torque_points
         plot_vectors(a[0], a[1], a[2], duration, p)
         a[0].title.set_text(a[2])
-    show_plots(fig)
+
+    if interactive:
+        show_plots(fig)
+    else:
+        store_plot(fig, filename, dataDir)
 
 def plot_bar_per_teeth(data, main_key):
     vals = []
@@ -259,3 +289,7 @@ def plot_analysis(analysis, per_teeth, grouped, teeth, upper):
                 fig.suptitle('Data per clinical direction for lower jaw tooth: ' + str(teeth) + ', ' + " (n = {})".format(len(matching_extractions)), fontsize=20)
     show_plots(fig)
 
+def generate_ft_plots(files, dataDir):
+    os.makedirs(os.path.join(dataDir, "ft-plots"), exist_ok = True)
+    for f in files:
+        graph_ft(f, dataDir, False)
