@@ -140,8 +140,11 @@ def find_start_end_from_vec(vec, threshold):
 def find_starting_point(force, torque):
     force_start, force_end = find_start_end_from_vec(force, 4)
     torque_start, torque_end = find_start_end_from_vec(torque, 0.3)
-    start = min(force_start, torque_start)
-    end = max(force_end, torque_end)
+    margin = 700
+    start = min(force_start, torque_start) - margin
+    end = max(force_end, torque_end) + margin
+    start = max(start, 0)
+    end = min(end, len(force[0])-1)
     return start, end
 
 def analyze_peaks(vectors):
