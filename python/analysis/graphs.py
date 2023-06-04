@@ -36,7 +36,7 @@ def plot_frequencies(ax, vec, name):
 
 def plot_vectors(axis, vectors, _title, duration, points=None):
     n_points = len(vectors)
-    timelabel = np.linspace(0, duration, n_points)  
+    timelabel = np.linspace(0, duration, n_points)
 
     axis.plot(timelabel, vectors, label=_title)
 
@@ -148,7 +148,7 @@ def plot_bar_per_teeth(data, key):
     labels = []
     errors = []
     t_range = range(1,9)
-    
+
     upper_lower = [False, True]
     for ul in upper_lower:
         if ul:
@@ -169,13 +169,13 @@ def plot_bar_per_teeth(data, key):
 
 
 
-def plot_bar_per_direction(data, matching_extractions, main_key, label, teeth, upper_lower):   
+def plot_bar_per_direction(data, matching_extractions, main_key, label, teeth, upper_lower):
     vals = []
     labels = []
     errors = []
-    
+
     matching_extractions = filter_extraction(data, upper_lower, teeth)
-    
+
     if label == "Force auc [Ns]":
         for direction in directions[0]:
             key = directions[0][direction][0] + main_key + directions[0][direction][-1]
@@ -185,8 +185,8 @@ def plot_bar_per_direction(data, matching_extractions, main_key, label, teeth, u
                 vals.append(-get_avg_val(matching_extractions, key))
             errors.append(get_std_val(matching_extractions, key))
             labels.append(direction)
-    
-    if label == "Torque auc [Nms]": 
+
+    if label == "Torque auc [Nms]":
         for direction in directions[1]:
             key = directions[1][direction][0] + main_key + directions[1][direction][-1]
             if get_avg_val(matching_extractions, key) >= 0:
@@ -195,25 +195,25 @@ def plot_bar_per_direction(data, matching_extractions, main_key, label, teeth, u
                 vals.append(-get_avg_val(matching_extractions, key))
             errors.append(get_std_val(matching_extractions, key))
             labels.append(direction)
-    
+
     return vals, labels, errors
 
 def plot_bar_from_data_grouped(data, main_key, ax, label, teeth, upper_lower):
     matching_extractions = []
     for tooth in teeth:
         matching_extractions.append(filter_extraction(data, upper_lower, tooth))
-        
+
     vals, labels, errors = plot_bar_per_direction(data, matching_extractions, main_key, label, tooth, upper_lower)
-        
+
     ax.barh(labels, vals, xerr=errors)
     ax.set_xlabel(label)
-    
+
 def plot_bar_from_data(data, key, ax, label, per_teeth, grouped, teeth, upper_lower):
     main_key = key
-    
+
     if per_teeth:
         vals, labels, errors = plot_bar_per_teeth(data, main_key)
-   
+
     if not per_teeth:
         if grouped:
             matching_extractions = []
@@ -222,9 +222,9 @@ def plot_bar_from_data(data, key, ax, label, per_teeth, grouped, teeth, upper_lo
         else:
             tooth = teeth
             matching_extractions = filter_extraction(data, upper_lower, tooth)
-        
+
         vals, labels, errors = plot_bar_per_direction(data, matching_extractions, main_key, label, tooth, upper_lower)
-        
+
     ax.barh(labels, vals, xerr=errors)
     ax.set_xlabel(label)
 
@@ -240,23 +240,23 @@ def plot_analysis(analysis, per_teeth, grouped, teeth, upper):
         for a in args:
             plot_bar_from_data(analysis, a[0], a[1], a[2], per_teeth, grouped,  teeth, upper)
         fig.suptitle('Data per teeth', fontsize=30)
-        
+
     else:
         if grouped:
             fig, ax = plt.subplots(4, 2, sharex='col')
-            
+
             g = list(groups)
             for i in range(len(groups)):
                 plot_bar_from_data_grouped(analysis, "auc", ax[i][0], "Force auc [Ns]", groups[g[i]], upper)
-                plot_bar_from_data_grouped(analysis, "auc", ax[i][1], "Torque auc [Nms]", groups[g[i]], upper)            
+                plot_bar_from_data_grouped(analysis, "auc", ax[i][1], "Torque auc [Nms]", groups[g[i]], upper)
                 ax[i, 0].set_title(g[i])
                 ax[i, 1].set_title(g[i])
-            
+
             if upper:
                 fig.suptitle('Data per clinical direction for upper jaw teeth' , fontsize=12)
             else:
                 fig.suptitle('Data per clinical direction for lower jaw teeth', fontsize=12)
-            
+
         else:
             matching_extractions = filter_extraction(analysis, upper, teeth)
             fig, ax = plt.subplots(1, 2)
