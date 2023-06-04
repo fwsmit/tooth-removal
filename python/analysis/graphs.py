@@ -228,6 +228,22 @@ def plot_bar_from_data(data, key, ax, label, per_teeth, grouped, teeth, upper_lo
     ax.barh(labels, vals, xerr=errors)
     ax.set_xlabel(label)
 
+def plot_analysis_grouped(analysis, upper):
+    fig, ax = plt.subplots(4, 2, sharex='col')
+
+    g = list(groups)
+    for i in range(len(groups)):
+        plot_bar_from_data_grouped(analysis, "auc", ax[i][0], "Force auc [Ns]", groups[g[i]], upper)
+        plot_bar_from_data_grouped(analysis, "auc", ax[i][1], "Torque auc [Nms]", groups[g[i]], upper)
+        ax[i, 0].set_title(g[i])
+        ax[i, 1].set_title(g[i])
+
+    if upper:
+        fig.suptitle('Data per clinical direction for upper jaw teeth' , fontsize=12)
+    else:
+        fig.suptitle('Data per clinical direction for lower jaw teeth', fontsize=12)
+
+    show_plots(fig)
 
 def plot_analysis(analysis, per_teeth, grouped, teeth, upper):
     if per_teeth:

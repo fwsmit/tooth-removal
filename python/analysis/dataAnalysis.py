@@ -10,7 +10,7 @@ from logging import warning
 
 from fix_data import fix_data_cutoff
 from index import update_index
-from graphs import graph_ft, graph_freqencies, plot_analysis, generate_ft_plots
+from graphs import *
 from analysis import complete_analysis
 
 
@@ -83,7 +83,7 @@ if args.complete_analysis:
     
         analysis = complete_analysis(possible_files, dataDir, args.person_type)
         if args.grouped:
-            plot_analysis(analysis, False, True, None, upper_lower)
+            plot_analysis_grouped(analysis, upper_lower)
         else:    
             tooth = int(args.tooth)
             plot_analysis(analysis, False, None, tooth, upper_lower)
