@@ -173,28 +173,21 @@ def plot_bar_per_direction(data, matching_extractions, main_key, label, teeth, u
     vals = []
     labels = []
     errors = []
-
     matching_extractions = filter_extraction(data, upper_lower, teeth)
 
     if label == "Force auc [Ns]":
-        for direction in directions[0]:
-            key = directions[0][direction][0] + main_key + directions[0][direction][-1]
-            if get_avg_val(matching_extractions, key) >= 0:
-                vals.append(get_avg_val(matching_extractions, key))
-            else:
-                vals.append(-get_avg_val(matching_extractions, key))
-            errors.append(get_std_val(matching_extractions, key))
-            labels.append(direction)
+        n = 0
+    else:
+        n = 1
 
-    if label == "Torque auc [Nms]":
-        for direction in directions[1]:
-            key = directions[1][direction][0] + main_key + directions[1][direction][-1]
-            if get_avg_val(matching_extractions, key) >= 0:
-                vals.append(get_avg_val(matching_extractions, key))
-            else:
-                vals.append(-get_avg_val(matching_extractions, key))
-            errors.append(get_std_val(matching_extractions, key))
-            labels.append(direction)
+    for direction in directions[n]:
+        key = directions[n][direction][0] + main_key + directions[n][direction][-1]
+        if get_avg_val(matching_extractions, key) >= 0:
+            vals.append(get_avg_val(matching_extractions, key))
+        else:
+            vals.append(-get_avg_val(matching_extractions, key))
+        errors.append(get_std_val(matching_extractions, key))
+        labels.append(direction)
 
     return vals, labels, errors
 
