@@ -198,7 +198,15 @@ def plot_bar_per_direction(data, matching_extractions, main_key, label, teeth, u
     
     return vals, labels, errors
 
-
+def plot_bar_from_data_grouped(data, main_key, ax, label, teeth, upper_lower):
+    matching_extractions = []
+    for tooth in teeth:
+        matching_extractions.append(filter_extraction(data, upper_lower, tooth))
+        
+    vals, labels, errors = plot_bar_per_direction(data, matching_extractions, main_key, label, tooth, upper_lower)
+        
+    ax.barh(labels, vals, xerr=errors)
+    ax.set_xlabel(label)
     
 def plot_bar_from_data(data, key, ax, label, per_teeth, grouped, teeth, upper_lower):
     main_key = key
@@ -239,8 +247,8 @@ def plot_analysis(analysis, per_teeth, grouped, teeth, upper):
             
             g = list(groups)
             for i in range(len(groups)):
-                plot_bar_from_data(analysis, "auc", ax[i][0], "Force auc [Ns]", per_teeth, grouped, groups[g[i]], upper)
-                plot_bar_from_data(analysis, "auc", ax[i][1], "Torque auc [Nms]", per_teeth, grouped, groups[g[i]], upper)            
+                plot_bar_from_data_grouped(analysis, "auc", ax[i][0], "Force auc [Ns]", groups[g[i]], upper)
+                plot_bar_from_data_grouped(analysis, "auc", ax[i][1], "Torque auc [Nms]", groups[g[i]], upper)            
                 ax[i, 0].set_title(g[i])
                 ax[i, 1].set_title(g[i])
             
