@@ -235,7 +235,7 @@ def plot_analysis(analysis, per_teeth, grouped, teeth, upper):
         
     else:
         if grouped:
-            fig, ax = plt.subplots(4, 2)
+            fig, ax = plt.subplots(4, 2, sharex='col')
             
             g = list(groups)
             for i in range(len(groups)):
