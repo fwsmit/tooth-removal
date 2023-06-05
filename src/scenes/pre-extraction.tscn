@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/Pre-extraction/SelectedTooth.gd" id="1_tjn70"]
 [ext_resource type="Script" path="res://scripts/Pre-extraction/TypeList.gd" id="2_1glcj"]
-[ext_resource type="Theme" path="res://assets/theme.tres" id="2_5gwdb"]
+[ext_resource type="Theme" uid="uid://x4pg02i0bh2u" path="res://assets/theme.tres" id="2_5gwdb"]
 [ext_resource type="Script" path="res://scripts/Pre-extraction/Pre-extraction-continue.gd" id="2_hqstp"]
 [ext_resource type="Script" path="res://scripts/Pre-extraction/QuadrantList.gd" id="2_uttav"]
 [ext_resource type="Script" path="res://scripts/Pre-extraction/Terug.gd" id="3_gbpns"]
