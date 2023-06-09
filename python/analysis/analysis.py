@@ -193,7 +193,8 @@ def complete_analysis(files, dataDir, person_type):
         if dic:
             analysis.append(dic)
     analysis = filter_complications(analysis)
-    
+    analysis = filter_big_force(analysis)
+
     if person_type:
         person_type = person_type.split(",")
         analysis = filter_people(analysis, person_type)

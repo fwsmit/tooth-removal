@@ -90,6 +90,9 @@ def graph_ft(filename, dataDir, interactive=True):
     print("Tooth:", tooth)
 
     forces_norm = norm_vectors(forces)
+    if max(forces_norm) > 15:
+        return
+
     torques_norm = norm_vectors(torques)
 
     fig, ax = plt.subplots(2,4, sharex='col', sharey='row')

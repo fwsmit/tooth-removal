@@ -45,3 +45,15 @@ def filter_people(data, person_type):
             res.append(extraction)
 
     return res
+
+def filter_big_force(data):
+    res = []
+    dropped = 0
+    for extraction in data:
+        if extraction["fmag_max"] < 25:
+            res.append(extraction)
+        else:
+            dropped += 1
+
+    print("Dropped", dropped, "extractions out of", len(data), "because of big forces")
+    return res
