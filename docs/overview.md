@@ -1,0 +1,52 @@
+# Overview
+
+This project contains three parts:
+- A godot project that implements the user interface
+- Python code for analysing the recorded extraction data
+- Python code for emulating a sensor. This is useful for testing when you have no sensor
+
+Instructions for running this code can be found in the README. Further
+explanations of the code can be found below.
+
+## Godot user interface
+
+All the godot code can be found under `src/`. In this directory the most
+important parts are the `scenes` and the `scripts` directories.
+
+All screens in the user interface have been implemented in their own scene.
+These can all be found in the `scenes` directory.
+
+Each scene contains UI components and scripts to implement the UI. The scripts
+can be found in the `scripts` directory. Each script is put in the directory
+that corresponds to the name of the scene where they are used. Scripts that are
+used in multiple scenes are put in the `common` directory. Lastly there is the
+`tests` directory, used for testing scripts.
+
+### Data storage
+
+When an extraction is recorded, the sensor data is saved to a file called
+`extraction_data_DATE.json`, for example
+`extraction_data_2023-05-26T09;52;23.json`. It is stored in the following
+directory:
+
+`user://`
+
+This is a special path defined by godot. The location of this path on your
+system can be found [here](https://docs.godotengine.org/en/stable/tutorials/io/data_paths.html)
+
+## Python analysis
+
+The analysis code is run from `dataAnalysis.py`. You can use a number of
+arguments to specify which kind of analysis and plotting to do. These are all
+explained in the README.
+
+The data used for analysis is taken from different places in the `user://`
+directory, but by default it's `Analysis_data`.
+
+## Python sensor
+
+The program `fakesensor.py` contains code to emulate a force torque sensor. It
+can be easily modified to output different values, depending on your needs.
+
+The program `sensorReader.py` is a program provided by the sensor manufacturer.
+It connects to the sensor and outputs all the sensor data.
