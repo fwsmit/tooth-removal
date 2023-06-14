@@ -18,6 +18,7 @@ signal directions
 @export var canine_3d : MeshInstance3D
 @export var premolar_3d : MeshInstance3D
 
+# this function is called when scene tree is entered
 func _ready() -> void:
 	_client.connect("connected",Callable(self,"_handle_client_connected"))
 	_client.connect("disconnected",Callable(self,"_handle_client_disconnected"))
@@ -47,11 +48,15 @@ func _handle_client_connected() -> void:
 	emit_signal("connected")
 	print("Client connected to server.")
 
+# this function returns the torque at the tooth location, by taking the cross product
 func convert_torque(torque, force, location):
 	var result = torque - location.cross(force)
 	return result
 	
-#tandvectors = [[boven, onder],[1,2,3,4,5,6,7,8],[1,2,3,4,5,6,7,8],[1,2,3,4,5,6,7,8],[1,2,3,4,5,6,7,8]]
+# this function returns a location vector for a given kwadrant and element number. The array tandvectors has 5 list entries, the first is a list of two vectors containinng a base vector
+# for both the upper and lower jaw. The other four lists contain locations for each tooth in each kwadfrant to be added to the base vector. Change these vectors based on the measured tooth locations.
+# a small correction vector is added as well
+# format for tandvectors = [[upper,lower],[1,2,3,4,5,6,7,8],[1,2,3,4,5,6,7,8],[1,2,3,4,5,6,7,8],[1,2,3,4,5,6,7,8]]
 func tand_locatie(kwadrant, tand):
 	var tandvectors = [[Vector3(0.0395, 0.249, 0), Vector3(0.226, 0.0623, 0)],\
 	[Vector3(0.0332, -0.00759, 0.00336),Vector3(0.0336, -0.0101, 0.011),Vector3(0.0344, -0.0133, 0.0189),Vector3(0.0321, -0.0225, 0.0193),Vector3(0.0321, -0.0295, 0.0232),Vector3(0.0311, -0.0371, 0.0241),Vector3(0.0308, -0.0481, 0.0253),Vector3(0.0299, -0.0583, 0.0258)],\
@@ -68,8 +73,10 @@ func tand_locatie(kwadrant, tand):
 	locatie = locatie + Vector3(0, 18./1000., 0)
 	return locatie
 
+# this array contains 4 lists of angles. Each angle gives the relative rotation for the particular tooth-frame to the initial reference Frame as used by Godot. to be used in vector_tand_frame()
 var angles = [[0., -19.4, -53., -57.5, -66.3, -79.7, -79.7, -95.6], [0., 19.4, 53., 57.5, 66.3, 79.7, 79.7, 95.6],[0 , -19.7, -39.2, -67., -78., -78., -78., -90.],[0 , 19.7, 39.15, 67., 78., 78., 78., 90.]]
 
+# This function returns a given vector expressed in the tooth frame for a given kwadrand and tooth number.
 func vector_tand_frame(kwadrant, tand, vector):
 	var angle = deg_to_rad(angles[kwadrant - 1][tand - 1])
 	if kwadrant == 1 or kwadrant == 2:
@@ -78,6 +85,7 @@ func vector_tand_frame(kwadrant, tand, vector):
 		vector = Vector3(cos(angle)*vector.x + sin(angle)*vector.z,vector.y, -sin(angle)*vector.x + cos(angle)*vector.z)
 	return vector
 
+# this function is the opposite to the previous function. it returns a vector expressed in the initial frame of refence. Translating it back from the tooth frame for a given tooth and kwadrant.
 func vector_godot_frame(kwadrant, tand, vector):
 	var angle = deg_to_rad(-1*angles[kwadrant - 1][tand - 1])
 	if kwadrant == 1 or kwadrant == 2:
@@ -85,8 +93,9 @@ func vector_godot_frame(kwadrant, tand, vector):
 	if kwadrant == 3 or kwadrant == 4:
 		vector = Vector3(cos(angle)*vector.x + sin(angle)*vector.z,vector.y, -sin(angle)*vector.x + cos(angle)*vector.z)
 	return vector
-# deze functie ordent de kracht en momentvectoren in de richtingen gedefinieerd in tandheelkunde. 
-# De eerstegnoemde is altijd positief, dus bij buccal lingual, geldt dat een positieve waarde in de buccale richting is
+	
+# This function orders force and torque vectors by the directions as found in dentistry. 
+# The first named directions is defined to be a positve value and the second negative, so for a buccal/lingual force a positive value lies in the buccal direction
 func type_force_torque(kwadrant, _tand, force, torque):
 	var result = [{'buccal/lingual': 0, 'mesial/distal': 0, 'extrusion/intrusion': 0},\
 	{'mesial/distal angulation': 0, 'bucco/linguoversion': 0, 'mesiobuccal/lingual': 0}] # directions = [{forces}, {torques}]
@@ -116,11 +125,14 @@ func type_force_torque(kwadrant, _tand, force, torque):
 			result[1]['mesiobuccal/lingual'] = -torque.y
 	return result
 
+# this function combines all the previous functions to process the raw sensor data into usable data
 func _handle_client_data(force, torque) -> void:
+	# emits signal to debuginfo, this can be displayed during extractions
 	emit_signal("data", force, torque)
+	
 	Global.raw_forces.append(force)
 	Global.raw_torques.append(torque)
-  
+	
 	var locatie = tand_locatie(Global.selectedQuadrant, Global.selectedTooth)
 	torque = convert_torque(torque, force, locatie)
 	torque = vector_tand_frame(Global.selectedQuadrant, Global.selectedTooth, torque)
@@ -132,6 +144,7 @@ func _handle_client_data(force, torque) -> void:
 	# Order forces and torques in various directions
 	var dir = type_force_torque(Global.selectedQuadrant, Global.selectedTooth, force, torque)
 	
+	# store clinically orderd forces and torques in Global
 	for key in dir[0].keys():
 		Global.clinical_directions[0][key].append(dir[0][key])
 	
@@ -147,6 +160,7 @@ func _handle_client_data(force, torque) -> void:
 	avg_force = avg_force / 400
 	avg_torque = avg_torque / 3
 	
+	# the following if statements relate to the translation of the forces and torques into movement of the 3d tooth model.
 	if Global.selectedQuadrant == 1 or Global.selectedQuadrant == 2:
 		transform.origin.x = avg_force.y
 		transform.origin.y = avg_force.x

@@ -17,6 +17,7 @@ offset_bottom = 432.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("2_5gwdb")
+metadata/_edit_vertical_guides_ = [29.0]
 
 [node name="JawSelection" type="MarginContainer" parent="."]
 layout_mode = 1
