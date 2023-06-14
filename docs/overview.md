@@ -29,7 +29,9 @@ then there are two more helper scripts, which lie outside of thee scope of the r
 namely 'processOldData.gd' & 'tooth_location_visual.gd'
 
 ### 'client.gd'
-(.....)
+The client script is created by data_user. It communicates with the sensor and
+emits data signals with the measured forces and torques. These are already
+translated from the sensor axes to the godot axes.
 
 ### 'data_user.gd'
 This script takes the raw sensor data and processes it to be used in other scripts

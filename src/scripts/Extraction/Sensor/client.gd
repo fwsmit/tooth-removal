@@ -20,6 +20,7 @@ func _ready() -> void:
 	_stream.set_big_endian(true) # make sure to use big endian for network streams
 	_status = _stream.get_status()
 
+# Consume a single sensor reading from the stream and emit signal
 func consume_data_point():
 	var length = _stream.get_partial_data(2)
 	var Fx = _stream.get_double()
@@ -77,6 +78,7 @@ func connect_to_host(host: String, port: int) -> void:
 		print("Error connecting to host.")
 		emit_signal("error")
 
+# Send a packet to the sensor
 func send(dataPacket: PackedByteArray) -> bool:
 	if _status != _stream.STATUS_CONNECTED:
 		print("Error: Stream is not currently connected.")
@@ -87,6 +89,7 @@ func send(dataPacket: PackedByteArray) -> bool:
 		return false
 	return true
 
+# Wait for a response from the sensor and consume the response
 func wait_for_response_and_consume():
 	var available_bytes: int = 0
 	
@@ -98,6 +101,7 @@ func wait_for_response_and_consume():
 		print("Error getting data from stream: ", dataPacket[0])
 		emit_signal("error")
 
+# Initialize and tare the sensor
 func initializeSensor():
 	var messageTare: PackedByteArray = ['03', CMD_TYPE_SET_CURRENT_TARE, SET_CURRENT_TARE_TYPE_NEGATIVE] # Bytes for "ack" in ASCII
 	send(messageTare)
