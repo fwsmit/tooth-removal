@@ -20,22 +20,6 @@ func _ready() -> void:
 	_stream.set_big_endian(true) # make sure to use big endian for network streams
 	_status = _stream.get_status()
 
-func reverse_bytearray(input):
-	var output = PackedByteArray()
-	output.append(input[7])
-	output.append(input[6])
-	output.append(input[5])
-	output.append(input[4])
-	output.append(input[3])
-	output.append(input[2])
-	output.append(input[1])
-	output.append(input[0])
-	return output
-	
-func to_double(input):
-	var reversed = reverse_bytearray(input[1])
-	return reversed.decode_double(0)
-
 func consume_data_point():
 	var length = _stream.get_partial_data(2)
 	var Fx = _stream.get_double()
