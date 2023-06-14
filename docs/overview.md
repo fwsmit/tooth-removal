@@ -8,7 +8,7 @@ This project contains three parts:
 Instructions for running this code can be found in the README. Further
 explanations of the code can be found below.
 
-## Godot user interface
+## Godot
 
 All the godot code can be found under `src/`. In this directory the most
 important parts are the `scenes` and the `scripts` directories.
@@ -22,8 +22,20 @@ that corresponds to the name of the scene where they are used. Scripts that are
 used in multiple scenes are put in the `common` directory. Lastly there is the
 `tests` directory, used for testing scripts.
 
-### Data storage
+A few of the most importantt scripts for the godot interface and their respective functionality 
+will be described below, namely 'client.gd', 'data_user.gd', 'post_extraction_continue.gd' & 'Global.gd'
 
+then there are two more helper scripts, which lie outside of thee scope of the regular interface.
+namely 'processOldData.gd' & 'tooth_location_visual.gd'
+
+### 'client.gd'
+(.....)
+
+### 'data_user.gd'
+This script takes the raw sensor data and processes it to be used in other scripts
+
+### 'post_extraction_continue.gd'
+this script is used mostly for the data storage 
 When an extraction is recorded, the sensor data is saved to a file called
 `extraction_data_DATE.json`, for example
 `extraction_data_2023-05-26T09;52;23.json`. It is stored in the following
@@ -33,6 +45,15 @@ directory:
 
 This is a special path defined by godot. The location of this path on your
 system can be found [here](https://docs.godotengine.org/en/stable/tutorials/io/data_paths.html)
+
+### 'Global.gd'
+Here all types of variables and data is stored which can be used globally throughout the code
+
+### 'processOldData.gd'
+When old data needs to be reprocessed, because somthing went wrong with the initial processing, e.g. location vectors were not properly measured. This code can be used to reprocess the data with the updated code.
+
+### 'tooth_location_visual.gd'
+This script is used to visually verify the tooth locations and tooth frames. WHen this script is run the tooth locations and the respective tooth frames are displayed in 3D tab for in the editor page.
 
 ## Python analysis
 
